@@ -1,0 +1,28 @@
+[package]
+name = "commitlint-rust"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+
+[dependencies]
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = "=1.0.151"
+regex = "=1.13.1"
+libc = "=0.2.190"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
+opt-level = "z"
+
+[lib]
+name = "gh_commit_guard"
+
+[[bin]]
+name = "gh-commit-guard"
+path = "src/main.rs"
+
+[[bin]]
+name = "commitlint"
+path = "src/bin/commitlint.rs"

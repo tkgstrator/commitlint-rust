@@ -1,0 +1,14 @@
+#!/bin/sh
+# Runtime needs native Git and gh; no language package manager is invoked.
+set -eu
+root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+case "$(uname -s):$(uname -m)" in
+  Darwin:arm64) target=aarch64-apple-darwin ;;
+  Darwin:x86_64) target=x86_64-apple-darwin ;;
+  Linux:aarch64|Linux:arm64) target=aarch64-unknown-linux-musl ;;
+  Linux:x86_64|Linux:amd64) target=x86_64-unknown-linux-musl ;;
+  *) echo 'gh-commit-guard: no bundled native binary for this platform' >&2; exit 1 ;;
+esac
+binary="$root/bin/$target/gh-commit-guard"
+[ -x "$binary" ] || { echo 'gh-commit-guard: native binary missing; build or obtain the supported release' >&2; exit 1; }
+exec "$binary" "$@"

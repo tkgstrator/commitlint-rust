@@ -1,0 +1,3749 @@
+{
+  "schema": 1,
+  "description": "Development-only oracle from actual pinned Commitlint. Expected validity covers message linting only; fresh gh and attribution validation are separate.",
+  "versions": {
+    "@commitlint/cli": "21.2.3",
+    "@commitlint/config-conventional": "21.2.3",
+    "@commitlint/lint": "21.2.3",
+    "@commitlint/parse": "21.2.3"
+  },
+  "policyConfig": "export default {\n  extends: ['@commitlint/config-conventional'],\n  defaultIgnores: false,\n  ignores: [],\n  rules: {\n    'header-max-length': [2, 'always', 128],\n    'body-max-line-length': [2, 'always', 128],\n    'footer-max-line-length': [2, 'always', 128],\n    'ascii-message': [2, 'always'],\n    'message-max-length': [2, 'always', 128],\n  },\n  plugins: [{ rules: {\n    'ascii-message': parsed => [/^[\\x20-\\x7E\\n]*$/.test(parsed.raw), 'use English printable ASCII text only'],\n    'message-max-length': (parsed, when, max) => [parsed.raw.replace(/\\n+$/, '').length <= max, `entire message must be at most ${max} characters`],\n  }}],\n};\n",
+  "cases": [
+    {
+      "id": "oracle-001",
+      "category": "types",
+      "message": "build: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "build: change behavior",
+        "type": "build",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-002",
+      "category": "types",
+      "message": "chore: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "chore: change behavior",
+        "type": "chore",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-003",
+      "category": "types",
+      "message": "ci: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "ci: change behavior",
+        "type": "ci",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-004",
+      "category": "types",
+      "message": "docs: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "docs: change behavior",
+        "type": "docs",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-005",
+      "category": "types",
+      "message": "feat: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "feat: change behavior",
+        "type": "feat",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-006",
+      "category": "types",
+      "message": "fix: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-007",
+      "category": "types",
+      "message": "perf: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "perf: change behavior",
+        "type": "perf",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-008",
+      "category": "types",
+      "message": "refactor: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "refactor: change behavior",
+        "type": "refactor",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-009",
+      "category": "types",
+      "message": "revert: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "revert: change behavior",
+        "type": "revert",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-010",
+      "category": "types",
+      "message": "style: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "style: change behavior",
+        "type": "style",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-011",
+      "category": "types",
+      "message": "test: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "test: change behavior",
+        "type": "test",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-012",
+      "category": "types",
+      "message": "banana: change behavior",
+      "valid": false,
+      "errors": [
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "banana: change behavior",
+        "type": "banana",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-013",
+      "category": "types",
+      "message": "feature: change behavior",
+      "valid": false,
+      "errors": [
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "feature: change behavior",
+        "type": "feature",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-014",
+      "category": "types",
+      "message": "bugfix: change behavior",
+      "valid": false,
+      "errors": [
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "bugfix: change behavior",
+        "type": "bugfix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-015",
+      "category": "types",
+      "message": "FIX: change behavior",
+      "valid": false,
+      "errors": [
+        "type-case",
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "FIX: change behavior",
+        "type": "FIX",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-016",
+      "category": "types",
+      "message": "Fix: change behavior",
+      "valid": false,
+      "errors": [
+        "type-case",
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "Fix: change behavior",
+        "type": "Fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-017",
+      "category": "types",
+      "message": "fix_: change behavior",
+      "valid": false,
+      "errors": [
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix_: change behavior",
+        "type": "fix_",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-018",
+      "category": "types",
+      "message": "fix1: change behavior",
+      "valid": false,
+      "errors": [
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix1: change behavior",
+        "type": "fix1",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-019",
+      "category": "types",
+      "message": "1: change behavior",
+      "valid": false,
+      "errors": [
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "1: change behavior",
+        "type": "1",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-020",
+      "category": "types",
+      "message": ": change behavior",
+      "valid": false,
+      "errors": [
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": ": change behavior",
+        "type": null,
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-021",
+      "category": "scopes",
+      "message": "fix(parser): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(parser): change behavior",
+        "type": "fix",
+        "scope": "parser",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-022",
+      "category": "scopes",
+      "message": "fix(parser)!: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(parser)!: change behavior",
+        "type": "fix",
+        "scope": "parser",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-023",
+      "category": "scopes",
+      "message": "fix(API): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(API): change behavior",
+        "type": "fix",
+        "scope": "API",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-024",
+      "category": "scopes",
+      "message": "fix(API)!: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(API)!: change behavior",
+        "type": "fix",
+        "scope": "API",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-025",
+      "category": "scopes",
+      "message": "fix(a/b): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(a/b): change behavior",
+        "type": "fix",
+        "scope": "a/b",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-026",
+      "category": "scopes",
+      "message": "fix(a/b)!: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(a/b)!: change behavior",
+        "type": "fix",
+        "scope": "a/b",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-027",
+      "category": "scopes",
+      "message": "fix(*): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(*): change behavior",
+        "type": "fix",
+        "scope": "*",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-028",
+      "category": "scopes",
+      "message": "fix(*)!: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(*)!: change behavior",
+        "type": "fix",
+        "scope": "*",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-029",
+      "category": "scopes",
+      "message": "fix(a b): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(a b): change behavior",
+        "type": "fix",
+        "scope": "a b",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-030",
+      "category": "scopes",
+      "message": "fix(a b)!: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(a b)!: change behavior",
+        "type": "fix",
+        "scope": "a b",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-031",
+      "category": "scopes",
+      "message": "fix(a,b): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(a,b): change behavior",
+        "type": "fix",
+        "scope": "a,b",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-032",
+      "category": "scopes",
+      "message": "fix(a,b)!: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(a,b)!: change behavior",
+        "type": "fix",
+        "scope": "a,b",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-033",
+      "category": "scopes",
+      "message": "fix(a:b): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(a:b): change behavior",
+        "type": "fix",
+        "scope": "a:b",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-034",
+      "category": "scopes",
+      "message": "fix(a:b)!: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(a:b)!: change behavior",
+        "type": "fix",
+        "scope": "a:b",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-035",
+      "category": "scopes",
+      "message": "fix(a(b)c): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(a(b)c): change behavior",
+        "type": "fix",
+        "scope": "a(b)c",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-036",
+      "category": "scopes",
+      "message": "fix(a(b)c)!: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(a(b)c)!: change behavior",
+        "type": "fix",
+        "scope": "a(b)c",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-037",
+      "category": "scopes",
+      "message": "fix(): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(): change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-038",
+      "category": "scopes",
+      "message": "fix()!: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix()!: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-039",
+      "category": "scopes",
+      "message": "fix()): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix()): change behavior",
+        "type": "fix",
+        "scope": ")",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-040",
+      "category": "scopes",
+      "message": "fix())!: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix())!: change behavior",
+        "type": "fix",
+        "scope": ")",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-041",
+      "category": "scopes",
+      "message": "fix((): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix((): change behavior",
+        "type": "fix",
+        "scope": "(",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-042",
+      "category": "scopes",
+      "message": "fix(()!: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(()!: change behavior",
+        "type": "fix",
+        "scope": "(",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-043",
+      "category": "scopes",
+      "message": "fix(.): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(.): change behavior",
+        "type": "fix",
+        "scope": ".",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-044",
+      "category": "scopes",
+      "message": "fix(.)!: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(.)!: change behavior",
+        "type": "fix",
+        "scope": ".",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-045",
+      "category": "scopes",
+      "message": "fix(123): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(123): change behavior",
+        "type": "fix",
+        "scope": "123",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-046",
+      "category": "scopes",
+      "message": "fix(123)!: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(123)!: change behavior",
+        "type": "fix",
+        "scope": "123",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-047",
+      "category": "scopes",
+      "message": "fix(foo)bar): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(foo)bar): change behavior",
+        "type": "fix",
+        "scope": "foo)bar",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-048",
+      "category": "scopes",
+      "message": "fix(foo)bar)!: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(foo)bar)!: change behavior",
+        "type": "fix",
+        "scope": "foo)bar",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-049",
+      "category": "scopes",
+      "message": "fix(foo(bar)): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(foo(bar)): change behavior",
+        "type": "fix",
+        "scope": "foo(bar)",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-050",
+      "category": "scopes",
+      "message": "fix(foo(bar))!: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(foo(bar))!: change behavior",
+        "type": "fix",
+        "scope": "foo(bar)",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-051",
+      "category": "scopes",
+      "message": "fix(scope!): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(scope!): change behavior",
+        "type": "fix",
+        "scope": "scope!",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-052",
+      "category": "scopes",
+      "message": "fix(scope!)!: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(scope!)!: change behavior",
+        "type": "fix",
+        "scope": "scope!",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-053",
+      "category": "scopes",
+      "message": "fix([scope]): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix([scope]): change behavior",
+        "type": "fix",
+        "scope": "[scope]",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-054",
+      "category": "scopes",
+      "message": "fix([scope])!: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix([scope])!: change behavior",
+        "type": "fix",
+        "scope": "[scope]",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-055",
+      "category": "header-layout",
+      "message": "fix!: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix!: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-056",
+      "category": "header-layout",
+      "message": "fix!!: change behavior",
+      "valid": false,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix!!: change behavior",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-057",
+      "category": "header-layout",
+      "message": "fix:change behavior",
+      "valid": false,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix:change behavior",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-058",
+      "category": "header-layout",
+      "message": "fix:  change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix:  change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": " change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-059",
+      "category": "header-layout",
+      "message": "fix : change behavior",
+      "valid": false,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix : change behavior",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-060",
+      "category": "header-layout",
+      "message": "fix\t: change behavior",
+      "valid": false,
+      "errors": [
+        "subject-empty",
+        "type-empty",
+        "ascii-message"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix\t: change behavior",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-061",
+      "category": "header-layout",
+      "message": " fix: change behavior",
+      "valid": false,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": " fix: change behavior",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-062",
+      "category": "header-layout",
+      "message": "fix: change behavior ",
+      "valid": false,
+      "errors": [
+        "header-trim"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior ",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior ",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-063",
+      "category": "header-layout",
+      "message": "fix:",
+      "valid": false,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix:",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-064",
+      "category": "header-layout",
+      "message": "fix: ",
+      "valid": false,
+      "errors": [
+        "header-trim",
+        "subject-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: ",
+        "type": "fix",
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-065",
+      "category": "header-layout",
+      "message": "fix:  ",
+      "valid": false,
+      "errors": [
+        "header-trim"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix:  ",
+        "type": "fix",
+        "scope": null,
+        "subject": " ",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-066",
+      "category": "header-layout",
+      "message": "fix: .",
+      "valid": false,
+      "errors": [
+        "subject-full-stop"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: .",
+        "type": "fix",
+        "scope": null,
+        "subject": ".",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-067",
+      "category": "header-layout",
+      "message": "fix: ...",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: ...",
+        "type": "fix",
+        "scope": null,
+        "subject": "...",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-068",
+      "category": "header-layout",
+      "message": "fix: !",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: !",
+        "type": "fix",
+        "scope": null,
+        "subject": "!",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-069",
+      "category": "header-layout",
+      "message": "fix: ?",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: ?",
+        "type": "fix",
+        "scope": null,
+        "subject": "?",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-070",
+      "category": "header-layout",
+      "message": "fix: 1",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: 1",
+        "type": "fix",
+        "scope": null,
+        "subject": "1",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-071",
+      "category": "header-layout",
+      "message": "fix: #123",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: #123",
+        "type": "fix",
+        "scope": null,
+        "subject": "#123",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-072",
+      "category": "header-layout",
+      "message": "fix(scope)!: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(scope)!: change behavior",
+        "type": "fix",
+        "scope": "scope",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-073",
+      "category": "header-layout",
+      "message": "fix(scope) !: change behavior",
+      "valid": false,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(scope) !: change behavior",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-074",
+      "category": "header-layout",
+      "message": "fix(scope): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(scope): change behavior",
+        "type": "fix",
+        "scope": "scope",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-075",
+      "category": "header-layout",
+      "message": "fix(abc)(def): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(abc)(def): change behavior",
+        "type": "fix",
+        "scope": "abc)(def",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-076",
+      "category": "header-layout",
+      "message": "fix(abc:def): change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix(abc:def): change behavior",
+        "type": "fix",
+        "scope": "abc:def",
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-077",
+      "category": "header-layout",
+      "message": "fix: change: behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change: behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change: behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-078",
+      "category": "header-layout",
+      "message": "fix!:",
+      "valid": false,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix!:",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-079",
+      "category": "header-layout",
+      "message": "fix():",
+      "valid": false,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix():",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-080",
+      "category": "header-layout",
+      "message": "fix: :",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: :",
+        "type": "fix",
+        "scope": null,
+        "subject": ":",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-081",
+      "category": "header-layout",
+      "message": "fix: -",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: -",
+        "type": "fix",
+        "scope": null,
+        "subject": "-",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-082",
+      "category": "header-layout",
+      "message": "fix: _",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: _",
+        "type": "fix",
+        "scope": null,
+        "subject": "_",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-083",
+      "category": "subject-case",
+      "message": "fix: Change behavior",
+      "valid": false,
+      "errors": [
+        "subject-case"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: Change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "Change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-084",
+      "category": "subject-case",
+      "message": "fix: CHANGE BEHAVIOR",
+      "valid": false,
+      "errors": [
+        "subject-case"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: CHANGE BEHAVIOR",
+        "type": "fix",
+        "scope": null,
+        "subject": "CHANGE BEHAVIOR",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-085",
+      "category": "subject-case",
+      "message": "fix: ChangeBehavior",
+      "valid": false,
+      "errors": [
+        "subject-case"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: ChangeBehavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "ChangeBehavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-086",
+      "category": "subject-case",
+      "message": "fix: changeBehavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: changeBehavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "changeBehavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-087",
+      "category": "subject-case",
+      "message": "fix: change Behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change Behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change Behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-088",
+      "category": "subject-case",
+      "message": "fix: change BEHAVIOR",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change BEHAVIOR",
+        "type": "fix",
+        "scope": null,
+        "subject": "change BEHAVIOR",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-089",
+      "category": "subject-case",
+      "message": "fix: cHANGE BEHAVIOR",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: cHANGE BEHAVIOR",
+        "type": "fix",
+        "scope": null,
+        "subject": "cHANGE BEHAVIOR",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-090",
+      "category": "subject-case",
+      "message": "fix: iOS support",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: iOS support",
+        "type": "fix",
+        "scope": null,
+        "subject": "iOS support",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-091",
+      "category": "subject-case",
+      "message": "fix: IOS support",
+      "valid": false,
+      "errors": [
+        "subject-case"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: IOS support",
+        "type": "fix",
+        "scope": null,
+        "subject": "IOS support",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-092",
+      "category": "subject-case",
+      "message": "fix: API support",
+      "valid": false,
+      "errors": [
+        "subject-case"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: API support",
+        "type": "fix",
+        "scope": null,
+        "subject": "API support",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-093",
+      "category": "subject-case",
+      "message": "fix: api Support",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: api Support",
+        "type": "fix",
+        "scope": null,
+        "subject": "api Support",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-094",
+      "category": "subject-case",
+      "message": "fix: api-support",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: api-support",
+        "type": "fix",
+        "scope": null,
+        "subject": "api-support",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-095",
+      "category": "subject-case",
+      "message": "fix: Api-support",
+      "valid": false,
+      "errors": [
+        "subject-case"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: Api-support",
+        "type": "fix",
+        "scope": null,
+        "subject": "Api-support",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-096",
+      "category": "subject-case",
+      "message": "fix: URLParser",
+      "valid": false,
+      "errors": [
+        "subject-case"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: URLParser",
+        "type": "fix",
+        "scope": null,
+        "subject": "URLParser",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-097",
+      "category": "subject-case",
+      "message": "fix: urlParser",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: urlParser",
+        "type": "fix",
+        "scope": null,
+        "subject": "urlParser",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-098",
+      "category": "subject-case",
+      "message": "fix: fix API",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: fix API",
+        "type": "fix",
+        "scope": null,
+        "subject": "fix API",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-099",
+      "category": "subject-case",
+      "message": "fix: fix api",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: fix api",
+        "type": "fix",
+        "scope": null,
+        "subject": "fix api",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-100",
+      "category": "subject-case",
+      "message": "fix: Fix API",
+      "valid": false,
+      "errors": [
+        "subject-case"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: Fix API",
+        "type": "fix",
+        "scope": null,
+        "subject": "Fix API",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-101",
+      "category": "subject-case",
+      "message": "fix: camelCase",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: camelCase",
+        "type": "fix",
+        "scope": null,
+        "subject": "camelCase",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-102",
+      "category": "subject-case",
+      "message": "fix: PascalCase",
+      "valid": false,
+      "errors": [
+        "subject-case"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: PascalCase",
+        "type": "fix",
+        "scope": null,
+        "subject": "PascalCase",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-103",
+      "category": "subject-case",
+      "message": "fix: lower_case",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: lower_case",
+        "type": "fix",
+        "scope": null,
+        "subject": "lower_case",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-104",
+      "category": "subject-case",
+      "message": "fix: UPPER_CASE",
+      "valid": false,
+      "errors": [
+        "subject-case"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: UPPER_CASE",
+        "type": "fix",
+        "scope": null,
+        "subject": "UPPER_CASE",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-105",
+      "category": "subject-case",
+      "message": "fix: snake_case",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: snake_case",
+        "type": "fix",
+        "scope": null,
+        "subject": "snake_case",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-106",
+      "category": "subject-case",
+      "message": "fix: kebab-case",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: kebab-case",
+        "type": "fix",
+        "scope": null,
+        "subject": "kebab-case",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-107",
+      "category": "subject-case",
+      "message": "fix: lower.words",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: lower.words",
+        "type": "fix",
+        "scope": null,
+        "subject": "lower.words",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-108",
+      "category": "subject-case",
+      "message": "fix: UPPER.WORDS",
+      "valid": false,
+      "errors": [
+        "subject-case"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: UPPER.WORDS",
+        "type": "fix",
+        "scope": null,
+        "subject": "UPPER.WORDS",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-109",
+      "category": "subject-case",
+      "message": "fix: 'Quoted text'",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: 'Quoted text'",
+        "type": "fix",
+        "scope": null,
+        "subject": "'Quoted text'",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-110",
+      "category": "subject-case",
+      "message": "fix: \"Quoted Text\"",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: \"Quoted Text\"",
+        "type": "fix",
+        "scope": null,
+        "subject": "\"Quoted Text\"",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-111",
+      "category": "subject-case",
+      "message": "fix: `Quoted Text`",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: `Quoted Text`",
+        "type": "fix",
+        "scope": null,
+        "subject": "`Quoted Text`",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-112",
+      "category": "subject-case",
+      "message": "fix: 123 Upper text",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: 123 Upper text",
+        "type": "fix",
+        "scope": null,
+        "subject": "123 Upper text",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-113",
+      "category": "subject-case",
+      "message": "fix: 1Change",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: 1Change",
+        "type": "fix",
+        "scope": null,
+        "subject": "1Change",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-114",
+      "category": "subject-case",
+      "message": "fix: (Upper text)",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: (Upper text)",
+        "type": "fix",
+        "scope": null,
+        "subject": "(Upper text)",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-115",
+      "category": "subject-case",
+      "message": "fix: [Upper text]",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: [Upper text]",
+        "type": "fix",
+        "scope": null,
+        "subject": "[Upper text]",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-116",
+      "category": "subject-case",
+      "message": "fix: !Upper text",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: !Upper text",
+        "type": "fix",
+        "scope": null,
+        "subject": "!Upper text",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-117",
+      "category": "subject-case",
+      "message": "fix: _Upper text",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: _Upper text",
+        "type": "fix",
+        "scope": null,
+        "subject": "_Upper text",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-118",
+      "category": "subject-case",
+      "message": "fix: -Upper text",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: -Upper text",
+        "type": "fix",
+        "scope": null,
+        "subject": "-Upper text",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-119",
+      "category": "subject-case",
+      "message": "fix: :Upper text",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: :Upper text",
+        "type": "fix",
+        "scope": null,
+        "subject": ":Upper text",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-120",
+      "category": "subject-case",
+      "message": "fix: @Upper text",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: @Upper text",
+        "type": "fix",
+        "scope": null,
+        "subject": "@Upper text",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-121",
+      "category": "subject-case",
+      "message": "fix: a",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: a",
+        "type": "fix",
+        "scope": null,
+        "subject": "a",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-122",
+      "category": "subject-case",
+      "message": "fix: A",
+      "valid": false,
+      "errors": [
+        "subject-case"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: A",
+        "type": "fix",
+        "scope": null,
+        "subject": "A",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-123",
+      "category": "subject-case",
+      "message": "fix: x Y",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: x Y",
+        "type": "fix",
+        "scope": null,
+        "subject": "x Y",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-124",
+      "category": "subject-case",
+      "message": "fix: X y",
+      "valid": false,
+      "errors": [
+        "subject-case"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: X y",
+        "type": "fix",
+        "scope": null,
+        "subject": "X y",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-125",
+      "category": "subject-case",
+      "message": "fix: xY",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: xY",
+        "type": "fix",
+        "scope": null,
+        "subject": "xY",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-126",
+      "category": "subject-case",
+      "message": "fix: XY",
+      "valid": false,
+      "errors": [
+        "subject-case"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: XY",
+        "type": "fix",
+        "scope": null,
+        "subject": "XY",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-127",
+      "category": "subject-case",
+      "message": "fix: c++ support",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: c++ support",
+        "type": "fix",
+        "scope": null,
+        "subject": "c++ support",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-128",
+      "category": "subject-case",
+      "message": "fix: C++ support",
+      "valid": false,
+      "errors": [
+        "subject-case"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: C++ support",
+        "type": "fix",
+        "scope": null,
+        "subject": "C++ support",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-129",
+      "category": "subject-case",
+      "message": "fix: a.B",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: a.B",
+        "type": "fix",
+        "scope": null,
+        "subject": "a.B",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-130",
+      "category": "subject-case",
+      "message": "fix: A.b",
+      "valid": false,
+      "errors": [
+        "subject-case"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: A.b",
+        "type": "fix",
+        "scope": null,
+        "subject": "A.b",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-131",
+      "category": "subject-case",
+      "message": "fix: a/b",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: a/b",
+        "type": "fix",
+        "scope": null,
+        "subject": "a/b",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-132",
+      "category": "subject-case",
+      "message": "fix: A/B",
+      "valid": false,
+      "errors": [
+        "subject-case"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: A/B",
+        "type": "fix",
+        "scope": null,
+        "subject": "A/B",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-133",
+      "category": "subject-end",
+      "message": "fix: change behavior.",
+      "valid": false,
+      "errors": [
+        "subject-full-stop"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior.",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior.",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-134",
+      "category": "subject-end",
+      "message": "fix: change behavior..",
+      "valid": false,
+      "errors": [
+        "subject-full-stop"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior..",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior..",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-135",
+      "category": "subject-end",
+      "message": "fix: change behavior...",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior...",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior...",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-136",
+      "category": "subject-end",
+      "message": "fix: change behavior....",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior....",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior....",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-137",
+      "category": "subject-end",
+      "message": "fix: change behavior!",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior!",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior!",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-138",
+      "category": "subject-end",
+      "message": "fix: change behavior?",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior?",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior?",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-139",
+      "category": "subject-end",
+      "message": "fix: change behavior;",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior;",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior;",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-140",
+      "category": "subject-end",
+      "message": "fix: change behavior :",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior :",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior :",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-141",
+      "category": "subject-end",
+      "message": "fix: change behavior:",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior:",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior:",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-142",
+      "category": "subject-end",
+      "message": "fix: change behavior. ",
+      "valid": false,
+      "errors": [
+        "header-trim"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior. ",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior. ",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-143",
+      "category": "subject-end",
+      "message": "fix: change behavior... ",
+      "valid": false,
+      "errors": [
+        "header-trim"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior... ",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior... ",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-144",
+      "category": "outer-normalization",
+      "message": "fix: change behavior\n",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-145",
+      "category": "outer-normalization",
+      "message": "fix: change behavior\n\n",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-146",
+      "category": "outer-normalization",
+      "message": "fix: change behavior\n\n\n",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-147",
+      "category": "outer-normalization",
+      "message": "\nfix: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-148",
+      "category": "outer-normalization",
+      "message": "\nfix: change behavior\n",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-149",
+      "category": "outer-normalization",
+      "message": "\nfix: change behavior\n\n",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-150",
+      "category": "outer-normalization",
+      "message": "\nfix: change behavior\n\n\n",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-151",
+      "category": "outer-normalization",
+      "message": "\n\nfix: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-152",
+      "category": "outer-normalization",
+      "message": "\n\nfix: change behavior\n",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-153",
+      "category": "outer-normalization",
+      "message": "\n\nfix: change behavior\n\n",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-154",
+      "category": "outer-normalization",
+      "message": "\n\nfix: change behavior\n\n\n",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-155",
+      "category": "outer-normalization",
+      "message": " fix: change behavior\n",
+      "valid": false,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": " fix: change behavior",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-156",
+      "category": "outer-normalization",
+      "message": " fix: change behavior\n\n",
+      "valid": false,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": " fix: change behavior",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-157",
+      "category": "outer-normalization",
+      "message": " fix: change behavior\n\n\n",
+      "valid": false,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": " fix: change behavior",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-158",
+      "category": "outer-normalization",
+      "message": "\tfix: change behavior",
+      "valid": false,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-empty",
+        "ascii-message"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "\tfix: change behavior",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-159",
+      "category": "outer-normalization",
+      "message": "\tfix: change behavior\n",
+      "valid": false,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-empty",
+        "ascii-message"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "\tfix: change behavior",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-160",
+      "category": "outer-normalization",
+      "message": "\tfix: change behavior\n\n",
+      "valid": false,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-empty",
+        "ascii-message"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "\tfix: change behavior",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-161",
+      "category": "outer-normalization",
+      "message": "\tfix: change behavior\n\n\n",
+      "valid": false,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-empty",
+        "ascii-message"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "\tfix: change behavior",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-162",
+      "category": "outer-normalization",
+      "message": "\r\nfix: change behavior",
+      "valid": false,
+      "errors": [
+        "ascii-message"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-163",
+      "category": "outer-normalization",
+      "message": "\r\nfix: change behavior\n",
+      "valid": false,
+      "errors": [
+        "ascii-message"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-164",
+      "category": "outer-normalization",
+      "message": "\r\nfix: change behavior\n\n",
+      "valid": false,
+      "errors": [
+        "ascii-message"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-165",
+      "category": "outer-normalization",
+      "message": "\r\nfix: change behavior\n\n\n",
+      "valid": false,
+      "errors": [
+        "ascii-message"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-166",
+      "category": "parser-prelude",
+      "message": " \nfix: change behavior",
+      "valid": false,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [
+        "footer-leading-blank"
+      ],
+      "parsed": {
+        "header": " ",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": "fix: change behavior"
+      }
+    },
+    {
+      "id": "oracle-167",
+      "category": "parser-prelude",
+      "message": "\n \nfix: change behavior",
+      "valid": false,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [
+        "footer-leading-blank"
+      ],
+      "parsed": {
+        "header": " ",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": "fix: change behavior"
+      }
+    },
+    {
+      "id": "oracle-168",
+      "category": "parser-prelude",
+      "message": "gpg: diagnostic\nfix: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-169",
+      "category": "parser-prelude",
+      "message": " gpg: diagnostic\nfix: change behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-170",
+      "category": "parser-prelude",
+      "message": "GPG: diagnostic\nfix: change behavior",
+      "valid": false,
+      "errors": [
+        "type-case",
+        "type-enum"
+      ],
+      "warnings": [
+        "footer-leading-blank"
+      ],
+      "parsed": {
+        "header": "GPG: diagnostic",
+        "type": "GPG",
+        "scope": null,
+        "subject": "diagnostic",
+        "body": null,
+        "footer": "fix: change behavior"
+      }
+    },
+    {
+      "id": "oracle-171",
+      "category": "parser-prelude",
+      "message": "# editor comment\nfix: change behavior",
+      "valid": false,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [
+        "footer-leading-blank"
+      ],
+      "parsed": {
+        "header": "# editor comment",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": "fix: change behavior"
+      }
+    },
+    {
+      "id": "oracle-172",
+      "category": "body-footer",
+      "message": "fix: change behavior\nbody text",
+      "valid": true,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": "body text",
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-173",
+      "category": "body-footer",
+      "message": "fix: change behavior\n\nbody text",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": "body text",
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-174",
+      "category": "body-footer",
+      "message": "fix: change behavior\n\nBody TEXT.",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": "Body TEXT.",
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-175",
+      "category": "body-footer",
+      "message": "fix: change behavior\n\nline one\nline two",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": "line one\nline two",
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-176",
+      "category": "body-footer",
+      "message": "fix: change behavior\n\n# editor comment",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": "# editor comment",
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-177",
+      "category": "body-footer",
+      "message": "fix: change behavior\n\nBREAKING CHANGE: new behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": "",
+        "footer": "BREAKING CHANGE: new behavior"
+      }
+    },
+    {
+      "id": "oracle-178",
+      "category": "body-footer",
+      "message": "fix: change behavior\nBREAKING CHANGE: new behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [
+        "footer-leading-blank"
+      ],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": "BREAKING CHANGE: new behavior"
+      }
+    },
+    {
+      "id": "oracle-179",
+      "category": "body-footer",
+      "message": "fix: change behavior\n\nBREAKING-CHANGE: new behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": "",
+        "footer": "BREAKING-CHANGE: new behavior"
+      }
+    },
+    {
+      "id": "oracle-180",
+      "category": "body-footer",
+      "message": "fix: change behavior\n\nRefs: #123",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": "",
+        "footer": "Refs: #123"
+      }
+    },
+    {
+      "id": "oracle-181",
+      "category": "body-footer",
+      "message": "fix: change behavior\n\nCloses #123",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": "",
+        "footer": "Closes #123"
+      }
+    },
+    {
+      "id": "oracle-182",
+      "category": "body-footer",
+      "message": "fix: change behavior\n\nCo-authored-by: Codex",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": "",
+        "footer": "Co-authored-by: Codex"
+      }
+    },
+    {
+      "id": "oracle-183",
+      "category": "body-footer",
+      "message": "fix: change behavior\n\nCo-authored-by: Other <other@example.com>",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": "",
+        "footer": "Co-authored-by: Other <other@example.com>"
+      }
+    },
+    {
+      "id": "oracle-184",
+      "category": "body-footer",
+      "message": "fix: change behavior\n\nSigned-off-by: Other <other@example.com>",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": "",
+        "footer": "Signed-off-by: Other <other@example.com>"
+      }
+    },
+    {
+      "id": "oracle-185",
+      "category": "body-footer",
+      "message": "fix: change behavior\n\nCo-authored-by: Other <other@example.com>\n\nDescription.",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": "",
+        "footer": "Co-authored-by: Other <other@example.com>\n\nDescription."
+      }
+    },
+    {
+      "id": "oracle-186",
+      "category": "body-footer",
+      "message": "fix: change behavior\n\nbody.\n\nBREAKING CHANGE: new behavior",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": "body.",
+        "footer": "BREAKING CHANGE: new behavior"
+      }
+    },
+    {
+      "id": "oracle-187",
+      "category": "body-footer",
+      "message": "fix: change behavior\n\n\nbody text",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": "body text",
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-188",
+      "category": "body-footer",
+      "message": "fix: change behavior\n\nbody text\n\n",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": "body text",
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-189",
+      "category": "body-footer",
+      "message": "fix: change behavior\n\n ",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": " ",
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-190",
+      "category": "body-footer",
+      "message": "fix: change behavior\n\n\t",
+      "valid": false,
+      "errors": [
+        "ascii-message"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": "\t",
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-191",
+      "category": "body-footer",
+      "message": "fix: change behavior\n\n\r",
+      "valid": false,
+      "errors": [
+        "ascii-message"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-192",
+      "category": "body-footer",
+      "message": "fix: change behavior\n\n\u0000",
+      "valid": false,
+      "errors": [
+        "ascii-message"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change behavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change behavior",
+        "body": "\u0000",
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-193",
+      "category": "whole-header-length",
+      "message": "fix: x",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: x",
+        "type": "fix",
+        "scope": null,
+        "subject": "x",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-194",
+      "category": "whole-header-length",
+      "message": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "type": "fix",
+        "scope": null,
+        "subject": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-195",
+      "category": "whole-header-length",
+      "message": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "type": "fix",
+        "scope": null,
+        "subject": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-196",
+      "category": "whole-header-length",
+      "message": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "valid": false,
+      "errors": [
+        "header-max-length",
+        "message-max-length"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "type": "fix",
+        "scope": null,
+        "subject": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-197",
+      "category": "whole-header-length",
+      "message": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "valid": false,
+      "errors": [
+        "header-max-length",
+        "message-max-length"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "type": "fix",
+        "scope": null,
+        "subject": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-198",
+      "category": "whole-body-length",
+      "message": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: a",
+        "type": "fix",
+        "scope": null,
+        "subject": "a",
+        "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-199",
+      "category": "whole-body-length",
+      "message": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: a",
+        "type": "fix",
+        "scope": null,
+        "subject": "a",
+        "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-200",
+      "category": "whole-body-length",
+      "message": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "valid": false,
+      "errors": [
+        "message-max-length"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: a",
+        "type": "fix",
+        "scope": null,
+        "subject": "a",
+        "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-201",
+      "category": "whole-body-length",
+      "message": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "valid": false,
+      "errors": [
+        "message-max-length"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: a",
+        "type": "fix",
+        "scope": null,
+        "subject": "a",
+        "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-202",
+      "category": "whole-body-terminal-lf",
+      "message": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: a",
+        "type": "fix",
+        "scope": null,
+        "subject": "a",
+        "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-203",
+      "category": "whole-body-terminal-lf",
+      "message": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: a",
+        "type": "fix",
+        "scope": null,
+        "subject": "a",
+        "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-204",
+      "category": "whole-body-terminal-lf",
+      "message": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n",
+      "valid": true,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: a",
+        "type": "fix",
+        "scope": null,
+        "subject": "a",
+        "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-205",
+      "category": "whole-body-terminal-lf",
+      "message": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n",
+      "valid": false,
+      "errors": [
+        "message-max-length"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: a",
+        "type": "fix",
+        "scope": null,
+        "subject": "a",
+        "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-206",
+      "category": "strict-message-policy",
+      "message": "",
+      "valid": false,
+      "errors": [
+        "parse-error"
+      ],
+      "warnings": [],
+      "parsed": null
+    },
+    {
+      "id": "oracle-207",
+      "category": "strict-message-policy",
+      "message": "\n",
+      "valid": false,
+      "errors": [
+        "parse-error"
+      ],
+      "warnings": [],
+      "parsed": null
+    },
+    {
+      "id": "oracle-208",
+      "category": "strict-message-policy",
+      "message": "\n\n",
+      "valid": false,
+      "errors": [
+        "parse-error"
+      ],
+      "warnings": [],
+      "parsed": null
+    },
+    {
+      "id": "oracle-209",
+      "category": "strict-message-policy",
+      "message": "Merge branch main",
+      "valid": false,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "Merge branch main",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-210",
+      "category": "strict-message-policy",
+      "message": "Revert \"fix: change\"",
+      "valid": false,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "Revert \"fix: change\"",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-211",
+      "category": "strict-message-policy",
+      "message": "fixup! fix: change",
+      "valid": false,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fixup! fix: change",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-212",
+      "category": "strict-message-policy",
+      "message": "squash! fix: change",
+      "valid": false,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "squash! fix: change",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-213",
+      "category": "strict-message-policy",
+      "message": "fix: 日本語",
+      "valid": false,
+      "errors": [
+        "ascii-message"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: 日本語",
+        "type": "fix",
+        "scope": null,
+        "subject": "日本語",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-214",
+      "category": "strict-message-policy",
+      "message": "fix: café",
+      "valid": false,
+      "errors": [
+        "ascii-message"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: café",
+        "type": "fix",
+        "scope": null,
+        "subject": "café",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-215",
+      "category": "strict-message-policy",
+      "message": "fix: change\tbehavior",
+      "valid": false,
+      "errors": [
+        "ascii-message"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change\tbehavior",
+        "type": "fix",
+        "scope": null,
+        "subject": "change\tbehavior",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-216",
+      "category": "strict-message-policy",
+      "message": "fix: change\r\n",
+      "valid": false,
+      "errors": [
+        "ascii-message"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change",
+        "type": "fix",
+        "scope": null,
+        "subject": "change",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-217",
+      "category": "strict-message-policy",
+      "message": "fix: change\u0000",
+      "valid": false,
+      "errors": [
+        "ascii-message"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change\u0000",
+        "type": "fix",
+        "scope": null,
+        "subject": "change\u0000",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-218",
+      "category": "strict-message-policy",
+      "message": "fix: change",
+      "valid": false,
+      "errors": [
+        "ascii-message"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change",
+        "type": "fix",
+        "scope": null,
+        "subject": "change",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-219",
+      "category": "strict-message-policy",
+      "message": "fix: change\u001b",
+      "valid": false,
+      "errors": [
+        "ascii-message"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change\u001b",
+        "type": "fix",
+        "scope": null,
+        "subject": "change\u001b",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-220",
+      "category": "strict-message-policy",
+      "message": "fix: change\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "valid": false,
+      "errors": [
+        "body-max-line-length",
+        "message-max-length"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change",
+        "type": "fix",
+        "scope": null,
+        "subject": "change",
+        "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "footer": null
+      }
+    },
+    {
+      "id": "oracle-221",
+      "category": "strict-message-policy",
+      "message": "fix: change\n\nhttps://example.com/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "valid": false,
+      "errors": [
+        "message-max-length"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: change",
+        "type": "fix",
+        "scope": null,
+        "subject": "change",
+        "body": "https://example.com/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "footer": null
+      }
+    }
+  ]
+}

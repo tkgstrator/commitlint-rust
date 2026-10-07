@@ -6,7 +6,10 @@ Status: design for owner review; no product implementation or host rollout.
 
 The owner wants batch correction of overlong/nonconforming commit messages and
 incorrect Author/Committer metadata. Rust remains the runtime implementation;
-Git and freshly authenticated human github.com gh are the only required tools.
+Git and human github.com gh authentication are the only required tools. Planning
+and preview use the verified credential-bound cache; apply always validates
+online. Receipts schema/policy 2 bind the local authentication-context digest,
+so replacing credentials invalidates approval even for the same account.
 An external LLM or editor may prepare messages. No LLM service, Python, Bun,
 git-filter-repo, or Cargo becomes a runtime prerequisite.
 
@@ -23,7 +26,7 @@ Push remains an independent, explicitly requested operation.
    exact plan is explicit repair intent; unattended agent repair additionally
    requires the creation/provenance evidence already mandated by the skill.
 2. **Author migration** changes a specifically selected mistaken Author to the
-   same fresh gh identity. This is an explicit migration of the operator's own
+   same verified gh identity. This is an explicit migration of the operator's own
    work, never inferred from an old display name, email, or an LLM response.
    It needs a per-source-OID ownership declaration reviewed by the operator,
    a separate migration plan, and explicit acknowledgement when applying it.
@@ -51,14 +54,14 @@ conversation or creation records; the skill enforces that boundary.
 Proposed commands (not yet available):
 
 ```sh
-commitguard fix --range origin/main..HEAD --plan fixes.json
-# External editor or LLM changes candidate messages in fixes.json.
-commitguard fix --apply fixes.json
+commitguard fix --range origin/main..HEAD --plan ../fixes.json
+# External editor or LLM changes candidate messages in ../fixes.json.
+commitguard fix --apply ../fixes.json
 
 # Separate, deliberate Author migration; owned.json enumerates exact own OIDs.
-commitguard fix --range origin/main..HEAD --author gh --ownership owned.json --plan migration.json
-commitguard fix --preview migration.json
-commitguard fix --apply migration.json --confirm-author-migration <apply-digest>
+commitguard fix --range origin/main..HEAD --author gh --ownership ../owned.json --plan ../migration.json
+commitguard fix --preview ../migration.json
+commitguard fix --apply ../migration.json --confirm-author-migration <apply-digest>
 ```
 
 `--plan` performs inspection and writes a proposal plus a repository-local
@@ -68,6 +71,10 @@ without overwriting or following symlinks. A no-change apply reports a no-op.
 `--author` accepts only `gh`; other values fail. `--preview` validates without
 creating commits or changing refs/index/worktree. It shows all source OIDs,
 old/new Authors, lint findings and the final apply digest.
+Keep proposal/ownership files outside all worktrees or under the common Git
+directory in V1, so the operation does not dirty its own source checkout.
+Refuse in-worktree output before creating any file; no general filename
+exemptions permit untracked edits. Bind the proposal absolute path in receipt.
 
 The native receipt freezes schema/policy version, operation, plan ID, common
 and worktree Git directories, current branch, object format, original tip/base,
@@ -154,6 +161,10 @@ Freeze the absolute original hook directory and executable contents, passing
 its context to every staging call through the guarded wrapper. Include hooks
 fired by worktree creation and throwaway commits in the execution contract;
 post-checkout, post-commit and post-rewrite are not suppressed.
+Pass the frozen original directory with guarded Git's operation-local
+`-c core.hooksPath=<absolute-original-directory>`; the wrapper forwards it as
+previous-hook context while forcing guard hooks. An inherited previous-hooks
+environment variable alone is deliberately discarded by the wrapper.
 
 Repair uses ordinary guarded interactive rebase with native Rust sequence and
 message editor helpers. Verify the todo against the complete source list; no
@@ -218,6 +229,8 @@ is detected from actual ref/object state. Repeating apply cannot duplicate or
 silently overwrite an incomplete operation; it reports the existing operation
 and recovery instructions. Successful cleanup removes only verified temporary
 worktrees and keeps the backup/mapping.
+Never force-remove a staging worktree modified by hooks. Retain it and record
+cleanup-incomplete with its path if ordinary guarded worktree removal refuses.
 Backups retain original violating commits. Broad --mirror/all-ref publication
 must still validate them and fail; document the backup ref and avoid treating
 it as a normal push source. Do not delete backups to make a push pass.

@@ -41,7 +41,24 @@ impl Fixture {
         symlink(&git, bin.join("git")).unwrap();
         executable(
             &bin.join("gh"),
-            "#!/bin/sh\ncase \"$*\" in *--version*) echo 'gh fixture'; exit 0;; esac\nif [ \"$FIXTURE_GH_FAIL\" = 1 ]; then exit 1; fi\ncase \"$FIXTURE_GH_ACCOUNT\" in\n bot) echo '{\"login\":\"tester\",\"id\":44,\"type\":\"Bot\"}';;\n missing-type) echo '{\"login\":\"tester\",\"id\":44}';;\n switched) echo '{\"login\":\"changed\",\"id\":55,\"type\":\"User\"}';;\n *) echo '{\"login\":\"tester\",\"id\":44,\"type\":\"User\"}';;\nesac\n",
+            r#"#!/bin/sh
+case "$*" in
+ '--version') echo 'gh fixture'; exit 0;;
+ 'auth token --hostname github.com')
+   if [ "${FIXTURE_GH_FAIL:-0}" = 1 ]; then exit 1; fi
+   printf '%s\n' "${GH_TOKEN:-${GITHUB_TOKEN:-fixture-token-${FIXTURE_GH_ACCOUNT:-tester}}}"; exit 0;;
+ 'config get user --host github.com') printf '%s\n' "${FIXTURE_GH_ACCOUNT:-tester}"; exit 0;;
+ 'api --hostname github.com user') ;;
+ *) echo 'unexpected gh command' >&2; exit 78;;
+esac
+if [ "${FIXTURE_GH_FAIL:-0}" = 1 ]; then exit 1; fi
+case "${FIXTURE_GH_ACCOUNT:-tester}" in
+ bot) echo '{"login":"tester","id":44,"type":"Bot"}';;
+ missing-type) echo '{"login":"tester","id":44}';;
+ switched) echo '{"login":"changed","id":55,"type":"User"}';;
+ *) echo '{"login":"tester","id":44,"type":"User"}';;
+esac
+"#,
         );
         fs::write(&global, "[alias]\n  preserved = status\n").unwrap();
         let mut env = BTreeMap::new();
@@ -65,7 +82,7 @@ impl Fixture {
         ] {
             env.insert(key.into(), value);
         }
-        Self {
+        let fixture = Self {
             root,
             home,
             bin,
@@ -73,7 +90,9 @@ impl Fixture {
             global,
             git,
             env,
-        }
+        };
+        accepted(fixture.canonical(&["--strict", "account"], &fixture.root, &[], None));
+        fixture
     }
     pub fn command(
         &self,

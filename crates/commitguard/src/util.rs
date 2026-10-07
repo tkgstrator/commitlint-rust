@@ -18,6 +18,26 @@ pub fn capture(
     input: Option<&[u8]>,
     timeout: Duration,
 ) -> Result<Output> {
+    capture_env(program, args, input, timeout, &[])
+}
+pub fn capture_env(
+    program: &Path,
+    args: &[String],
+    input: Option<&[u8]>,
+    timeout: Duration,
+    environment: &[(&str, Option<&str>)],
+) -> Result<Output> {
+    capture_env_bounded(program, args, input, timeout, environment, 64 * 1024 * 1024)
+}
+/// Keep output allocation bounded while a child is still running.
+pub fn capture_env_bounded(
+    program: &Path,
+    args: &[String],
+    input: Option<&[u8]>,
+    timeout: Duration,
+    environment: &[(&str, Option<&str>)],
+    limit: usize,
+) -> Result<Output> {
     let mut command = Command::new(program);
     command
         .args(args)
@@ -29,6 +49,16 @@ pub fn capture(
         .env("GH_PROMPT_DISABLED", "1")
         .env("GH_NO_UPDATE_NOTIFIER", "1")
         .env("GIT_NO_REPLACE_OBJECTS", "1");
+    command
+        .env("GH_NO_EXTENSION_UPDATE_NOTIFIER", "1")
+        .env("DO_NOT_TRACK", "1");
+    for (key, value) in environment {
+        if let Some(value) = value {
+            command.env(key, value);
+        } else {
+            command.env_remove(key);
+        }
+    }
     #[cfg(unix)]
     {
         use std::os::unix::process::CommandExt;
@@ -40,9 +70,22 @@ pub fn capture(
     let mut stdout = child.stdout.take().ok_or("missing command stdout")?;
     let mut stderr = child.stderr.take().ok_or("missing command stderr")?;
     let (out_tx, out_rx) = std::sync::mpsc::channel();
+    let exceeded = std::sync::Arc::new(std::sync::atomic::AtomicBool::new(false));
+    let reader_exceeded = exceeded.clone();
     thread::spawn(move || {
         let mut bytes = Vec::new();
-        let result = stdout.read_to_end(&mut bytes).map(|_| bytes);
+        let result = Read::by_ref(&mut stdout)
+            .take(limit.saturating_add(1) as u64)
+            .read_to_end(&mut bytes)
+            .map_err(|_| "command output unreadable".to_string())
+            .and_then(|_| {
+                if bytes.len() > limit {
+                    reader_exceeded.store(true, std::sync::atomic::Ordering::Release);
+                    Err("command output exceeded safe limit".into())
+                } else {
+                    Ok(bytes)
+                }
+            });
         let _ = out_tx.send(result);
     });
     let (err_tx, err_rx) = std::sync::mpsc::channel();
@@ -66,6 +109,10 @@ pub fn capture(
     });
     let start = Instant::now();
     let status = loop {
+        if exceeded.load(std::sync::atomic::Ordering::Acquire) {
+            terminate(&mut child);
+            break Err("command output exceeded safe limit".to_string());
+        }
         match child.try_wait() {
             Ok(Some(status)) => break Ok(status),
             Ok(None) if start.elapsed() < timeout => thread::sleep(Duration::from_millis(10)),
@@ -84,12 +131,21 @@ pub fn capture(
     // A descendant can escape the child's process group while retaining a pipe.
     // Never join an unbounded reader/writer: the full capture deadline also
     // bounds pipe draining. Detached readers finish when the OS closes the FD.
-    let status = status?;
     let remaining = || timeout.saturating_sub(start.elapsed());
+    let status = match status {
+        Ok(status) => status,
+        Err(error) => {
+            // Termination closes owned pipes; wait within the original deadline
+            // for bounded readers/writers rather than leaving live worker threads.
+            let _ = out_rx.recv_timeout(remaining());
+            let _ = err_rx.recv_timeout(remaining());
+            let _ = write_rx.recv_timeout(remaining());
+            return Err(error);
+        }
+    };
     let bytes = out_rx
         .recv_timeout(remaining())
-        .map_err(|_| "command output pipes did not close before deadline")?
-        .map_err(|_| "command output unreadable")?;
+        .map_err(|_| "command output pipes did not close before deadline")??;
     err_rx
         .recv_timeout(remaining())
         .map_err(|_| "command error pipe did not close before deadline")?;
@@ -195,6 +251,26 @@ mod tests {
         assert_eq!(result.code, 0);
         assert_eq!(result.stdout.len(), 140000);
         assert!(!String::from_utf8_lossy(&result.stdout).contains("private-error"));
+    }
+    #[test]
+    fn output_limit_reaps_the_producer() {
+        let path =
+            std::env::temp_dir().join(format!("commitguard-limit-pid-{}", std::process::id()));
+        let result=capture_env_bounded(Path::new("/bin/sh"),
+            &["-c".into(), "printf '%s\\n' \"$$\" > \"$1\"; while :; do printf 'private-payload-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\n'; done".into(), "fixture".into(),path.to_str().unwrap().into()],
+            None,Duration::from_secs(5),&[],1024);
+        assert!(result.err().unwrap().contains("output exceeded safe limit"));
+        let pid: i32 = std::fs::read_to_string(&path)
+            .unwrap()
+            .trim()
+            .parse()
+            .unwrap();
+        assert_eq!(
+            unsafe { libc::kill(pid, 0) },
+            -1,
+            "capture must reap its owned producer"
+        );
+        std::fs::remove_file(path).unwrap();
     }
     #[test]
     fn timeout_reaps_process_group() {

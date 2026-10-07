@@ -1,6 +1,6 @@
 //! One dispatcher shared by the canonical `commitguard` and the compatible
 //! `gh-commit-guard` executables; only the reported name differs.
-use crate::{Config, Result, core, hooks, install, util, wrapper};
+use crate::{Config, Result, bulk, core, fix, hooks, install, util, wrapper};
 use std::path::PathBuf;
 
 fn run(name: &str) -> Result<i32> {
@@ -13,17 +13,59 @@ fn run(name: &str) -> Result<i32> {
     if stem == "git" {
         return wrapper::run(config.as_ref().ok_or("guard configuration missing")?, &args);
     }
-    if args.first().map(String::as_str) == Some("--config") {
-        if args.len() < 3 {
-            return Err("--config requires a file and command".into());
+    let mut strict = false;
+    loop {
+        match args.first().map(String::as_str) {
+            Some("--strict") => {
+                strict = true;
+                args.remove(0);
+            }
+            Some("--config") => {
+                if args.len() < 3 {
+                    return Err("--config requires a file and command".into());
+                }
+                config = Some(Config::read(&PathBuf::from(&args[1]))?);
+                args.drain(..2);
+            }
+            _ => break,
         }
-        config = Some(Config::read(&PathBuf::from(&args[1]))?);
-        args.drain(..2);
     }
-    let mode=args.first().map(String::as_str).ok_or("usage: gh-commit-guard <account|identity|message|commits|push|pre-push|hook|sign|git|install|version>")?;
+    if matches!(
+        args.first().map(String::as_str),
+        Some("account" | "identity" | "commits" | "push" | "pre-push")
+    ) && args.get(1).map(String::as_str) == Some("--strict")
+    {
+        strict = true;
+        args.remove(1);
+    }
+    let _strict_scope = strict.then(crate::auth::StrictScope::enter);
+    // fix may locate the installed HOME configuration before installation;
+    // other portable checker commands keep executable-only discovery.
+    if args.first().map(String::as_str) == Some("fix") && config.is_none() {
+        if let Some(home) = std::env::var_os("HOME") {
+            let path =
+                PathBuf::from(home).join(".local/share/gh-commit-identity/guard/config.json");
+            if path.exists() {
+                config = Some(Config::read(&path)?);
+            }
+        }
+    }
+    let mode=args.first().map(String::as_str).ok_or("usage: gh-commit-guard <account|identity|message|commits|push|pre-push|hook|sign|git|install|bulk-write|bulk-write-tags|version>")?;
     match mode {
         "version" => {
             println!("{name} {}", env!("CARGO_PKG_VERSION"));
+            Ok(0)
+        }
+        "bulk-write" => {
+            bulk::run(&args[1..], config.as_ref())?;
+            Ok(0)
+        }
+        "bulk-write-tags" => {
+            bulk::run_tags(&args[1..], config.as_ref())?;
+            Ok(0)
+        }
+        "fix" => {
+            fix::run(&args[1..], config.as_ref())?;
             Ok(0)
         }
         "install" => {

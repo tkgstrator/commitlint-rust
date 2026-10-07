@@ -178,6 +178,9 @@ pub fn run(cfg: &Config, args: &[String]) -> Result<i32> {
     native
         .args(&args[index..])
         .env_remove("GIT_IDENTITY_PREVIOUS_HOOKS_PATH");
+    if crate::auth::is_strict() {
+        native.env("COMMITGUARD_STRICT", "1");
+    }
     if previous.code == 0 {
         let value = String::from_utf8_lossy(&previous.stdout).trim().to_owned();
         let expanded = if value == "~" {

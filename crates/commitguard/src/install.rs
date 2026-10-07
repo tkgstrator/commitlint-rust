@@ -284,7 +284,7 @@ fn mandate(tx: &mut Transaction, path: &Path, skill: &Path) -> Result<()> {
         String::new()
     };
     let body = format!(
-        "Before creating, rewriting, signing, pushing, or delegating Git commits, read and apply gh-commit-identity at {}. Its native checker is mandatory: printable ASCII English Conventional Commits, 128 entire-message characters maximum, and raw Author/Committer matching fresh human github.com gh authentication. Preserve recognized AI attribution. Use installed guarded Git; never bypass. Automatically correct only the skill's proven own unpublished safe subset, preserving trees and backup refs, and recheck before one authorized normal push retry. Missing tools/authentication or uncertain/public/foreign history stops. Verify actual delegated commits.",
+        "Before creating, rewriting, signing, pushing, or delegating Git commits, read and apply gh-commit-identity at {}. Its native checker is mandatory: printable ASCII English Conventional Commits, 128 entire-message characters maximum, and raw Author/Committer matching the verified human github.com gh identity. Normal checks use the credential-bound cache without API calls; missing or changed cache requires --strict account. Push and native fix apply always verify online without cache fallback. Preserve recognized AI attribution. Use installed guarded Git for ordinary commits and V1 fix. Only explicitly owner-approved existing-history bulk-write may skip per-commit hooks/API; it requires frozen candidates and complete mapping verification before operator-controlled backup/CAS promotion. Never use a global ignore for new commits. Automatically correct only the skill's proven own unpublished safe subset, preserving trees and backup refs, and recheck before one authorized normal push retry. Missing tools/authentication or uncertain/public/foreign history stops. Verify actual delegated commits.",
         skill.display()
     );
     let text = marked(&original, &body)?;
@@ -463,6 +463,9 @@ pub fn run(args: &[String]) -> Result<()> {
             projected(&home.join(".claude"))?,
         ];
         let mut targets = mandate_files.clone();
+        // Strict bootstrap writes credentials' fingerprints to private state.
+        // XDG_STATE_HOME is inherited and may otherwise enter a host mount.
+        targets.push(crate::auth::cache_directory_for_home(&home)?);
         targets.extend([
             root.clone(),
             setup.global.clone(),
@@ -540,6 +543,12 @@ pub fn run(args: &[String]) -> Result<()> {
         mandate(&mut tx, &mandate_files[0], &codex_skill.join("SKILL.md"))?;
         mandate(&mut tx, &mandate_files[1], &claude_skill.join("SKILL.md"))?;
         if skills_only {
+            setup.command(
+                &codex_skill.join("bin").join(exe),
+                &["--strict", "account"],
+                false,
+                false,
+            )?;
             return Ok(());
         }
         let hooks = root.join("hooks");
@@ -728,6 +737,19 @@ pub fn run(args: &[String]) -> Result<()> {
                     .to_str()
                     .ok_or("configuration path is not UTF-8")?,
                 "version",
+            ],
+            false,
+            false,
+        )?;
+        setup.command(
+            &cli,
+            &[
+                "--config",
+                config_path
+                    .to_str()
+                    .ok_or("configuration path is not UTF-8")?,
+                "--strict",
+                "account",
             ],
             false,
             false,

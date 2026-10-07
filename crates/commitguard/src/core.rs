@@ -55,13 +55,14 @@ pub fn oid_valid(value: &str) -> bool {
             .all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
 }
 pub fn account(tools: &Tools) -> Result<Identity> {
-    let args = ["api", "--hostname", "github.com", "user"].map(str::to_string);
-    let output = util::capture(&tools.gh, &args, None, Duration::from_secs(15))?;
-    if output.code != 0 {
-        return Err("fresh gh authentication failed; no cached identity is accepted".into());
-    }
+    crate::auth::account(tools)
+}
+pub fn strict_account(tools: &Tools) -> Result<Identity> {
+    crate::auth::strict_account(tools)
+}
+pub fn decode_account(bytes: &[u8]) -> Result<Identity> {
     let user: serde_json::Value =
-        serde_json::from_slice(&output.stdout).map_err(|_| "invalid gh authentication response")?;
+        serde_json::from_slice(bytes).map_err(|_| "invalid gh authentication response")?;
     if user.get("type").and_then(|v| v.as_str()) != Some("User") {
         return Err("gh authentication must identify a human User".into());
     }
@@ -356,7 +357,7 @@ pub fn validate_pre_push(cfg: &Config, args: &[String], payload: &[u8]) -> Resul
         return Err("pre-push requires remote name and exact destination URL".into());
     }
     let tools = tools(Some(cfg))?;
-    let identity = account(&tools)?;
+    let identity = strict_account(&tools)?;
     let report = outgoing_at(
         &tools.git,
         &[args[1].clone()],
@@ -369,7 +370,11 @@ pub fn validate_pre_push(cfg: &Config, args: &[String], payload: &[u8]) -> Resul
 }
 pub fn check(mode: &str, args: &[String], cfg: Option<&Config>) -> Result<()> {
     let tools = tools(cfg)?;
-    let identity = account(&tools)?;
+    let identity = if matches!(mode, "push" | "pre-push") {
+        strict_account(&tools)?
+    } else {
+        account(&tools)?
+    };
     if mode == "account" || mode == "identity" {
         if !args.is_empty() {
             return Err("identity/account take no arguments".into());

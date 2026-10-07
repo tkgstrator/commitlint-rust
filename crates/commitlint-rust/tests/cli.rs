@@ -27,7 +27,12 @@ fn stdin_needs_no_git_gh_or_authentication() {
     ] {
         refused(run(&[], message.as_bytes()));
     }
-    refused(run(&["--config", "relaxed.js"], b"invalid"));
+    // Unsupported options exit before reading stdin; send no unused input.
+    let unsupported = run(&["--config", "relaxed.js"], b"");
+    assert!(
+        String::from_utf8_lossy(&unsupported.stderr).contains("unsupported commitlint options")
+    );
+    refused(unsupported);
     // Explicit files also need neither Git nor gh.
     let file = f.root.join("explicit file");
     fs::write(&file, "fix: explicit\n").unwrap();

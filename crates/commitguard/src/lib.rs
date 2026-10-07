@@ -1,5 +1,8 @@
+pub mod auth;
+pub mod bulk;
 pub mod cli;
 pub mod core;
+pub mod fix;
 pub mod hooks;
 pub mod install;
 pub mod policy;

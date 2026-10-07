@@ -112,13 +112,7 @@ impl Fixture {
         extra: &[(&str, &str)],
         input: Option<&[u8]>,
     ) -> Output {
-        self.command(
-            Path::new(env!("CARGO_BIN_EXE_gh-commit-guard")),
-            args,
-            cwd,
-            extra,
-            input,
-        )
+        self.command(legacy_exe(), args, cwd, extra, input)
     }
     pub fn repo(&self, name: &str) -> PathBuf {
         let repo = self.root.join(name);
@@ -164,6 +158,12 @@ impl Fixture {
         self.home.join(".local/share/gh-commit-identity/guard")
     }
     pub fn install(&self, extra: &[&str]) -> Output {
+        self.install_with(legacy_exe(), extra)
+    }
+    pub fn canonical_install(&self, extra: &[&str]) -> Output {
+        self.install_with(canonical_exe(), extra)
+    }
+    fn install_with(&self, exe: &Path, extra: &[&str]) -> Output {
         let home = self.home.display().to_string();
         let mut args = vec!["install", "--home", &home];
         args.extend(extra);
@@ -179,7 +179,7 @@ impl Fixture {
             .as_ref()
             .map(|path| vec![("CODEX_HOME", path.as_str())])
             .unwrap_or_default();
-        self.cli(&args, &self.root, &env, None)
+        self.command(exe, &args, &self.root, &env, None)
     }
     pub fn guarded(&self, args: &[&str], repo: &Path, extra: &[(&str, &str)]) -> Output {
         self.command(&self.guard_root().join("bin/git"), args, repo, extra, None)
@@ -208,4 +208,28 @@ pub fn refused(output: Output) {
         "unexpected success: {}",
         String::from_utf8_lossy(&output.stdout)
     );
+}
+pub fn canonical_exe() -> &'static Path {
+    Path::new(env!("CARGO_BIN_EXE_commitguard"))
+}
+pub fn legacy_exe() -> &'static Path {
+    Path::new(env!("CARGO_BIN_EXE_gh-commit-guard"))
+}
+impl Fixture {
+    /// Run the canonical `commitguard` executable with the fixture environment.
+    pub fn canonical(
+        &self,
+        args: &[&str],
+        cwd: &Path,
+        extra: &[(&str, &str)],
+        input: Option<&[u8]>,
+    ) -> Output {
+        self.command(canonical_exe(), args, cwd, extra, input)
+    }
+    pub fn skill_dirs(&self) -> [PathBuf; 2] {
+        [
+            self.codex.join("skills/gh-commit-identity"),
+            self.home.join(".claude/skills/gh-commit-identity"),
+        ]
+    }
 }

@@ -5,7 +5,7 @@ set -eu
 umask 077
 
 repo=github.com/tkgstrator/commitlint-rust
-release_tag=v0.1.0
+release_tag=v0.2.0
 
 die() { echo "install.sh: $*" >&2; exit 1; }
 

@@ -84,7 +84,10 @@ fn original(cfg: &Config, name: &str, args: &[String], payload: Option<&[u8]>) -
         return Ok(0);
     }
     let target = absolute(&target)?;
-    if target == absolute(&cfg.hooks().join(name))? || target == absolute(&cfg.cli())? {
+    if target == absolute(&cfg.hooks().join(name))?
+        || target == absolute(&cfg.cli())?
+        || target == absolute(&cfg.canonical_cli())?
+    {
         return Ok(0);
     }
     let mut command = Command::new(&target);
@@ -283,6 +286,7 @@ fn signing_entry(cfg: &Config, kind: &str, args: &[String]) -> Result<i32> {
         return Err("saved native verification backend unavailable".into());
     }
     if absolute(path)? == absolute(&cfg.cli())?
+        || absolute(path)? == absolute(&cfg.canonical_cli())?
         || env::current_exe().ok().and_then(|p| p.canonicalize().ok()) == path.canonicalize().ok()
     {
         return Err("recursive verification backend is forbidden".into());

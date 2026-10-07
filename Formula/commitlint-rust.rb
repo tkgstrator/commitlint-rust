@@ -1,50 +1,53 @@
 class CommitlintRust < Formula
-  desc "Native Conventional Commits linting and gh identity guard"
+  desc "Compatible combined lint and Git identity guard distribution"
   homepage "https://github.com/tkgstrator/commitlint-rust"
-  version "0.1.0"
+  version "0.2.0"
   license "MIT"
 
   on_macos do
     on_arm do
-      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.1.0/commitlint-rust-aarch64-apple-darwin.tar.gz"
-      sha256 "5b793eea57d6d07e136408a9e82d6270115578be7f6c305e270197fcdf664ef8"
+      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.2.0/commitlint-rust-aarch64-apple-darwin.tar.gz"
+      sha256 "850d9e4d7ef33f43cf12d593ddc5812d275f9f1cf8152169e6d56ede38ab6ec6"
     end
     on_intel do
-      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.1.0/commitlint-rust-x86_64-apple-darwin.tar.gz"
-      sha256 "89979f9602db31a8359067e9b91899f374ae025b38e8e41d2bc08225c467fa48"
+      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.2.0/commitlint-rust-x86_64-apple-darwin.tar.gz"
+      sha256 "0b2472fb2538f917611ff6136823dbfb68734538130766761bc7fea2ce664a44"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.1.0/commitlint-rust-aarch64-unknown-linux-musl.tar.gz"
-      sha256 "ffb7981c1defeceadb6949b06a6d009a17ab83c1c889cebd57027b2dda4d4060"
+      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.2.0/commitlint-rust-aarch64-unknown-linux-musl.tar.gz"
+      sha256 "010418f69a55dd5d9ebeeb265e5de2cd1e0aa3657c6172ecf8ce49a784486fce"
     end
     on_intel do
-      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.1.0/commitlint-rust-x86_64-unknown-linux-musl.tar.gz"
-      sha256 "a00d1da6fd86f9ffda47dd1759d37cb26f6503c4e3216b0a7f12ce2288a9d0ee"
+      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.2.0/commitlint-rust-x86_64-unknown-linux-musl.tar.gz"
+      sha256 "f855971f4e6164a8fcb24f903270c45eb7d5abfa2634dfc292811b2972785f5b"
     end
   end
 
   depends_on "gh"
   depends_on "git"
+  conflicts_with "commitguard", because: "both provide the legacy guard command"
 
   def install
     bin.install "gh-commit-guard"
+    bin.install_symlink "gh-commit-guard" => "commitguard"
     bin.install "commitlint" => "commitlint-rust"
   end
 
   def caveats
     <<~EOS
-      To activate user-wide Git guards and Codex/Claude skills, run:
-        gh-commit-guard install
-      This changes user Git and shell/agent configuration. Reopen your shell afterward.
-      Finish any active history-repair task before updating its installed guard.
+      This combined compatibility package preserves commands from v0.1.0.
+      New installations can choose the independent commitlint and commitguard formulae.
+      Guard activation stays explicit: commitguard install
+      Finish active history repairs before replacing their installed guard.
     EOS
   end
 
   test do
     assert_match version.to_s, shell_output("#{bin}/gh-commit-guard version")
+    assert_match version.to_s, shell_output("#{bin}/commitguard version")
     assert_match version.to_s, shell_output("#{bin}/commitlint-rust --version")
     assert_match "Usage:", shell_output("#{bin}/commitlint-rust --help")
   end

@@ -12,12 +12,22 @@ dependencies = [
 ]
 
 [[package]]
-name = "commitlint-rust"
-version = "0.1.0"
+name = "commitguard"
+version = "0.2.0"
 dependencies = [
+ "commitlint-rust",
  "libc",
  "regex",
  "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "commitlint-rust"
+version = "0.2.0"
+dependencies = [
+ "libc",
+ "regex",
  "serde_json",
 ]
 

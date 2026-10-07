@@ -1,9 +1,11 @@
+pub mod cli;
 pub mod core;
 pub mod hooks;
 pub mod install;
 pub mod policy;
 pub mod util;
 pub mod wrapper;
+pub use commitlint_rust;
 use serde::{Deserialize, Serialize};
 use std::{
     collections::BTreeMap,
@@ -36,6 +38,13 @@ impl Config {
             "gh-commit-guard.exe"
         } else {
             "gh-commit-guard"
+        })
+    }
+    pub fn canonical_cli(&self) -> PathBuf {
+        self.root.join("bin").join(if cfg!(windows) {
+            "commitguard.exe"
+        } else {
+            "commitguard"
         })
     }
     pub fn read(path: &Path) -> Result<Self> {

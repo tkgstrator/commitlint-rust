@@ -1,0 +1,20 @@
+[package]
+name = "commitlint-rust"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Message-only Conventional Commit linter with a fixed ASCII/LF policy"
+
+[lib]
+name = "commitlint_rust"
+
+[[bin]]
+name = "commitlint"
+path = "src/main.rs"
+
+[dependencies]
+regex = "=1.13.1"
+libc = "=0.2.190"
+
+[dev-dependencies]
+serde_json = "=1.0.151"

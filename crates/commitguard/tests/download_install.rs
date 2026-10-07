@@ -188,7 +188,7 @@ impl Download {
         .unwrap();
     }
     fn run(&self, args: &[&str], extra: &[(&str, &str)]) -> Output {
-        let script = Path::new(env!("CARGO_MANIFEST_DIR")).join("install.sh");
+        let script = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../install.sh");
         Command::new("/bin/sh")
             .arg(script)
             .args(args)
@@ -237,7 +237,7 @@ fn bootstrap_verifies_fixed_release_and_forwards_native_arguments_privately() {
         format!("install\n--home\n{}\n--skills-only\n", f.home.display())
     );
     let log = fs::read_to_string(&f.log).unwrap();
-    assert!(log.contains("v0.1.0\n"));
+    assert!(log.contains(&format!("v{}\n", env!("CARGO_PKG_VERSION"))));
     assert!(log.contains("tkgstrator/commitlint-rust\n"));
     assert!(log.contains("commitlint-rust-aarch64-apple-darwin.tar.gz\n"));
     assert!(log.contains("SHA256SUMS\n"));

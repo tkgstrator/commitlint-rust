@@ -8,20 +8,20 @@ use std::{
     process::Command,
     time::{SystemTime, UNIX_EPOCH},
 };
-const SKILL: &str = include_str!("../resources/SKILL.md");
+const SKILL: &str = include_str!("../../../resources/SKILL.md");
 const NAME: &str = "gh-commit-identity";
 const REFERENCES: &[(&str, &str)] = &[
     (
         "host-setup.md",
-        include_str!("../resources/references/host-setup.md"),
+        include_str!("../../../resources/references/host-setup.md"),
     ),
     (
         "portable-setup.md",
-        include_str!("../resources/references/portable-setup.md"),
+        include_str!("../../../resources/references/portable-setup.md"),
     ),
     (
         "mac-hooks.md",
-        include_str!("../resources/references/mac-hooks.md"),
+        include_str!("../../../resources/references/mac-hooks.md"),
     ),
 ];
 const HOOKS: &[&str] = &[
@@ -368,6 +368,11 @@ pub fn run(args: &[String]) -> Result<()> {
     } else {
         "gh-commit-guard"
     };
+    let canonical_exe = if cfg!(windows) {
+        "commitguard.exe"
+    } else {
+        "commitguard"
+    };
     let git_exe = if cfg!(windows) { "git.exe" } else { "git" };
     let binary = io(fs::read(&executable), "read native guard binary")?;
     let mut git = util::find_tool("git")?;
@@ -463,6 +468,7 @@ pub fn run(args: &[String]) -> Result<()> {
             setup.global.clone(),
             root.join("config.json"),
             root.join("bin").join(exe),
+            root.join("bin").join(canonical_exe),
             root.join("bin").join(git_exe),
             home.join(".local/share").join(NAME).join("backups"),
         ]);
@@ -485,6 +491,7 @@ pub fn run(args: &[String]) -> Result<()> {
                 skill.clone(),
                 skill.join("SKILL.md"),
                 skill.join("bin").join(exe),
+                skill.join("bin").join(canonical_exe),
                 skill.join("agents/openai.yaml"),
                 skill.join("scripts/check"),
             ]);
@@ -527,6 +534,7 @@ pub fn run(args: &[String]) -> Result<()> {
             );
             tx.write(&skill.join("scripts/check"), launcher.as_bytes(), 0o755)?;
             tx.write(&skill.join("bin").join(exe), &binary, 0o755)?;
+            tx.write(&skill.join("bin").join(canonical_exe), &binary, 0o755)?;
             tx.write(&skill.join("agents/openai.yaml"),b"interface:\n  display_name: Git Commit Identity\n  short_description: Check opted-in human gh commit policy\n",0o644)?;
         }
         mandate(&mut tx, &mandate_files[0], &codex_skill.join("SKILL.md"))?;
@@ -606,6 +614,7 @@ pub fn run(args: &[String]) -> Result<()> {
         let _: Config = serde_json::from_value(config_value.clone())
             .map_err(|_| "invalid native guard configuration")?;
         tx.write(&cli, &binary, 0o755)?;
+        tx.write(&root.join("bin").join(canonical_exe), &binary, 0o755)?;
         tx.write(&root.join("bin").join(git_exe), &binary, 0o755)?;
         tx.write(
             &config_path,

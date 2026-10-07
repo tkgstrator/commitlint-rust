@@ -1,5 +1,5 @@
 #!/bin/sh
-# Runtime needs native Git and gh; no language package manager is invoked.
+# Stdin/files need no tools; Git history requires Git. No gh or language runtime.
 set -eu
 root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 case "$(uname -s):$(uname -m)" in

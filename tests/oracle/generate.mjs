@@ -24,5 +24,5 @@ for(const {category,message} of inputs){if(seen.has(message))continue;seen.add(m
 }
 const packages=['@commitlint/cli','@commitlint/config-conventional','@commitlint/lint','@commitlint/parse'];const versions=Object.fromEntries(packages.map(name=>[name,JSON.parse(readFileSync(policy+'/node_modules/'+name+'/package.json','utf8')).version]));
 const corpus={schema:1,description:'Development-only oracle from actual pinned Commitlint. Expected validity covers message linting only; fresh gh and attribution validation are separate.',versions,policyConfig:readFileSync(policy+'/commitlint.config.mjs','utf8'),cases};
-writeFileSync(policy+'/../fixtures/commitlint-golden.json',JSON.stringify(corpus,null,2)+'\n');
+writeFileSync(policy+'/../../crates/commitlint-rust/tests/fixtures/commitlint-golden.json',JSON.stringify(corpus,null,2)+'\n');
 console.log(JSON.stringify({count:cases.length,valid:cases.filter(c=>c.valid).length,invalid:cases.filter(c=>!c.valid).length,versions},null,2));

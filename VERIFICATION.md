@@ -1,4 +1,23 @@
-# Verification — 2026-10-06
+# Verification — 2026-10-07, source v0.2.0
+
+- Independent workspace packages: `commitlint-rust` (message library/CLI) and `commitguard` (guard library, canonical/legacy CLI). Guard embeds lint; the normal lint dependency tree contains only regex/libc and their dependencies, with no guard/gh/config dependency.
+- Native macOS ARM and Linux ARM64/x86_64 musl: **78 tests passed** on each platform. Two ignored entries are subprocess fixtures explicitly invoked by parent tests. Release builds and all three executable version checks passed.
+- macOS Intel: cross-build succeeded. Its cached toolchain's missing LLVM lookup link was repaired for stripping; the final build completed without that warning. No Rosetta runtime verification is claimed.
+- All **221** upstream Commitlint oracle cases pass. The moved fixture is byte-identical to v0.1.0, SHA256 `642c0ec0e7cee4e5f8407e9bec79e10d21f8ec7a8134c2a193c9d1a7cfeb47b4`.
+- Packaging regression harness: **14 checks passed**, including missing/stale build proof, modified payloads, failed source enumeration, concurrent source/binary replacement, exact archive contents, independent/legacy Formulae, full checksums and partial-after-full isolation.
+- Twelve native payloads match `bin/manifest.json`. Four combined, four message-only and four guard-only archives plus installer match `dist/v0.2.0/SHA256SUMS`.
+- Actual release archive bootstrap installed both guard names and both agent skill copies into an isolated HOME/config. Both names run after temporary extraction cleanup. Message-only release lint runs with empty PATH. The source release guard's real `account` check returned the authenticated human `tkgstrator`.
+- New tests verify canonical/legacy behavior, protected canonical install paths, transactional rollback and reinstall, configuration-free standalone lint, replacement-object refusal, an actual sleeping Git timeout, and range reads through real installed guarded Git with gh unavailable.
+
+Independent native plan, Rust source and packaging reviews completed. Packaging findings were reproduced and corrected, then re-reviewed. Claude Code MCP completed the plan review, implemented the Rust split, and completed an independent Opus actual-diff review. No policy weakening was found. The vacuous timeout fixture was corrected and verified; legacy Homebrew upgrade commands are preserved by the compatibility Formula. A focused Sonnet follow-up found no blocking packaging issue. Its staging suggestion was applied so all Formula text is generated before tracked files are promoted. LocalGPT GPT 6 Pro's file-access check failed with `response_recovery_failed`, so no LocalGPT file review is claimed. The initial Claude environment lacked Cargo; Codex performed all native test/build checks.
+
+Build proof records source/payload freshness, not a test attestation; platform execution coverage is reported above. Partial distributions have their own directory. Source archives can be rebuilt locally, and releases must upload only the entries listed in SHA256SUMS. The tap-qualified formula names avoid implicit package-name selection. Archived installer downgrades do not manage the new canonical path, as documented in INSTALL.md.
+
+These source-preparation checks ran before publication and changed local source/distribution files only. At that checkpoint the installed v0.1.0 host guard, its config, global Git config and installed skill hash were unchanged, as were consumer checkouts and published v0.1.0 assets; no source commits or pushes had been made. Publication and host rollout are a separate step, verified against the exact release commit and downloaded assets.
+
+---
+
+# Historical verification — 2026-10-06, v0.1.0
 
 Canonical source: this repository. Version: 0.1.0. Consumers: `claude-plugins/plugins/devflow/skills/gh-commit-identity`, `devcontainers/scripts/gh-commit-identity` and all 12 independently copyable templates.
 

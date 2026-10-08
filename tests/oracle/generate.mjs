@@ -1,8 +1,11 @@
 import load from '@commitlint/load';
-import lint from '@commitlint/lint';
-import parse from '@commitlint/parse';
+import assert from 'node:assert/strict';
+import {validateUpstreamSources} from './upstream-source.mjs';
+import {evaluate} from './evaluate.mjs';
+import {fileURLToPath} from 'node:url';
+import {dirname} from 'node:path';
 import {writeFileSync,readFileSync} from 'node:fs';
-const policy=import.meta.dir;
+const policy=dirname(fileURLToPath(import.meta.url));
 const config=await load({},{file:policy+'/commitlint.config.mjs',cwd:policy});
 const inputs=[];
 function add(category,message){inputs.push({category,message});}
@@ -19,10 +22,14 @@ for(const size of [119,120,121,122])add('whole-body-length','fix: a\n\n'+'x'.rep
 for(const size of [118,119,120,121])add('whole-body-terminal-lf','fix: a\n\n'+'x'.repeat(size)+'\n\n');
 for(const message of ['','\n','\n\n','Merge branch main','Revert "fix: change"','fixup! fix: change','squash! fix: change','fix: 日本語','fix: café','fix: change\tbehavior','fix: change\r\n','fix: change\0','fix: change\x7f','fix: change\x1b','fix: change\n\n'+ 'x'.repeat(129),'fix: change\n\nhttps://example.com/'+ 'x'.repeat(140)])add('strict-message-policy',message);
 const seen=new Set(),cases=[];
-for(const {category,message} of inputs){if(seen.has(message))continue;seen.add(message);let result,parsed;try{result=await lint(message,config.rules,{parserOpts:config.parserPreset?.parserOpts,plugins:config.plugins,defaultIgnores:false,ignores:[]});parsed=await parse(message,undefined,config.parserPreset?.parserOpts);}catch(error){result={valid:false,errors:[{name:'parse-error',message:error.message}],warnings:[]};}
- cases.push({id:`oracle-${String(cases.length+1).padStart(3,'0')}`,category,message,valid:result.valid,errors:result.errors.map(e=>e.name),warnings:result.warnings.map(e=>e.name),parsed:parsed?{header:parsed.header,type:parsed.type,scope:parsed.scope,subject:parsed.subject,body:parsed.body,footer:parsed.footer}:null});
+for(const {category,message} of inputs){
+ if(seen.has(message))continue;seen.add(message);
+ cases.push({id:`oracle-${String(cases.length+1).padStart(3,'0')}`,category,message,...await evaluate(message,config)});
 }
-const packages=['@commitlint/cli','@commitlint/config-conventional','@commitlint/lint','@commitlint/parse'];const versions=Object.fromEntries(packages.map(name=>[name,JSON.parse(readFileSync(policy+'/node_modules/'+name+'/package.json','utf8')).version]));
-const corpus={schema:1,description:'Development-only oracle from actual pinned Commitlint. Expected validity covers message linting only; fresh gh and attribution validation are separate.',versions,policyConfig:readFileSync(policy+'/commitlint.config.mjs','utf8'),cases};
+const packages=['@commitlint/cli','@commitlint/config-conventional','@commitlint/lint','@commitlint/parse','@commitlint/rules','conventional-changelog-angular','conventional-changelog-conventionalcommits','conventional-commits-parser'];const versions=Object.fromEntries(packages.map(name=>[name,JSON.parse(readFileSync(policy+'/node_modules/'+name+'/package.json','utf8')).version]));
+const sourceManifest=validateUpstreamSources(policy+'/upstream-v21.2.3');
+for(const [name,version] of Object.entries(versions))assert.equal(version,sourceManifest.expectedVersions[name],`pinned package ${name}`);
+const upstreamSource=sourceManifest.upstream;
+const corpus={schema:2,upstreamSource,description:'Development-only oracle from actual pinned Commitlint. valid is fixed-policy validity; upstreamValid, lintError, parseError and policyException retain independent upstream evidence. Fresh gh and attribution validation are separate.',versions,policyConfig:readFileSync(policy+'/commitlint.config.mjs','utf8'),cases};
 writeFileSync(policy+'/../../crates/commitlint-rust/tests/fixtures/commitlint-golden.json',JSON.stringify(corpus,null,2)+'\n');
 console.log(JSON.stringify({count:cases.length,valid:cases.filter(c=>c.valid).length,invalid:cases.filter(c=>!c.valid).length,versions},null,2));

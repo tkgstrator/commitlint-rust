@@ -1,0 +1,1834 @@
+{
+  "schema": 1,
+  "upstream": {
+    "repository": "https://github.com/conventional-changelog/commitlint",
+    "version": "21.2.3",
+    "tag": "v21.2.3",
+    "sourceSHA": "95d40569d2592bf9719bc27da2d51fc6b801e4ef",
+    "sourceSHAEvidence": "GitHub refs/tags/v21.2.3 identifies annotated tagObjectSHA; GitHub git/tags resolves its underlying sourceSHA commit, matching published package gitHead. Source archive downloaded by tagObjectSHA.",
+    "tagObjectSHA": "384960a8f54c2f0524c8ea5e89d5a919274239bd"
+  },
+  "files": [
+    {
+      "path": "@commitlint/rules/src/type-empty.test.ts",
+      "vendored": "type-empty.test.ts",
+      "sha256": "87428a456b0940a9d5806650c2a430afeb2adca5c22e5430a7a149cf5ff62b20"
+    },
+    {
+      "path": "@commitlint/rules/src/subject-empty.test.ts",
+      "vendored": "subject-empty.test.ts",
+      "sha256": "f28bcefdd430d5418e078c26fd7cb75f95a7ca04043fcfcf799310826f1d889b"
+    },
+    {
+      "path": "@commitlint/rules/src/type-enum.test.ts",
+      "vendored": "type-enum.test.ts",
+      "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0"
+    },
+    {
+      "path": "@commitlint/rules/src/header-max-length.test.ts",
+      "vendored": "header-max-length.test.ts",
+      "sha256": "3b8f8f75c933cd76f3daee01d2fdc72904b8e1c60483ec7d567cde37a82ca4b4"
+    },
+    {
+      "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+      "vendored": "subject-full-stop.test.ts",
+      "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856"
+    },
+    {
+      "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+      "vendored": "body-leading-blank.test.ts",
+      "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc"
+    },
+    {
+      "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+      "vendored": "footer-leading-blank.test.ts",
+      "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f"
+    },
+    {
+      "path": "@commitlint/rules/src/body-max-line-length.test.ts",
+      "vendored": "body-max-line-length.test.ts",
+      "sha256": "8887d935a5f14438f21d14f1c9cf56920395c23569be9958c55172bdbbe35189"
+    },
+    {
+      "path": "@commitlint/rules/src/footer-max-line-length.test.ts",
+      "vendored": "footer-max-line-length.test.ts",
+      "sha256": "e50d0ce5d69f8c60bf5f1b35e2bdc34378f9adc515c9b7b46b3c5e9f8938e0d6"
+    }
+  ],
+  "cases": [
+    {
+      "rule": "type-empty",
+      "message": "(scope):",
+      "when": null,
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-empty.test.ts",
+        "sha256": "87428a456b0940a9d5806650c2a430afeb2adca5c22e5430a7a149cf5ff62b20",
+        "test": "without type should succeed for empty keyword",
+        "testLine": 15,
+        "assertionLine": 18,
+        "expectedLine": 17,
+        "call": "const [actual] = typeEmpty(await parsed.empty);"
+      }
+    },
+    {
+      "rule": "type-empty",
+      "message": "(scope):",
+      "when": "never",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-empty.test.ts",
+        "sha256": "87428a456b0940a9d5806650c2a430afeb2adca5c22e5430a7a149cf5ff62b20",
+        "test": "without type should fail for \"never\"",
+        "testLine": 21,
+        "assertionLine": 24,
+        "expectedLine": 23,
+        "call": "const [actual] = typeEmpty(await parsed.empty, \"never\");"
+      }
+    },
+    {
+      "rule": "type-empty",
+      "message": "(scope):",
+      "when": "always",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-empty.test.ts",
+        "sha256": "87428a456b0940a9d5806650c2a430afeb2adca5c22e5430a7a149cf5ff62b20",
+        "test": "without type should succeed for \"always\"",
+        "testLine": 27,
+        "assertionLine": 30,
+        "expectedLine": 29,
+        "call": "const [actual] = typeEmpty(await parsed.empty, \"always\");"
+      }
+    },
+    {
+      "rule": "type-empty",
+      "message": "type: subject",
+      "when": null,
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-empty.test.ts",
+        "sha256": "87428a456b0940a9d5806650c2a430afeb2adca5c22e5430a7a149cf5ff62b20",
+        "test": "with type fail for empty keyword",
+        "testLine": 33,
+        "assertionLine": 36,
+        "expectedLine": 35,
+        "call": "const [actual] = typeEmpty(await parsed.filled);"
+      }
+    },
+    {
+      "rule": "type-empty",
+      "message": "type: subject",
+      "when": "never",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-empty.test.ts",
+        "sha256": "87428a456b0940a9d5806650c2a430afeb2adca5c22e5430a7a149cf5ff62b20",
+        "test": "with type succeed for \"never\"",
+        "testLine": 39,
+        "assertionLine": 42,
+        "expectedLine": 41,
+        "call": "const [actual] = typeEmpty(await parsed.filled, \"never\");"
+      }
+    },
+    {
+      "rule": "type-empty",
+      "message": "type: subject",
+      "when": "always",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-empty.test.ts",
+        "sha256": "87428a456b0940a9d5806650c2a430afeb2adca5c22e5430a7a149cf5ff62b20",
+        "test": "with type fail for \"always\"",
+        "testLine": 45,
+        "assertionLine": 48,
+        "expectedLine": 47,
+        "call": "const [actual] = typeEmpty(await parsed.filled, \"always\");"
+      }
+    },
+    {
+      "rule": "subject-empty",
+      "message": "test: \nbody",
+      "when": null,
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/subject-empty.test.ts",
+        "sha256": "f28bcefdd430d5418e078c26fd7cb75f95a7ca04043fcfcf799310826f1d889b",
+        "test": "without subject should succeed for empty keyword",
+        "testLine": 15,
+        "assertionLine": 18,
+        "expectedLine": 17,
+        "call": "const [actual] = subjectEmpty(await parsed.empty);"
+      }
+    },
+    {
+      "rule": "subject-empty",
+      "message": "test: \nbody",
+      "when": "never",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/subject-empty.test.ts",
+        "sha256": "f28bcefdd430d5418e078c26fd7cb75f95a7ca04043fcfcf799310826f1d889b",
+        "test": "without subject should fail for \"never\"",
+        "testLine": 21,
+        "assertionLine": 24,
+        "expectedLine": 23,
+        "call": "const [actual] = subjectEmpty(await parsed.empty, \"never\");"
+      }
+    },
+    {
+      "rule": "subject-empty",
+      "message": "test: \nbody",
+      "when": "always",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/subject-empty.test.ts",
+        "sha256": "f28bcefdd430d5418e078c26fd7cb75f95a7ca04043fcfcf799310826f1d889b",
+        "test": "without subject should succeed for \"always\"",
+        "testLine": 27,
+        "assertionLine": 30,
+        "expectedLine": 29,
+        "call": "const [actual] = subjectEmpty(await parsed.empty, \"always\");"
+      }
+    },
+    {
+      "rule": "subject-empty",
+      "message": "test: subject\nbody",
+      "when": null,
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/subject-empty.test.ts",
+        "sha256": "f28bcefdd430d5418e078c26fd7cb75f95a7ca04043fcfcf799310826f1d889b",
+        "test": "with subject fail for empty keyword",
+        "testLine": 33,
+        "assertionLine": 36,
+        "expectedLine": 35,
+        "call": "const [actual] = subjectEmpty(await parsed.filled);"
+      }
+    },
+    {
+      "rule": "subject-empty",
+      "message": "test: subject\nbody",
+      "when": "never",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/subject-empty.test.ts",
+        "sha256": "f28bcefdd430d5418e078c26fd7cb75f95a7ca04043fcfcf799310826f1d889b",
+        "test": "with subject succeed for \"never\"",
+        "testLine": 39,
+        "assertionLine": 42,
+        "expectedLine": 41,
+        "call": "const [actual] = subjectEmpty(await parsed.filled, \"never\");"
+      }
+    },
+    {
+      "rule": "subject-empty",
+      "message": "test: subject\nbody",
+      "when": "always",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/subject-empty.test.ts",
+        "sha256": "f28bcefdd430d5418e078c26fd7cb75f95a7ca04043fcfcf799310826f1d889b",
+        "test": "with subject fail for \"always\"",
+        "testLine": 45,
+        "assertionLine": 48,
+        "expectedLine": 47,
+        "call": "const [actual] = subjectEmpty(await parsed.filled, \"always\");"
+      }
+    },
+    {
+      "rule": "type-enum",
+      "message": "(): \n",
+      "when": null,
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "empty succeeds",
+        "testLine": 17,
+        "assertionLine": 20,
+        "expectedLine": 19,
+        "call": "const [actual] = typeEnum(await parsed.empty);"
+      }
+    },
+    {
+      "rule": "type-enum",
+      "message": "(): \n",
+      "when": null,
+      "value": [
+        "a"
+      ],
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "empty on \"a\" succeeds",
+        "testLine": 23,
+        "assertionLine": 26,
+        "expectedLine": 25,
+        "call": "const [actual] = typeEnum(await parsed.empty, undefined, [\"a\"]);"
+      }
+    },
+    {
+      "rule": "type-enum",
+      "message": "(): \n",
+      "when": "always",
+      "value": [
+        "a"
+      ],
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "empty on \"always a\" succeeds",
+        "testLine": 29,
+        "assertionLine": 32,
+        "expectedLine": 31,
+        "call": "const [actual] = typeEnum(await parsed.empty, \"always\", [\"a\"]);"
+      }
+    },
+    {
+      "rule": "type-enum",
+      "message": "(): \n",
+      "when": "never",
+      "value": [
+        "a"
+      ],
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "empty on \"never a\" succeeds",
+        "testLine": 35,
+        "assertionLine": 38,
+        "expectedLine": 37,
+        "call": "const [actual] = typeEnum(await parsed.empty, \"never\", [\"a\"]);"
+      }
+    },
+    {
+      "rule": "type-enum",
+      "message": "(): \n",
+      "when": "always",
+      "value": [
+        "a",
+        "b"
+      ],
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "empty on \"always a, b\" succeeds",
+        "testLine": 41,
+        "assertionLine": 44,
+        "expectedLine": 43,
+        "call": "const [actual] = typeEnum(await parsed.empty, \"always\", [\"a\", \"b\"]);"
+      }
+    },
+    {
+      "rule": "type-enum",
+      "message": "(): \n",
+      "when": "never",
+      "value": [
+        "a",
+        "b"
+      ],
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "empty on \"never a, b\" succeeds",
+        "testLine": 47,
+        "assertionLine": 50,
+        "expectedLine": 49,
+        "call": "const [actual] = typeEnum(await parsed.empty, \"never\", [\"a\", \"b\"]);"
+      }
+    },
+    {
+      "rule": "type-enum",
+      "message": "a(): \n",
+      "when": null,
+      "value": [
+        "a"
+      ],
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "a on \"a\" succeeds",
+        "testLine": 53,
+        "assertionLine": 56,
+        "expectedLine": 55,
+        "call": "const [actual] = typeEnum(await parsed.a, undefined, [\"a\"]);"
+      }
+    },
+    {
+      "rule": "type-enum",
+      "message": "a(): \n",
+      "when": "always",
+      "value": [
+        "a"
+      ],
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "a on \"always a\" succeeds",
+        "testLine": 59,
+        "assertionLine": 62,
+        "expectedLine": 61,
+        "call": "const [actual] = typeEnum(await parsed.a, \"always\", [\"a\"]);"
+      }
+    },
+    {
+      "rule": "type-enum",
+      "message": "a(): \n",
+      "when": "never",
+      "value": [
+        "a"
+      ],
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "a on \"never a\" fails",
+        "testLine": 65,
+        "assertionLine": 68,
+        "expectedLine": 67,
+        "call": "const [actual] = typeEnum(await parsed.a, \"never\", [\"a\"]);"
+      }
+    },
+    {
+      "rule": "type-enum",
+      "message": "b(): \n",
+      "when": null,
+      "value": [
+        "b"
+      ],
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "b on \"b\" succeeds",
+        "testLine": 71,
+        "assertionLine": 74,
+        "expectedLine": 73,
+        "call": "const [actual] = typeEnum(await parsed.b, undefined, [\"b\"]);"
+      }
+    },
+    {
+      "rule": "type-enum",
+      "message": "b(): \n",
+      "when": "always",
+      "value": [
+        "b"
+      ],
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "b on \"always b\" succeeds",
+        "testLine": 77,
+        "assertionLine": 80,
+        "expectedLine": 79,
+        "call": "const [actual] = typeEnum(await parsed.b, \"always\", [\"b\"]);"
+      }
+    },
+    {
+      "rule": "type-enum",
+      "message": "b(): \n",
+      "when": "never",
+      "value": [
+        "b"
+      ],
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "b on \"never b\" fails",
+        "testLine": 83,
+        "assertionLine": 86,
+        "expectedLine": 85,
+        "call": "const [actual] = typeEnum(await parsed.b, \"never\", [\"b\"]);"
+      }
+    },
+    {
+      "rule": "type-enum",
+      "message": "a(): \n",
+      "when": null,
+      "value": [
+        "a",
+        "b"
+      ],
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "a on \"a, b\" succeeds",
+        "testLine": 89,
+        "assertionLine": 92,
+        "expectedLine": 91,
+        "call": "const [actual] = typeEnum(await parsed.a, undefined, [\"a\", \"b\"]);"
+      }
+    },
+    {
+      "rule": "type-enum",
+      "message": "a(): \n",
+      "when": "always",
+      "value": [
+        "a",
+        "b"
+      ],
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "a on \"always a, b\" succeeds",
+        "testLine": 95,
+        "assertionLine": 98,
+        "expectedLine": 97,
+        "call": "const [actual] = typeEnum(await parsed.a, \"always\", [\"a\", \"b\"]);"
+      }
+    },
+    {
+      "rule": "type-enum",
+      "message": "a(): \n",
+      "when": "never",
+      "value": [
+        "a",
+        "b"
+      ],
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "a on \"never a, b\" fails",
+        "testLine": 101,
+        "assertionLine": 104,
+        "expectedLine": 103,
+        "call": "const [actual] = typeEnum(await parsed.a, \"never\", [\"a\", \"b\"]);"
+      }
+    },
+    {
+      "rule": "type-enum",
+      "message": "b(): \n",
+      "when": null,
+      "value": [
+        "a",
+        "b"
+      ],
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "b on \"a, b\" succeeds",
+        "testLine": 107,
+        "assertionLine": 110,
+        "expectedLine": 109,
+        "call": "const [actual] = typeEnum(await parsed.b, undefined, [\"a\", \"b\"]);"
+      }
+    },
+    {
+      "rule": "type-enum",
+      "message": "b(): \n",
+      "when": "always",
+      "value": [
+        "a",
+        "b"
+      ],
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "b on \"always a, b\" succeeds",
+        "testLine": 113,
+        "assertionLine": 116,
+        "expectedLine": 115,
+        "call": "const [actual] = typeEnum(await parsed.b, \"always\", [\"a\", \"b\"]);"
+      }
+    },
+    {
+      "rule": "type-enum",
+      "message": "b(): \n",
+      "when": "never",
+      "value": [
+        "a",
+        "b"
+      ],
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "b on \"never a, b\" fails",
+        "testLine": 119,
+        "assertionLine": 122,
+        "expectedLine": 121,
+        "call": "const [actual] = typeEnum(await parsed.b, \"never\", [\"a\", \"b\"]);"
+      }
+    },
+    {
+      "rule": "header-max-length",
+      "message": "test: a",
+      "when": null,
+      "value": 7,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/header-max-length.test.ts",
+        "sha256": "3b8f8f75c933cd76f3daee01d2fdc72904b8e1c60483ec7d567cde37a82ca4b4",
+        "test": "with short should succeed",
+        "testLine": 20,
+        "assertionLine": 23,
+        "expectedLine": 22,
+        "call": "const [actual] = headerMaxLength(await parsed.short, undefined, value);"
+      }
+    },
+    {
+      "rule": "header-max-length",
+      "message": "test: ab",
+      "when": null,
+      "value": 7,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/header-max-length.test.ts",
+        "sha256": "3b8f8f75c933cd76f3daee01d2fdc72904b8e1c60483ec7d567cde37a82ca4b4",
+        "test": "with long should fail",
+        "testLine": 26,
+        "assertionLine": 29,
+        "expectedLine": 28,
+        "call": "const [actual] = headerMaxLength(await parsed.long, undefined, value);"
+      }
+    },
+    {
+      "rule": "subject-full-stop",
+      "message": "test:\n",
+      "when": "always",
+      "value": ".",
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+        "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856",
+        "test": "empty against \"always\" should succeed",
+        "testLine": 23,
+        "assertionLine": 26,
+        "expectedLine": 25,
+        "call": "const [actual] = subjectFullStop(await parsed.empty, \"always\", \".\");"
+      }
+    },
+    {
+      "rule": "subject-full-stop",
+      "message": "test:\n",
+      "when": "never",
+      "value": ".",
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+        "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856",
+        "test": "empty against \"never .\" should succeed",
+        "testLine": 29,
+        "assertionLine": 32,
+        "expectedLine": 31,
+        "call": "const [actual] = subjectFullStop(await parsed.empty, \"never\", \".\");"
+      }
+    },
+    {
+      "rule": "subject-full-stop",
+      "message": "test: subject.\n",
+      "when": "always",
+      "value": ".",
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+        "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856",
+        "test": "with against \"always .\" should succeed",
+        "testLine": 35,
+        "assertionLine": 38,
+        "expectedLine": 37,
+        "call": "const [actual] = subjectFullStop(await parsed.with, \"always\", \".\");"
+      }
+    },
+    {
+      "rule": "subject-full-stop",
+      "message": "test: subject.\n",
+      "when": "never",
+      "value": ".",
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+        "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856",
+        "test": "with against \"never .\" should fail",
+        "testLine": 41,
+        "assertionLine": 44,
+        "expectedLine": 43,
+        "call": "const [actual] = subjectFullStop(await parsed.with, \"never\", \".\");"
+      }
+    },
+    {
+      "rule": "subject-full-stop",
+      "message": "test: subject\n",
+      "when": "always",
+      "value": ".",
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+        "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856",
+        "test": "without against \"always .\" should fail",
+        "testLine": 47,
+        "assertionLine": 50,
+        "expectedLine": 49,
+        "call": "const [actual] = subjectFullStop(await parsed.without, \"always\", \".\");"
+      }
+    },
+    {
+      "rule": "subject-full-stop",
+      "message": "test: subject\n",
+      "when": "never",
+      "value": ".",
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+        "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856",
+        "test": "without against \"never .\" should succeed",
+        "testLine": 53,
+        "assertionLine": 56,
+        "expectedLine": 55,
+        "call": "const [actual] = subjectFullStop(await parsed.without, \"never\", \".\");"
+      }
+    },
+    {
+      "rule": "subject-full-stop",
+      "message": "type(scope): subject.\n",
+      "when": "never",
+      "value": ".",
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+        "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856",
+        "test": "commit message title with standard scope and full-stop against \"never .\" should fail",
+        "testLine": 59,
+        "assertionLine": 62,
+        "expectedLine": 61,
+        "call": "const [actual] = subjectFullStop(await parsed.standardScopeWith, \"never\", \".\");"
+      }
+    },
+    {
+      "rule": "subject-full-stop",
+      "message": "type.scope: subject.\n",
+      "when": "never",
+      "value": ".",
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+        "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856",
+        "test": "commit message title with non standard scope and full-stop against \"never .\" should fail",
+        "testLine": 65,
+        "assertionLine": 68,
+        "expectedLine": 67,
+        "call": "const [actual] = subjectFullStop(await parsed.nonStandardScopeWith, \"never\", \".\");"
+      }
+    },
+    {
+      "rule": "subject-full-stop",
+      "message": "test: subject ends with ellipsis...",
+      "when": "never",
+      "value": ".",
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+        "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856",
+        "test": "ellipsis is not fullstop so commit title ending with it against \"never .\" should not fail",
+        "testLine": 71,
+        "assertionLine": 74,
+        "expectedLine": 73,
+        "call": "const [actual] = subjectFullStop(await parsed.ellipsisMessage, \"never\", \".\");"
+      }
+    },
+    {
+      "rule": "body-leading-blank",
+      "message": "test: subject",
+      "when": null,
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+        "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc",
+        "test": "with simple message should succeed for empty keyword",
+        "testLine": 17,
+        "assertionLine": 20,
+        "expectedLine": 19,
+        "call": "const [actual] = bodyLeadingBlank(await parsed.simple);"
+      }
+    },
+    {
+      "rule": "body-leading-blank",
+      "message": "test: subject",
+      "when": "never",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+        "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc",
+        "test": "with simple message should succeed for \"never\"",
+        "testLine": 23,
+        "assertionLine": 26,
+        "expectedLine": 25,
+        "call": "const [actual] = bodyLeadingBlank(await parsed.simple, \"never\");"
+      }
+    },
+    {
+      "rule": "body-leading-blank",
+      "message": "test: subject",
+      "when": "always",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+        "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc",
+        "test": "with simple message should succeed for \"always\"",
+        "testLine": 29,
+        "assertionLine": 32,
+        "expectedLine": 31,
+        "call": "const [actual] = bodyLeadingBlank(await parsed.simple, \"always\");"
+      }
+    },
+    {
+      "rule": "body-leading-blank",
+      "message": "test: subject\nbody",
+      "when": null,
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+        "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc",
+        "test": "without blank line before body should fail for empty keyword",
+        "testLine": 35,
+        "assertionLine": 38,
+        "expectedLine": 37,
+        "call": "const [actual] = bodyLeadingBlank(await parsed.without);"
+      }
+    },
+    {
+      "rule": "body-leading-blank",
+      "message": "test: subject\nbody",
+      "when": "never",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+        "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc",
+        "test": "without blank line before body should succeed for \"never\"",
+        "testLine": 41,
+        "assertionLine": 44,
+        "expectedLine": 43,
+        "call": "const [actual] = bodyLeadingBlank(await parsed.without, \"never\");"
+      }
+    },
+    {
+      "rule": "body-leading-blank",
+      "message": "test: subject\nbody",
+      "when": "always",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+        "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc",
+        "test": "without blank line before body should fail for \"always\"",
+        "testLine": 47,
+        "assertionLine": 50,
+        "expectedLine": 49,
+        "call": "const [actual] = bodyLeadingBlank(await parsed.without, \"always\");"
+      }
+    },
+    {
+      "rule": "body-leading-blank",
+      "message": "test: subject\n\nbody",
+      "when": null,
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+        "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc",
+        "test": "with blank line before body should succeed for empty keyword",
+        "testLine": 53,
+        "assertionLine": 56,
+        "expectedLine": 55,
+        "call": "const [actual] = bodyLeadingBlank(await parsed.with);"
+      }
+    },
+    {
+      "rule": "body-leading-blank",
+      "message": "test: subject\n\nbody",
+      "when": "never",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+        "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc",
+        "test": "with blank line before body should fail for \"never\"",
+        "testLine": 59,
+        "assertionLine": 62,
+        "expectedLine": 61,
+        "call": "const [actual] = bodyLeadingBlank(await parsed.with, \"never\");"
+      }
+    },
+    {
+      "rule": "body-leading-blank",
+      "message": "test: subject\n\nbody",
+      "when": "always",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+        "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc",
+        "test": "with blank line before body should succeed for \"always\"",
+        "testLine": 65,
+        "assertionLine": 68,
+        "expectedLine": 67,
+        "call": "const [actual] = bodyLeadingBlank(await parsed.with, \"always\");"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "test: subject",
+      "when": null,
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with simple message should succeed for empty keyword",
+        "testLine": 33,
+        "assertionLine": 36,
+        "expectedLine": 35,
+        "call": "const [actual] = footerLeadingBlank(await parsed.simple);"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "test: subject",
+      "when": "never",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with simple message should succeed for \"never\"",
+        "testLine": 39,
+        "assertionLine": 42,
+        "expectedLine": 41,
+        "call": "const [actual] = footerLeadingBlank(await parsed.simple, \"never\");"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "test: subject",
+      "when": "always",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with simple message should succeed for \"always\"",
+        "testLine": 45,
+        "assertionLine": 48,
+        "expectedLine": 47,
+        "call": "const [actual] = footerLeadingBlank(await parsed.simple, \"always\");"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "test: subject\nbody",
+      "when": null,
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with body message should succeed for empty keyword",
+        "testLine": 51,
+        "assertionLine": 54,
+        "expectedLine": 53,
+        "call": "const [actual] = footerLeadingBlank(await parsed.body);"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "test: subject\nbody",
+      "when": "never",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with body message should succeed for \"never\"",
+        "testLine": 57,
+        "assertionLine": 60,
+        "expectedLine": 59,
+        "call": "const [actual] = footerLeadingBlank(await parsed.body, \"never\");"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "test: subject\nbody",
+      "when": "always",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with body message should succeed for \"always\"",
+        "testLine": 63,
+        "assertionLine": 66,
+        "expectedLine": 65,
+        "call": "const [actual] = footerLeadingBlank(await parsed.body, \"always\");"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "test: subject\nbody\n\n",
+      "when": null,
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with trailing message should succeed for empty keyword",
+        "testLine": 69,
+        "assertionLine": 72,
+        "expectedLine": 71,
+        "call": "const [actual] = footerLeadingBlank(await parsed.trailing);"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "test: subject\nbody\n\n",
+      "when": "never",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with trailing message should succeed for \"never\"",
+        "testLine": 75,
+        "assertionLine": 78,
+        "expectedLine": 77,
+        "call": "const [actual] = footerLeadingBlank(await parsed.trailing, \"never\");"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "test: subject\nbody\n\n",
+      "when": "always",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with trailing message should succeed for \"always\"",
+        "testLine": 81,
+        "assertionLine": 84,
+        "expectedLine": 83,
+        "call": "const [actual] = footerLeadingBlank(await parsed.trailing, \"always\");"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "feat(new-parser): introduces a new parsing library\n\nBREAKING CHANGE: new library does not support foo-construct",
+      "when": "never",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "without body should fail for \"never\"",
+        "testLine": 87,
+        "assertionLine": 90,
+        "expectedLine": 89,
+        "call": "const [actual] = footerLeadingBlank(await parsed.withoutBody, \"never\");"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "feat(new-parser): introduces a new parsing library\n\nBREAKING CHANGE: new library does not support foo-construct",
+      "when": "always",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "without body should succeed for \"always\"",
+        "testLine": 93,
+        "assertionLine": 96,
+        "expectedLine": 95,
+        "call": "const [actual] = footerLeadingBlank(await parsed.withoutBody, \"always\");"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "test: subject\nbody\nBREAKING CHANGE: something important",
+      "when": null,
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "without blank line before footer should fail for empty keyword",
+        "testLine": 99,
+        "assertionLine": 102,
+        "expectedLine": 101,
+        "call": "const [actual] = footerLeadingBlank(await parsed.without);"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "test: subject\nbody\nBREAKING CHANGE: something important",
+      "when": "never",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "without blank line before footer should succeed for \"never\"",
+        "testLine": 105,
+        "assertionLine": 108,
+        "expectedLine": 107,
+        "call": "const [actual] = footerLeadingBlank(await parsed.without, \"never\");"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "test: subject\nbody\nBREAKING CHANGE: something important",
+      "when": "always",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "without blank line before footer should fail for \"always\"",
+        "testLine": 111,
+        "assertionLine": 114,
+        "expectedLine": 113,
+        "call": "const [actual] = footerLeadingBlank(await parsed.without, \"always\");"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "test: subject\nbody\n\nBREAKING CHANGE: something important",
+      "when": null,
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with blank line before footer should succeed for empty keyword",
+        "testLine": 117,
+        "assertionLine": 120,
+        "expectedLine": 119,
+        "call": "const [actual] = footerLeadingBlank(await parsed.with);"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "test: subject\nbody\n\nBREAKING CHANGE: something important",
+      "when": "never",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with blank line before footer should fail for \"never\"",
+        "testLine": 123,
+        "assertionLine": 126,
+        "expectedLine": 125,
+        "call": "const [actual] = footerLeadingBlank(await parsed.with, \"never\");"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "test: subject\nbody\n\nBREAKING CHANGE: something important",
+      "when": "always",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with blank line before footer should succeed for \"always\"",
+        "testLine": 129,
+        "assertionLine": 132,
+        "expectedLine": 131,
+        "call": "const [actual] = footerLeadingBlank(await parsed.with, \"always\");"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "test: subject\nmulti\nline\nbody\n\nBREAKING CHANGE: something important",
+      "when": null,
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with blank line before footer and multiline body should succeed for empty keyword",
+        "testLine": 135,
+        "assertionLine": 138,
+        "expectedLine": 137,
+        "call": "const [actual] = footerLeadingBlank(await parsed.withMulitLine);"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "test: subject\nmulti\nline\nbody\n\nBREAKING CHANGE: something important",
+      "when": "never",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with blank line before footer and multiline body should fail for \"never\"",
+        "testLine": 141,
+        "assertionLine": 144,
+        "expectedLine": 143,
+        "call": "const [actual] = footerLeadingBlank(await parsed.withMulitLine, \"never\");"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "test: subject\nmulti\nline\nbody\n\nBREAKING CHANGE: something important",
+      "when": "always",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with blank line before footer and multiline body should succeed for \"always\"",
+        "testLine": 147,
+        "assertionLine": 150,
+        "expectedLine": 149,
+        "call": "const [actual] = footerLeadingBlank(await parsed.withMulitLine, \"always\");"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "fix: some issue\n\ndetailed explanation\n\ncloses #123",
+      "when": "never",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with double blank line before footer and double line in body should fail for \"never\"",
+        "testLine": 153,
+        "assertionLine": 156,
+        "expectedLine": 155,
+        "call": "const [actual] = footerLeadingBlank(await parsed.withDoubleNewLine, \"never\");"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "fix: some issue\n\ndetailed explanation\n\ncloses #123",
+      "when": "always",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with double blank line before footer and double line in body should succeed for \"always\"",
+        "testLine": 159,
+        "assertionLine": 162,
+        "expectedLine": 161,
+        "call": "const [actual] = footerLeadingBlank(await parsed.withDoubleNewLine, \"always\");"
+      }
+    },
+    {
+      "rule": "footer-leading-blank",
+      "message": "feat(new-parser): introduces a new parsing library\n\nBody Line 1\n# comment\nBody Line 2\n\nBREAKING CHANGE: new library does not support foo-construct",
+      "when": "always",
+      "value": null,
+      "parserPreset": "angular",
+      "parserOptions": {
+        "commentChar": "#"
+      },
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with body containing comments should succeed for \"always\"",
+        "testLine": 165,
+        "assertionLine": 168,
+        "expectedLine": 167,
+        "call": "const [actual] = footerLeadingBlank(await parsed.withBodyWithComment, \"always\");"
+      }
+    },
+    {
+      "rule": "body-max-line-length",
+      "message": "test: subject",
+      "when": null,
+      "value": 1,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/body-max-line-length.test.ts",
+        "sha256": "8887d935a5f14438f21d14f1c9cf56920395c23569be9958c55172bdbbe35189",
+        "test": "with empty should succeed",
+        "testLine": 42,
+        "assertionLine": 45,
+        "expectedLine": 44,
+        "call": "const [actual] = bodyMaxLineLength(await parsed.empty, undefined, value);"
+      }
+    },
+    {
+      "rule": "body-max-line-length",
+      "message": "test: subject\na",
+      "when": null,
+      "value": 1,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/body-max-line-length.test.ts",
+        "sha256": "8887d935a5f14438f21d14f1c9cf56920395c23569be9958c55172bdbbe35189",
+        "test": "with short should succeed",
+        "testLine": 48,
+        "assertionLine": 51,
+        "expectedLine": 50,
+        "call": "const [actual] = bodyMaxLineLength(await parsed.short, undefined, value);"
+      }
+    },
+    {
+      "rule": "body-max-line-length",
+      "message": "test: subject\nab",
+      "when": null,
+      "value": 1,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/body-max-line-length.test.ts",
+        "sha256": "8887d935a5f14438f21d14f1c9cf56920395c23569be9958c55172bdbbe35189",
+        "test": "with long should fail",
+        "testLine": 54,
+        "assertionLine": 57,
+        "expectedLine": 56,
+        "call": "const [actual] = bodyMaxLineLength(await parsed.long, undefined, value);"
+      }
+    },
+    {
+      "rule": "body-max-line-length",
+      "message": "test:subject\na\na\na",
+      "when": null,
+      "value": 1,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/body-max-line-length.test.ts",
+        "sha256": "8887d935a5f14438f21d14f1c9cf56920395c23569be9958c55172bdbbe35189",
+        "test": "with short with multiple lines should succeed",
+        "testLine": 60,
+        "assertionLine": 63,
+        "expectedLine": 62,
+        "call": "const [actual] = bodyMaxLineLength(await parsed.shortMultipleLines, undefined, value);"
+      }
+    },
+    {
+      "rule": "body-max-line-length",
+      "message": "test:subject\na\nab\na",
+      "when": null,
+      "value": 1,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/body-max-line-length.test.ts",
+        "sha256": "8887d935a5f14438f21d14f1c9cf56920395c23569be9958c55172bdbbe35189",
+        "test": "with long with multiple lines should fail",
+        "testLine": 66,
+        "assertionLine": 69,
+        "expectedLine": 68,
+        "call": "const [actual] = bodyMaxLineLength(await parsed.longMultipleLines, undefined, value);"
+      }
+    },
+    {
+      "rule": "body-max-line-length",
+      "message": "test:subject\na\nhttps://example.com/URL/with/a/very/long/path\na",
+      "when": null,
+      "value": 1,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/body-max-line-length.test.ts",
+        "sha256": "8887d935a5f14438f21d14f1c9cf56920395c23569be9958c55172bdbbe35189",
+        "test": "with multiple lines and standalone URL should succeed",
+        "testLine": 72,
+        "assertionLine": 75,
+        "expectedLine": 74,
+        "call": "const [actual] = bodyMaxLineLength(await parsed.urlStandalone, undefined, value);"
+      }
+    },
+    {
+      "rule": "body-max-line-length",
+      "message": "test:subject\n\nThis is a [link](https://example.com/URL/with/a/very/long/path).",
+      "when": null,
+      "value": 30,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/body-max-line-length.test.ts",
+        "sha256": "8887d935a5f14438f21d14f1c9cf56920395c23569be9958c55172bdbbe35189",
+        "test": "with multiple lines and URL in inline Markdown link should succeed",
+        "testLine": 78,
+        "assertionLine": 81,
+        "expectedLine": 80,
+        "call": "const [actual] = bodyMaxLineLength(await parsed.urlMarkdownLinkInline, undefined, 30);"
+      }
+    },
+    {
+      "rule": "footer-max-line-length",
+      "message": "test: subject",
+      "when": null,
+      "value": 18,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-max-line-length.test.ts",
+        "sha256": "e50d0ce5d69f8c60bf5f1b35e2bdc34378f9adc515c9b7b46b3c5e9f8938e0d6",
+        "test": "with simple should succeed",
+        "testLine": 26,
+        "assertionLine": 29,
+        "expectedLine": 28,
+        "call": "const [actual] = footerMaxLineLength(await parsed.simple, undefined, value);"
+      }
+    },
+    {
+      "rule": "footer-max-line-length",
+      "message": "test: subject\nbody",
+      "when": null,
+      "value": 18,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-max-line-length.test.ts",
+        "sha256": "e50d0ce5d69f8c60bf5f1b35e2bdc34378f9adc515c9b7b46b3c5e9f8938e0d6",
+        "test": "with empty should succeed",
+        "testLine": 32,
+        "assertionLine": 35,
+        "expectedLine": 34,
+        "call": "const [actual] = footerMaxLineLength(await parsed.empty, undefined, value);"
+      }
+    },
+    {
+      "rule": "footer-max-line-length",
+      "message": "test: subject\nBREAKING CHANGE: a",
+      "when": null,
+      "value": 18,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-max-line-length.test.ts",
+        "sha256": "e50d0ce5d69f8c60bf5f1b35e2bdc34378f9adc515c9b7b46b3c5e9f8938e0d6",
+        "test": "with short should succeed",
+        "testLine": 38,
+        "assertionLine": 41,
+        "expectedLine": 40,
+        "call": "const [actual] = footerMaxLineLength(await parsed.short, undefined, value);"
+      }
+    },
+    {
+      "rule": "footer-max-line-length",
+      "message": "test: subject\nBREAKING CHANGE: ab",
+      "when": null,
+      "value": 18,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-max-line-length.test.ts",
+        "sha256": "e50d0ce5d69f8c60bf5f1b35e2bdc34378f9adc515c9b7b46b3c5e9f8938e0d6",
+        "test": "with long should fail",
+        "testLine": 44,
+        "assertionLine": 47,
+        "expectedLine": 46,
+        "call": "const [actual] = footerMaxLineLength(await parsed.long, undefined, value);"
+      }
+    },
+    {
+      "rule": "footer-max-line-length",
+      "message": "test: subject\nBREAKING CHANGE: a",
+      "when": null,
+      "value": 18,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": true
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-max-line-length.test.ts",
+        "sha256": "e50d0ce5d69f8c60bf5f1b35e2bdc34378f9adc515c9b7b46b3c5e9f8938e0d6",
+        "test": "with short with multiple lines should succeed",
+        "testLine": 50,
+        "assertionLine": 53,
+        "expectedLine": 52,
+        "call": "const [actual] = footerMaxLineLength(await parsed.short, undefined, value);"
+      }
+    },
+    {
+      "rule": "footer-max-line-length",
+      "message": "test: subject\nBREAKING CHANGE: ab",
+      "when": null,
+      "value": 18,
+      "parserPreset": "angular",
+      "parserOptions": {},
+      "expected": {
+        "valid": false
+      },
+      "source": {
+        "path": "@commitlint/rules/src/footer-max-line-length.test.ts",
+        "sha256": "e50d0ce5d69f8c60bf5f1b35e2bdc34378f9adc515c9b7b46b3c5e9f8938e0d6",
+        "test": "with long with multiple lines should fail",
+        "testLine": 56,
+        "assertionLine": 59,
+        "expectedLine": 58,
+        "call": "const [actual] = footerMaxLineLength(await parsed.long, undefined, value);"
+      }
+    }
+  ],
+  "expectedVersions": {
+    "@commitlint/cli": "21.2.3",
+    "@commitlint/rules": "21.2.3",
+    "@commitlint/parse": "21.2.3",
+    "@commitlint/lint": "21.2.3",
+    "@commitlint/config-conventional": "21.2.3",
+    "conventional-changelog-angular": "9.4.0",
+    "conventional-changelog-conventionalcommits": "10.4.1",
+    "conventional-commits-parser": "7.1.3"
+  }
+}

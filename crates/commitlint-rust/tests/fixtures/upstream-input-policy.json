@@ -1,0 +1,2856 @@
+{
+  "schema": 2,
+  "description": "Upstream raw test inputs evaluated independently through our complete pinned policy; individual upstream rule assertions are not whole-policy expectations.",
+  "upstream": {
+    "repository": "https://github.com/conventional-changelog/commitlint",
+    "version": "21.2.3",
+    "tag": "v21.2.3",
+    "sourceSHA": "95d40569d2592bf9719bc27da2d51fc6b801e4ef",
+    "sourceSHAEvidence": "GitHub refs/tags/v21.2.3 identifies annotated tagObjectSHA; GitHub git/tags resolves its underlying sourceSHA commit, matching published package gitHead. Source archive downloaded by tagObjectSHA.",
+    "tagObjectSHA": "384960a8f54c2f0524c8ea5e89d5a919274239bd"
+  },
+  "versions": {
+    "@commitlint/rules": "21.2.3",
+    "@commitlint/parse": "21.2.3",
+    "@commitlint/lint": "21.2.3",
+    "@commitlint/config-conventional": "21.2.3",
+    "conventional-changelog-angular": "9.4.0",
+    "conventional-changelog-conventionalcommits": "10.4.1",
+    "conventional-commits-parser": "7.1.3"
+  },
+  "packageGitHeads": {
+    "@commitlint/rules": "95d40569d2592bf9719bc27da2d51fc6b801e4ef",
+    "@commitlint/parse": "95d40569d2592bf9719bc27da2d51fc6b801e4ef",
+    "@commitlint/lint": "95d40569d2592bf9719bc27da2d51fc6b801e4ef",
+    "@commitlint/config-conventional": "95d40569d2592bf9719bc27da2d51fc6b801e4ef"
+  },
+  "sourceFiles": [
+    {
+      "path": "@commitlint/rules/src/type-empty.test.ts",
+      "vendored": "type-empty.test.ts",
+      "sha256": "87428a456b0940a9d5806650c2a430afeb2adca5c22e5430a7a149cf5ff62b20"
+    },
+    {
+      "path": "@commitlint/rules/src/subject-empty.test.ts",
+      "vendored": "subject-empty.test.ts",
+      "sha256": "f28bcefdd430d5418e078c26fd7cb75f95a7ca04043fcfcf799310826f1d889b"
+    },
+    {
+      "path": "@commitlint/rules/src/type-enum.test.ts",
+      "vendored": "type-enum.test.ts",
+      "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0"
+    },
+    {
+      "path": "@commitlint/rules/src/header-max-length.test.ts",
+      "vendored": "header-max-length.test.ts",
+      "sha256": "3b8f8f75c933cd76f3daee01d2fdc72904b8e1c60483ec7d567cde37a82ca4b4"
+    },
+    {
+      "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+      "vendored": "subject-full-stop.test.ts",
+      "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856"
+    },
+    {
+      "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+      "vendored": "body-leading-blank.test.ts",
+      "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc"
+    },
+    {
+      "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+      "vendored": "footer-leading-blank.test.ts",
+      "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f"
+    },
+    {
+      "path": "@commitlint/rules/src/body-max-line-length.test.ts",
+      "vendored": "body-max-line-length.test.ts",
+      "sha256": "8887d935a5f14438f21d14f1c9cf56920395c23569be9958c55172bdbbe35189"
+    },
+    {
+      "path": "@commitlint/rules/src/footer-max-line-length.test.ts",
+      "vendored": "footer-max-line-length.test.ts",
+      "sha256": "e50d0ce5d69f8c60bf5f1b35e2bdc34378f9adc515c9b7b46b3c5e9f8938e0d6"
+    }
+  ],
+  "license": "The MIT License (MIT)\n\nCopyright (c) 2016 - present Mario Nebl\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n",
+  "policyConfig": "export default {\n  extends: ['@commitlint/config-conventional'],\n  defaultIgnores: false,\n  ignores: [],\n  rules: {\n    'header-max-length': [2, 'always', 128],\n    'body-max-line-length': [2, 'always', 128],\n    'footer-max-line-length': [2, 'always', 128],\n    'ascii-message': [2, 'always'],\n    'message-max-length': [2, 'always', 128],\n  },\n  plugins: [{ rules: {\n    'ascii-message': parsed => [/^[\\x20-\\x7E\\n]*$/.test(parsed.raw), 'use English printable ASCII text only'],\n    'message-max-length': (parsed, when, max) => [parsed.raw.replace(/\\n+$/, '').length <= max, `entire message must be at most ${max} characters`],\n  }}],\n};\n",
+  "cases": [
+    {
+      "id": "upstream-input-001",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-empty.test.ts",
+        "sha256": "87428a456b0940a9d5806650c2a430afeb2adca5c22e5430a7a149cf5ff62b20",
+        "test": "without type should succeed for empty keyword",
+        "testLine": 15,
+        "assertionLine": 18,
+        "expectedLine": 17,
+        "call": "const [actual] = typeEmpty(await parsed.empty);"
+      },
+      "message": "(scope):",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "(scope):",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-002",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-empty.test.ts",
+        "sha256": "87428a456b0940a9d5806650c2a430afeb2adca5c22e5430a7a149cf5ff62b20",
+        "test": "without type should fail for \"never\"",
+        "testLine": 21,
+        "assertionLine": 24,
+        "expectedLine": 23,
+        "call": "const [actual] = typeEmpty(await parsed.empty, \"never\");"
+      },
+      "message": "(scope):",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "(scope):",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-003",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-empty.test.ts",
+        "sha256": "87428a456b0940a9d5806650c2a430afeb2adca5c22e5430a7a149cf5ff62b20",
+        "test": "without type should succeed for \"always\"",
+        "testLine": 27,
+        "assertionLine": 30,
+        "expectedLine": 29,
+        "call": "const [actual] = typeEmpty(await parsed.empty, \"always\");"
+      },
+      "message": "(scope):",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "(scope):",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-004",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-empty.test.ts",
+        "sha256": "87428a456b0940a9d5806650c2a430afeb2adca5c22e5430a7a149cf5ff62b20",
+        "test": "with type fail for empty keyword",
+        "testLine": 33,
+        "assertionLine": 36,
+        "expectedLine": 35,
+        "call": "const [actual] = typeEmpty(await parsed.filled);"
+      },
+      "message": "type: subject",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "type: subject",
+        "type": "type",
+        "scope": null,
+        "subject": "subject",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-005",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-empty.test.ts",
+        "sha256": "87428a456b0940a9d5806650c2a430afeb2adca5c22e5430a7a149cf5ff62b20",
+        "test": "with type succeed for \"never\"",
+        "testLine": 39,
+        "assertionLine": 42,
+        "expectedLine": 41,
+        "call": "const [actual] = typeEmpty(await parsed.filled, \"never\");"
+      },
+      "message": "type: subject",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "type: subject",
+        "type": "type",
+        "scope": null,
+        "subject": "subject",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-006",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-empty.test.ts",
+        "sha256": "87428a456b0940a9d5806650c2a430afeb2adca5c22e5430a7a149cf5ff62b20",
+        "test": "with type fail for \"always\"",
+        "testLine": 45,
+        "assertionLine": 48,
+        "expectedLine": 47,
+        "call": "const [actual] = typeEmpty(await parsed.filled, \"always\");"
+      },
+      "message": "type: subject",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "type: subject",
+        "type": "type",
+        "scope": null,
+        "subject": "subject",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-007",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/subject-empty.test.ts",
+        "sha256": "f28bcefdd430d5418e078c26fd7cb75f95a7ca04043fcfcf799310826f1d889b",
+        "test": "without subject should succeed for empty keyword",
+        "testLine": 15,
+        "assertionLine": 18,
+        "expectedLine": 17,
+        "call": "const [actual] = subjectEmpty(await parsed.empty);"
+      },
+      "message": "test: \nbody",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty"
+      ],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: ",
+        "type": "test",
+        "scope": null,
+        "subject": null,
+        "body": "body",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-008",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/subject-empty.test.ts",
+        "sha256": "f28bcefdd430d5418e078c26fd7cb75f95a7ca04043fcfcf799310826f1d889b",
+        "test": "without subject should fail for \"never\"",
+        "testLine": 21,
+        "assertionLine": 24,
+        "expectedLine": 23,
+        "call": "const [actual] = subjectEmpty(await parsed.empty, \"never\");"
+      },
+      "message": "test: \nbody",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty"
+      ],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: ",
+        "type": "test",
+        "scope": null,
+        "subject": null,
+        "body": "body",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-009",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/subject-empty.test.ts",
+        "sha256": "f28bcefdd430d5418e078c26fd7cb75f95a7ca04043fcfcf799310826f1d889b",
+        "test": "without subject should succeed for \"always\"",
+        "testLine": 27,
+        "assertionLine": 30,
+        "expectedLine": 29,
+        "call": "const [actual] = subjectEmpty(await parsed.empty, \"always\");"
+      },
+      "message": "test: \nbody",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty"
+      ],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: ",
+        "type": "test",
+        "scope": null,
+        "subject": null,
+        "body": "body",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-010",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/subject-empty.test.ts",
+        "sha256": "f28bcefdd430d5418e078c26fd7cb75f95a7ca04043fcfcf799310826f1d889b",
+        "test": "with subject fail for empty keyword",
+        "testLine": 33,
+        "assertionLine": 36,
+        "expectedLine": 35,
+        "call": "const [actual] = subjectEmpty(await parsed.filled);"
+      },
+      "message": "test: subject\nbody",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-011",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/subject-empty.test.ts",
+        "sha256": "f28bcefdd430d5418e078c26fd7cb75f95a7ca04043fcfcf799310826f1d889b",
+        "test": "with subject succeed for \"never\"",
+        "testLine": 39,
+        "assertionLine": 42,
+        "expectedLine": 41,
+        "call": "const [actual] = subjectEmpty(await parsed.filled, \"never\");"
+      },
+      "message": "test: subject\nbody",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-012",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/subject-empty.test.ts",
+        "sha256": "f28bcefdd430d5418e078c26fd7cb75f95a7ca04043fcfcf799310826f1d889b",
+        "test": "with subject fail for \"always\"",
+        "testLine": 45,
+        "assertionLine": 48,
+        "expectedLine": 47,
+        "call": "const [actual] = subjectEmpty(await parsed.filled, \"always\");"
+      },
+      "message": "test: subject\nbody",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-013",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "empty succeeds",
+        "testLine": 17,
+        "assertionLine": 20,
+        "expectedLine": 19,
+        "call": "const [actual] = typeEnum(await parsed.empty);"
+      },
+      "message": "(): \n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "(): ",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-014",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "empty on \"a\" succeeds",
+        "testLine": 23,
+        "assertionLine": 26,
+        "expectedLine": 25,
+        "call": "const [actual] = typeEnum(await parsed.empty, undefined, [\"a\"]);"
+      },
+      "message": "(): \n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "(): ",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-015",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "empty on \"always a\" succeeds",
+        "testLine": 29,
+        "assertionLine": 32,
+        "expectedLine": 31,
+        "call": "const [actual] = typeEnum(await parsed.empty, \"always\", [\"a\"]);"
+      },
+      "message": "(): \n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "(): ",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-016",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "empty on \"never a\" succeeds",
+        "testLine": 35,
+        "assertionLine": 38,
+        "expectedLine": 37,
+        "call": "const [actual] = typeEnum(await parsed.empty, \"never\", [\"a\"]);"
+      },
+      "message": "(): \n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "(): ",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-017",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "empty on \"always a, b\" succeeds",
+        "testLine": 41,
+        "assertionLine": 44,
+        "expectedLine": 43,
+        "call": "const [actual] = typeEnum(await parsed.empty, \"always\", [\"a\", \"b\"]);"
+      },
+      "message": "(): \n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "(): ",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-018",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "empty on \"never a, b\" succeeds",
+        "testLine": 47,
+        "assertionLine": 50,
+        "expectedLine": 49,
+        "call": "const [actual] = typeEnum(await parsed.empty, \"never\", [\"a\", \"b\"]);"
+      },
+      "message": "(): \n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "(): ",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-019",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "a on \"a\" succeeds",
+        "testLine": 53,
+        "assertionLine": 56,
+        "expectedLine": 55,
+        "call": "const [actual] = typeEnum(await parsed.a, undefined, [\"a\"]);"
+      },
+      "message": "a(): \n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "a(): ",
+        "type": "a",
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-020",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "a on \"always a\" succeeds",
+        "testLine": 59,
+        "assertionLine": 62,
+        "expectedLine": 61,
+        "call": "const [actual] = typeEnum(await parsed.a, \"always\", [\"a\"]);"
+      },
+      "message": "a(): \n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "a(): ",
+        "type": "a",
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-021",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "a on \"never a\" fails",
+        "testLine": 65,
+        "assertionLine": 68,
+        "expectedLine": 67,
+        "call": "const [actual] = typeEnum(await parsed.a, \"never\", [\"a\"]);"
+      },
+      "message": "a(): \n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "a(): ",
+        "type": "a",
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-022",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "b on \"b\" succeeds",
+        "testLine": 71,
+        "assertionLine": 74,
+        "expectedLine": 73,
+        "call": "const [actual] = typeEnum(await parsed.b, undefined, [\"b\"]);"
+      },
+      "message": "b(): \n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "b(): ",
+        "type": "b",
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-023",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "b on \"always b\" succeeds",
+        "testLine": 77,
+        "assertionLine": 80,
+        "expectedLine": 79,
+        "call": "const [actual] = typeEnum(await parsed.b, \"always\", [\"b\"]);"
+      },
+      "message": "b(): \n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "b(): ",
+        "type": "b",
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-024",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "b on \"never b\" fails",
+        "testLine": 83,
+        "assertionLine": 86,
+        "expectedLine": 85,
+        "call": "const [actual] = typeEnum(await parsed.b, \"never\", [\"b\"]);"
+      },
+      "message": "b(): \n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "b(): ",
+        "type": "b",
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-025",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "a on \"a, b\" succeeds",
+        "testLine": 89,
+        "assertionLine": 92,
+        "expectedLine": 91,
+        "call": "const [actual] = typeEnum(await parsed.a, undefined, [\"a\", \"b\"]);"
+      },
+      "message": "a(): \n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "a(): ",
+        "type": "a",
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-026",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "a on \"always a, b\" succeeds",
+        "testLine": 95,
+        "assertionLine": 98,
+        "expectedLine": 97,
+        "call": "const [actual] = typeEnum(await parsed.a, \"always\", [\"a\", \"b\"]);"
+      },
+      "message": "a(): \n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "a(): ",
+        "type": "a",
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-027",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "a on \"never a, b\" fails",
+        "testLine": 101,
+        "assertionLine": 104,
+        "expectedLine": 103,
+        "call": "const [actual] = typeEnum(await parsed.a, \"never\", [\"a\", \"b\"]);"
+      },
+      "message": "a(): \n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "a(): ",
+        "type": "a",
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-028",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "b on \"a, b\" succeeds",
+        "testLine": 107,
+        "assertionLine": 110,
+        "expectedLine": 109,
+        "call": "const [actual] = typeEnum(await parsed.b, undefined, [\"a\", \"b\"]);"
+      },
+      "message": "b(): \n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "b(): ",
+        "type": "b",
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-029",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "b on \"always a, b\" succeeds",
+        "testLine": 113,
+        "assertionLine": 116,
+        "expectedLine": 115,
+        "call": "const [actual] = typeEnum(await parsed.b, \"always\", [\"a\", \"b\"]);"
+      },
+      "message": "b(): \n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "b(): ",
+        "type": "b",
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-030",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/type-enum.test.ts",
+        "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0",
+        "test": "b on \"never a, b\" fails",
+        "testLine": 119,
+        "assertionLine": 122,
+        "expectedLine": 121,
+        "call": "const [actual] = typeEnum(await parsed.b, \"never\", [\"a\", \"b\"]);"
+      },
+      "message": "b(): \n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "header-trim",
+        "subject-empty",
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "b(): ",
+        "type": "b",
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-031",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/header-max-length.test.ts",
+        "sha256": "3b8f8f75c933cd76f3daee01d2fdc72904b8e1c60483ec7d567cde37a82ca4b4",
+        "test": "with short should succeed",
+        "testLine": 20,
+        "assertionLine": 23,
+        "expectedLine": 22,
+        "call": "const [actual] = headerMaxLength(await parsed.short, undefined, value);"
+      },
+      "message": "test: a",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "test: a",
+        "type": "test",
+        "scope": null,
+        "subject": "a",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-032",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/header-max-length.test.ts",
+        "sha256": "3b8f8f75c933cd76f3daee01d2fdc72904b8e1c60483ec7d567cde37a82ca4b4",
+        "test": "with long should fail",
+        "testLine": 26,
+        "assertionLine": 29,
+        "expectedLine": 28,
+        "call": "const [actual] = headerMaxLength(await parsed.long, undefined, value);"
+      },
+      "message": "test: ab",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "test: ab",
+        "type": "test",
+        "scope": null,
+        "subject": "ab",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-033",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+        "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856",
+        "test": "empty against \"always\" should succeed",
+        "testLine": 23,
+        "assertionLine": 26,
+        "expectedLine": 25,
+        "call": "const [actual] = subjectFullStop(await parsed.empty, \"always\", \".\");"
+      },
+      "message": "test:\n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "test:",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-034",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+        "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856",
+        "test": "empty against \"never .\" should succeed",
+        "testLine": 29,
+        "assertionLine": 32,
+        "expectedLine": 31,
+        "call": "const [actual] = subjectFullStop(await parsed.empty, \"never\", \".\");"
+      },
+      "message": "test:\n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "test:",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-035",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+        "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856",
+        "test": "with against \"always .\" should succeed",
+        "testLine": 35,
+        "assertionLine": 38,
+        "expectedLine": 37,
+        "call": "const [actual] = subjectFullStop(await parsed.with, \"always\", \".\");"
+      },
+      "message": "test: subject.\n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "subject-full-stop"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "test: subject.",
+        "type": "test",
+        "scope": null,
+        "subject": "subject.",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-036",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+        "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856",
+        "test": "with against \"never .\" should fail",
+        "testLine": 41,
+        "assertionLine": 44,
+        "expectedLine": 43,
+        "call": "const [actual] = subjectFullStop(await parsed.with, \"never\", \".\");"
+      },
+      "message": "test: subject.\n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "subject-full-stop"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "test: subject.",
+        "type": "test",
+        "scope": null,
+        "subject": "subject.",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-037",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+        "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856",
+        "test": "without against \"always .\" should fail",
+        "testLine": 47,
+        "assertionLine": 50,
+        "expectedLine": 49,
+        "call": "const [actual] = subjectFullStop(await parsed.without, \"always\", \".\");"
+      },
+      "message": "test: subject\n",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-038",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+        "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856",
+        "test": "without against \"never .\" should succeed",
+        "testLine": 53,
+        "assertionLine": 56,
+        "expectedLine": 55,
+        "call": "const [actual] = subjectFullStop(await parsed.without, \"never\", \".\");"
+      },
+      "message": "test: subject\n",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-039",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+        "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856",
+        "test": "commit message title with standard scope and full-stop against \"never .\" should fail",
+        "testLine": 59,
+        "assertionLine": 62,
+        "expectedLine": 61,
+        "call": "const [actual] = subjectFullStop(await parsed.standardScopeWith, \"never\", \".\");"
+      },
+      "message": "type(scope): subject.\n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "subject-full-stop",
+        "type-enum"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "type(scope): subject.",
+        "type": "type",
+        "scope": "scope",
+        "subject": "subject.",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-040",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+        "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856",
+        "test": "commit message title with non standard scope and full-stop against \"never .\" should fail",
+        "testLine": 65,
+        "assertionLine": 68,
+        "expectedLine": 67,
+        "call": "const [actual] = subjectFullStop(await parsed.nonStandardScopeWith, \"never\", \".\");"
+      },
+      "message": "type.scope: subject.\n",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "subject-empty",
+        "subject-full-stop",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "type.scope: subject.",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-041",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+        "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856",
+        "test": "ellipsis is not fullstop so commit title ending with it against \"never .\" should not fail",
+        "testLine": 71,
+        "assertionLine": 74,
+        "expectedLine": 73,
+        "call": "const [actual] = subjectFullStop(await parsed.ellipsisMessage, \"never\", \".\");"
+      },
+      "message": "test: subject ends with ellipsis...",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "test: subject ends with ellipsis...",
+        "type": "test",
+        "scope": null,
+        "subject": "subject ends with ellipsis...",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-042",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+        "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc",
+        "test": "with simple message should succeed for empty keyword",
+        "testLine": 17,
+        "assertionLine": 20,
+        "expectedLine": 19,
+        "call": "const [actual] = bodyLeadingBlank(await parsed.simple);"
+      },
+      "message": "test: subject",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-043",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+        "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc",
+        "test": "with simple message should succeed for \"never\"",
+        "testLine": 23,
+        "assertionLine": 26,
+        "expectedLine": 25,
+        "call": "const [actual] = bodyLeadingBlank(await parsed.simple, \"never\");"
+      },
+      "message": "test: subject",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-044",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+        "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc",
+        "test": "with simple message should succeed for \"always\"",
+        "testLine": 29,
+        "assertionLine": 32,
+        "expectedLine": 31,
+        "call": "const [actual] = bodyLeadingBlank(await parsed.simple, \"always\");"
+      },
+      "message": "test: subject",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-045",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+        "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc",
+        "test": "without blank line before body should fail for empty keyword",
+        "testLine": 35,
+        "assertionLine": 38,
+        "expectedLine": 37,
+        "call": "const [actual] = bodyLeadingBlank(await parsed.without);"
+      },
+      "message": "test: subject\nbody",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-046",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+        "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc",
+        "test": "without blank line before body should succeed for \"never\"",
+        "testLine": 41,
+        "assertionLine": 44,
+        "expectedLine": 43,
+        "call": "const [actual] = bodyLeadingBlank(await parsed.without, \"never\");"
+      },
+      "message": "test: subject\nbody",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-047",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+        "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc",
+        "test": "without blank line before body should fail for \"always\"",
+        "testLine": 47,
+        "assertionLine": 50,
+        "expectedLine": 49,
+        "call": "const [actual] = bodyLeadingBlank(await parsed.without, \"always\");"
+      },
+      "message": "test: subject\nbody",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-048",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+        "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc",
+        "test": "with blank line before body should succeed for empty keyword",
+        "testLine": 53,
+        "assertionLine": 56,
+        "expectedLine": 55,
+        "call": "const [actual] = bodyLeadingBlank(await parsed.with);"
+      },
+      "message": "test: subject\n\nbody",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-049",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+        "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc",
+        "test": "with blank line before body should fail for \"never\"",
+        "testLine": 59,
+        "assertionLine": 62,
+        "expectedLine": 61,
+        "call": "const [actual] = bodyLeadingBlank(await parsed.with, \"never\");"
+      },
+      "message": "test: subject\n\nbody",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-050",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+        "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc",
+        "test": "with blank line before body should succeed for \"always\"",
+        "testLine": 65,
+        "assertionLine": 68,
+        "expectedLine": 67,
+        "call": "const [actual] = bodyLeadingBlank(await parsed.with, \"always\");"
+      },
+      "message": "test: subject\n\nbody",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-051",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with simple message should succeed for empty keyword",
+        "testLine": 33,
+        "assertionLine": 36,
+        "expectedLine": 35,
+        "call": "const [actual] = footerLeadingBlank(await parsed.simple);"
+      },
+      "message": "test: subject",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-052",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with simple message should succeed for \"never\"",
+        "testLine": 39,
+        "assertionLine": 42,
+        "expectedLine": 41,
+        "call": "const [actual] = footerLeadingBlank(await parsed.simple, \"never\");"
+      },
+      "message": "test: subject",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-053",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with simple message should succeed for \"always\"",
+        "testLine": 45,
+        "assertionLine": 48,
+        "expectedLine": 47,
+        "call": "const [actual] = footerLeadingBlank(await parsed.simple, \"always\");"
+      },
+      "message": "test: subject",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-054",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with body message should succeed for empty keyword",
+        "testLine": 51,
+        "assertionLine": 54,
+        "expectedLine": 53,
+        "call": "const [actual] = footerLeadingBlank(await parsed.body);"
+      },
+      "message": "test: subject\nbody",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-055",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with body message should succeed for \"never\"",
+        "testLine": 57,
+        "assertionLine": 60,
+        "expectedLine": 59,
+        "call": "const [actual] = footerLeadingBlank(await parsed.body, \"never\");"
+      },
+      "message": "test: subject\nbody",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-056",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with body message should succeed for \"always\"",
+        "testLine": 63,
+        "assertionLine": 66,
+        "expectedLine": 65,
+        "call": "const [actual] = footerLeadingBlank(await parsed.body, \"always\");"
+      },
+      "message": "test: subject\nbody",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-057",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with trailing message should succeed for empty keyword",
+        "testLine": 69,
+        "assertionLine": 72,
+        "expectedLine": 71,
+        "call": "const [actual] = footerLeadingBlank(await parsed.trailing);"
+      },
+      "message": "test: subject\nbody\n\n",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-058",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with trailing message should succeed for \"never\"",
+        "testLine": 75,
+        "assertionLine": 78,
+        "expectedLine": 77,
+        "call": "const [actual] = footerLeadingBlank(await parsed.trailing, \"never\");"
+      },
+      "message": "test: subject\nbody\n\n",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-059",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with trailing message should succeed for \"always\"",
+        "testLine": 81,
+        "assertionLine": 84,
+        "expectedLine": 83,
+        "call": "const [actual] = footerLeadingBlank(await parsed.trailing, \"always\");"
+      },
+      "message": "test: subject\nbody\n\n",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-060",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "without body should fail for \"never\"",
+        "testLine": 87,
+        "assertionLine": 90,
+        "expectedLine": 89,
+        "call": "const [actual] = footerLeadingBlank(await parsed.withoutBody, \"never\");"
+      },
+      "message": "feat(new-parser): introduces a new parsing library\n\nBREAKING CHANGE: new library does not support foo-construct",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "feat(new-parser): introduces a new parsing library",
+        "type": "feat",
+        "scope": "new-parser",
+        "subject": "introduces a new parsing library",
+        "body": "",
+        "footer": "BREAKING CHANGE: new library does not support foo-construct"
+      }
+    },
+    {
+      "id": "upstream-input-061",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "without body should succeed for \"always\"",
+        "testLine": 93,
+        "assertionLine": 96,
+        "expectedLine": 95,
+        "call": "const [actual] = footerLeadingBlank(await parsed.withoutBody, \"always\");"
+      },
+      "message": "feat(new-parser): introduces a new parsing library\n\nBREAKING CHANGE: new library does not support foo-construct",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "feat(new-parser): introduces a new parsing library",
+        "type": "feat",
+        "scope": "new-parser",
+        "subject": "introduces a new parsing library",
+        "body": "",
+        "footer": "BREAKING CHANGE: new library does not support foo-construct"
+      }
+    },
+    {
+      "id": "upstream-input-062",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "without blank line before footer should fail for empty keyword",
+        "testLine": 99,
+        "assertionLine": 102,
+        "expectedLine": 101,
+        "call": "const [actual] = footerLeadingBlank(await parsed.without);"
+      },
+      "message": "test: subject\nbody\nBREAKING CHANGE: something important",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank",
+        "footer-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": "BREAKING CHANGE: something important"
+      }
+    },
+    {
+      "id": "upstream-input-063",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "without blank line before footer should succeed for \"never\"",
+        "testLine": 105,
+        "assertionLine": 108,
+        "expectedLine": 107,
+        "call": "const [actual] = footerLeadingBlank(await parsed.without, \"never\");"
+      },
+      "message": "test: subject\nbody\nBREAKING CHANGE: something important",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank",
+        "footer-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": "BREAKING CHANGE: something important"
+      }
+    },
+    {
+      "id": "upstream-input-064",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "without blank line before footer should fail for \"always\"",
+        "testLine": 111,
+        "assertionLine": 114,
+        "expectedLine": 113,
+        "call": "const [actual] = footerLeadingBlank(await parsed.without, \"always\");"
+      },
+      "message": "test: subject\nbody\nBREAKING CHANGE: something important",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank",
+        "footer-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": "BREAKING CHANGE: something important"
+      }
+    },
+    {
+      "id": "upstream-input-065",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with blank line before footer should succeed for empty keyword",
+        "testLine": 117,
+        "assertionLine": 120,
+        "expectedLine": 119,
+        "call": "const [actual] = footerLeadingBlank(await parsed.with);"
+      },
+      "message": "test: subject\nbody\n\nBREAKING CHANGE: something important",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": "BREAKING CHANGE: something important"
+      }
+    },
+    {
+      "id": "upstream-input-066",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with blank line before footer should fail for \"never\"",
+        "testLine": 123,
+        "assertionLine": 126,
+        "expectedLine": 125,
+        "call": "const [actual] = footerLeadingBlank(await parsed.with, \"never\");"
+      },
+      "message": "test: subject\nbody\n\nBREAKING CHANGE: something important",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": "BREAKING CHANGE: something important"
+      }
+    },
+    {
+      "id": "upstream-input-067",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with blank line before footer should succeed for \"always\"",
+        "testLine": 129,
+        "assertionLine": 132,
+        "expectedLine": 131,
+        "call": "const [actual] = footerLeadingBlank(await parsed.with, \"always\");"
+      },
+      "message": "test: subject\nbody\n\nBREAKING CHANGE: something important",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": "BREAKING CHANGE: something important"
+      }
+    },
+    {
+      "id": "upstream-input-068",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with blank line before footer and multiline body should succeed for empty keyword",
+        "testLine": 135,
+        "assertionLine": 138,
+        "expectedLine": 137,
+        "call": "const [actual] = footerLeadingBlank(await parsed.withMulitLine);"
+      },
+      "message": "test: subject\nmulti\nline\nbody\n\nBREAKING CHANGE: something important",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "multi\nline\nbody",
+        "footer": "BREAKING CHANGE: something important"
+      }
+    },
+    {
+      "id": "upstream-input-069",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with blank line before footer and multiline body should fail for \"never\"",
+        "testLine": 141,
+        "assertionLine": 144,
+        "expectedLine": 143,
+        "call": "const [actual] = footerLeadingBlank(await parsed.withMulitLine, \"never\");"
+      },
+      "message": "test: subject\nmulti\nline\nbody\n\nBREAKING CHANGE: something important",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "multi\nline\nbody",
+        "footer": "BREAKING CHANGE: something important"
+      }
+    },
+    {
+      "id": "upstream-input-070",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with blank line before footer and multiline body should succeed for \"always\"",
+        "testLine": 147,
+        "assertionLine": 150,
+        "expectedLine": 149,
+        "call": "const [actual] = footerLeadingBlank(await parsed.withMulitLine, \"always\");"
+      },
+      "message": "test: subject\nmulti\nline\nbody\n\nBREAKING CHANGE: something important",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "multi\nline\nbody",
+        "footer": "BREAKING CHANGE: something important"
+      }
+    },
+    {
+      "id": "upstream-input-071",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with double blank line before footer and double line in body should fail for \"never\"",
+        "testLine": 153,
+        "assertionLine": 156,
+        "expectedLine": 155,
+        "call": "const [actual] = footerLeadingBlank(await parsed.withDoubleNewLine, \"never\");"
+      },
+      "message": "fix: some issue\n\ndetailed explanation\n\ncloses #123",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: some issue",
+        "type": "fix",
+        "scope": null,
+        "subject": "some issue",
+        "body": "detailed explanation",
+        "footer": "closes #123"
+      }
+    },
+    {
+      "id": "upstream-input-072",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with double blank line before footer and double line in body should succeed for \"always\"",
+        "testLine": 159,
+        "assertionLine": 162,
+        "expectedLine": 161,
+        "call": "const [actual] = footerLeadingBlank(await parsed.withDoubleNewLine, \"always\");"
+      },
+      "message": "fix: some issue\n\ndetailed explanation\n\ncloses #123",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "fix: some issue",
+        "type": "fix",
+        "scope": null,
+        "subject": "some issue",
+        "body": "detailed explanation",
+        "footer": "closes #123"
+      }
+    },
+    {
+      "id": "upstream-input-073",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+        "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f",
+        "test": "with body containing comments should succeed for \"always\"",
+        "testLine": 165,
+        "assertionLine": 168,
+        "expectedLine": 167,
+        "call": "const [actual] = footerLeadingBlank(await parsed.withBodyWithComment, \"always\");"
+      },
+      "message": "feat(new-parser): introduces a new parsing library\n\nBody Line 1\n# comment\nBody Line 2\n\nBREAKING CHANGE: new library does not support foo-construct",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "message-max-length"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "feat(new-parser): introduces a new parsing library",
+        "type": "feat",
+        "scope": "new-parser",
+        "subject": "introduces a new parsing library",
+        "body": "Body Line 1\n# comment\nBody Line 2",
+        "footer": "BREAKING CHANGE: new library does not support foo-construct"
+      }
+    },
+    {
+      "id": "upstream-input-074",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/body-max-line-length.test.ts",
+        "sha256": "8887d935a5f14438f21d14f1c9cf56920395c23569be9958c55172bdbbe35189",
+        "test": "with empty should succeed",
+        "testLine": 42,
+        "assertionLine": 45,
+        "expectedLine": 44,
+        "call": "const [actual] = bodyMaxLineLength(await parsed.empty, undefined, value);"
+      },
+      "message": "test: subject",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-075",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/body-max-line-length.test.ts",
+        "sha256": "8887d935a5f14438f21d14f1c9cf56920395c23569be9958c55172bdbbe35189",
+        "test": "with short should succeed",
+        "testLine": 48,
+        "assertionLine": 51,
+        "expectedLine": 50,
+        "call": "const [actual] = bodyMaxLineLength(await parsed.short, undefined, value);"
+      },
+      "message": "test: subject\na",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "a",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-076",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/body-max-line-length.test.ts",
+        "sha256": "8887d935a5f14438f21d14f1c9cf56920395c23569be9958c55172bdbbe35189",
+        "test": "with long should fail",
+        "testLine": 54,
+        "assertionLine": 57,
+        "expectedLine": 56,
+        "call": "const [actual] = bodyMaxLineLength(await parsed.long, undefined, value);"
+      },
+      "message": "test: subject\nab",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "ab",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-077",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/body-max-line-length.test.ts",
+        "sha256": "8887d935a5f14438f21d14f1c9cf56920395c23569be9958c55172bdbbe35189",
+        "test": "with short with multiple lines should succeed",
+        "testLine": 60,
+        "assertionLine": 63,
+        "expectedLine": 62,
+        "call": "const [actual] = bodyMaxLineLength(await parsed.shortMultipleLines, undefined, value);"
+      },
+      "message": "test:subject\na\na\na",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test:subject",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": "a\na\na",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-078",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/body-max-line-length.test.ts",
+        "sha256": "8887d935a5f14438f21d14f1c9cf56920395c23569be9958c55172bdbbe35189",
+        "test": "with long with multiple lines should fail",
+        "testLine": 66,
+        "assertionLine": 69,
+        "expectedLine": 68,
+        "call": "const [actual] = bodyMaxLineLength(await parsed.longMultipleLines, undefined, value);"
+      },
+      "message": "test:subject\na\nab\na",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test:subject",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": "a\nab\na",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-079",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/body-max-line-length.test.ts",
+        "sha256": "8887d935a5f14438f21d14f1c9cf56920395c23569be9958c55172bdbbe35189",
+        "test": "with multiple lines and standalone URL should succeed",
+        "testLine": 72,
+        "assertionLine": 75,
+        "expectedLine": 74,
+        "call": "const [actual] = bodyMaxLineLength(await parsed.urlStandalone, undefined, value);"
+      },
+      "message": "test:subject\na\nhttps://example.com/URL/with/a/very/long/path\na",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test:subject",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": "a\nhttps://example.com/URL/with/a/very/long/path\na",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-080",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/body-max-line-length.test.ts",
+        "sha256": "8887d935a5f14438f21d14f1c9cf56920395c23569be9958c55172bdbbe35189",
+        "test": "with multiple lines and URL in inline Markdown link should succeed",
+        "testLine": 78,
+        "assertionLine": 81,
+        "expectedLine": 80,
+        "call": "const [actual] = bodyMaxLineLength(await parsed.urlMarkdownLinkInline, undefined, 30);"
+      },
+      "message": "test:subject\n\nThis is a [link](https://example.com/URL/with/a/very/long/path).",
+      "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [
+        "subject-empty",
+        "type-empty"
+      ],
+      "warnings": [],
+      "parsed": {
+        "header": "test:subject",
+        "type": null,
+        "scope": null,
+        "subject": null,
+        "body": "This is a [link](https://example.com/URL/with/a/very/long/path).",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-081",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-max-line-length.test.ts",
+        "sha256": "e50d0ce5d69f8c60bf5f1b35e2bdc34378f9adc515c9b7b46b3c5e9f8938e0d6",
+        "test": "with simple should succeed",
+        "testLine": 26,
+        "assertionLine": 29,
+        "expectedLine": 28,
+        "call": "const [actual] = footerMaxLineLength(await parsed.simple, undefined, value);"
+      },
+      "message": "test: subject",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": null,
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-082",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-max-line-length.test.ts",
+        "sha256": "e50d0ce5d69f8c60bf5f1b35e2bdc34378f9adc515c9b7b46b3c5e9f8938e0d6",
+        "test": "with empty should succeed",
+        "testLine": 32,
+        "assertionLine": 35,
+        "expectedLine": 34,
+        "call": "const [actual] = footerMaxLineLength(await parsed.empty, undefined, value);"
+      },
+      "message": "test: subject\nbody",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "body-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": "body",
+        "footer": null
+      }
+    },
+    {
+      "id": "upstream-input-083",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-max-line-length.test.ts",
+        "sha256": "e50d0ce5d69f8c60bf5f1b35e2bdc34378f9adc515c9b7b46b3c5e9f8938e0d6",
+        "test": "with short should succeed",
+        "testLine": 38,
+        "assertionLine": 41,
+        "expectedLine": 40,
+        "call": "const [actual] = footerMaxLineLength(await parsed.short, undefined, value);"
+      },
+      "message": "test: subject\nBREAKING CHANGE: a",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "footer-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": null,
+        "footer": "BREAKING CHANGE: a"
+      }
+    },
+    {
+      "id": "upstream-input-084",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-max-line-length.test.ts",
+        "sha256": "e50d0ce5d69f8c60bf5f1b35e2bdc34378f9adc515c9b7b46b3c5e9f8938e0d6",
+        "test": "with long should fail",
+        "testLine": 44,
+        "assertionLine": 47,
+        "expectedLine": 46,
+        "call": "const [actual] = footerMaxLineLength(await parsed.long, undefined, value);"
+      },
+      "message": "test: subject\nBREAKING CHANGE: ab",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "footer-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": null,
+        "footer": "BREAKING CHANGE: ab"
+      }
+    },
+    {
+      "id": "upstream-input-085",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-max-line-length.test.ts",
+        "sha256": "e50d0ce5d69f8c60bf5f1b35e2bdc34378f9adc515c9b7b46b3c5e9f8938e0d6",
+        "test": "with short with multiple lines should succeed",
+        "testLine": 50,
+        "assertionLine": 53,
+        "expectedLine": 52,
+        "call": "const [actual] = footerMaxLineLength(await parsed.short, undefined, value);"
+      },
+      "message": "test: subject\nBREAKING CHANGE: a",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "footer-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": null,
+        "footer": "BREAKING CHANGE: a"
+      }
+    },
+    {
+      "id": "upstream-input-086",
+      "category": "upstream-test-input",
+      "provenanceKind": "upstream-input-policy-oracle",
+      "source": {
+        "path": "@commitlint/rules/src/footer-max-line-length.test.ts",
+        "sha256": "e50d0ce5d69f8c60bf5f1b35e2bdc34378f9adc515c9b7b46b3c5e9f8938e0d6",
+        "test": "with long with multiple lines should fail",
+        "testLine": 56,
+        "assertionLine": 59,
+        "expectedLine": 58,
+        "call": "const [actual] = footerMaxLineLength(await parsed.long, undefined, value);"
+      },
+      "message": "test: subject\nBREAKING CHANGE: ab",
+      "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
+      "errors": [],
+      "warnings": [
+        "footer-leading-blank"
+      ],
+      "parsed": {
+        "header": "test: subject",
+        "type": "test",
+        "scope": null,
+        "subject": "subject",
+        "body": null,
+        "footer": "BREAKING CHANGE: ab"
+      }
+    }
+  ]
+}

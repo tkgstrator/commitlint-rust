@@ -1,11 +1,23 @@
 {
-  "schema": 1,
-  "description": "Development-only oracle from actual pinned Commitlint. Expected validity covers message linting only; fresh gh and attribution validation are separate.",
+  "schema": 2,
+  "upstreamSource": {
+    "repository": "https://github.com/conventional-changelog/commitlint",
+    "version": "21.2.3",
+    "tag": "v21.2.3",
+    "sourceSHA": "95d40569d2592bf9719bc27da2d51fc6b801e4ef",
+    "sourceSHAEvidence": "GitHub refs/tags/v21.2.3 identifies annotated tagObjectSHA; GitHub git/tags resolves its underlying sourceSHA commit, matching published package gitHead. Source archive downloaded by tagObjectSHA.",
+    "tagObjectSHA": "384960a8f54c2f0524c8ea5e89d5a919274239bd"
+  },
+  "description": "Development-only oracle from actual pinned Commitlint. valid is fixed-policy validity; upstreamValid, lintError, parseError and policyException retain independent upstream evidence. Fresh gh and attribution validation are separate.",
   "versions": {
     "@commitlint/cli": "21.2.3",
     "@commitlint/config-conventional": "21.2.3",
     "@commitlint/lint": "21.2.3",
-    "@commitlint/parse": "21.2.3"
+    "@commitlint/parse": "21.2.3",
+    "@commitlint/rules": "21.2.3",
+    "conventional-changelog-angular": "9.4.0",
+    "conventional-changelog-conventionalcommits": "10.4.1",
+    "conventional-commits-parser": "7.1.3"
   },
   "policyConfig": "export default {\n  extends: ['@commitlint/config-conventional'],\n  defaultIgnores: false,\n  ignores: [],\n  rules: {\n    'header-max-length': [2, 'always', 128],\n    'body-max-line-length': [2, 'always', 128],\n    'footer-max-line-length': [2, 'always', 128],\n    'ascii-message': [2, 'always'],\n    'message-max-length': [2, 'always', 128],\n  },\n  plugins: [{ rules: {\n    'ascii-message': parsed => [/^[\\x20-\\x7E\\n]*$/.test(parsed.raw), 'use English printable ASCII text only'],\n    'message-max-length': (parsed, when, max) => [parsed.raw.replace(/\\n+$/, '').length <= max, `entire message must be at most ${max} characters`],\n  }}],\n};\n",
   "cases": [
@@ -14,6 +26,10 @@
       "category": "types",
       "message": "build: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -30,6 +46,10 @@
       "category": "types",
       "message": "chore: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -46,6 +66,10 @@
       "category": "types",
       "message": "ci: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -62,6 +86,10 @@
       "category": "types",
       "message": "docs: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -78,6 +106,10 @@
       "category": "types",
       "message": "feat: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -94,6 +126,10 @@
       "category": "types",
       "message": "fix: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -110,6 +146,10 @@
       "category": "types",
       "message": "perf: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -126,6 +166,10 @@
       "category": "types",
       "message": "refactor: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -142,6 +186,10 @@
       "category": "types",
       "message": "revert: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -158,6 +206,10 @@
       "category": "types",
       "message": "style: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -174,6 +226,10 @@
       "category": "types",
       "message": "test: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -190,6 +246,10 @@
       "category": "types",
       "message": "banana: change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "type-enum"
       ],
@@ -208,6 +268,10 @@
       "category": "types",
       "message": "feature: change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "type-enum"
       ],
@@ -226,6 +290,10 @@
       "category": "types",
       "message": "bugfix: change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "type-enum"
       ],
@@ -244,6 +312,10 @@
       "category": "types",
       "message": "FIX: change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "type-case",
         "type-enum"
@@ -263,6 +335,10 @@
       "category": "types",
       "message": "Fix: change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "type-case",
         "type-enum"
@@ -282,6 +358,10 @@
       "category": "types",
       "message": "fix_: change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "type-enum"
       ],
@@ -300,6 +380,10 @@
       "category": "types",
       "message": "fix1: change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "type-enum"
       ],
@@ -318,6 +402,10 @@
       "category": "types",
       "message": "1: change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "type-enum"
       ],
@@ -336,6 +424,10 @@
       "category": "types",
       "message": ": change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "type-empty"
       ],
@@ -354,6 +446,10 @@
       "category": "scopes",
       "message": "fix(parser): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -370,6 +466,10 @@
       "category": "scopes",
       "message": "fix(parser)!: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -386,6 +486,10 @@
       "category": "scopes",
       "message": "fix(API): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -402,6 +506,10 @@
       "category": "scopes",
       "message": "fix(API)!: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -418,6 +526,10 @@
       "category": "scopes",
       "message": "fix(a/b): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -434,6 +546,10 @@
       "category": "scopes",
       "message": "fix(a/b)!: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -450,6 +566,10 @@
       "category": "scopes",
       "message": "fix(*): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -466,6 +586,10 @@
       "category": "scopes",
       "message": "fix(*)!: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -482,6 +606,10 @@
       "category": "scopes",
       "message": "fix(a b): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -498,6 +626,10 @@
       "category": "scopes",
       "message": "fix(a b)!: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -514,6 +646,10 @@
       "category": "scopes",
       "message": "fix(a,b): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -530,6 +666,10 @@
       "category": "scopes",
       "message": "fix(a,b)!: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -546,6 +686,10 @@
       "category": "scopes",
       "message": "fix(a:b): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -562,6 +706,10 @@
       "category": "scopes",
       "message": "fix(a:b)!: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -578,6 +726,10 @@
       "category": "scopes",
       "message": "fix(a(b)c): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -594,6 +746,10 @@
       "category": "scopes",
       "message": "fix(a(b)c)!: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -610,6 +766,10 @@
       "category": "scopes",
       "message": "fix(): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -626,6 +786,10 @@
       "category": "scopes",
       "message": "fix()!: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -642,6 +806,10 @@
       "category": "scopes",
       "message": "fix()): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -658,6 +826,10 @@
       "category": "scopes",
       "message": "fix())!: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -674,6 +846,10 @@
       "category": "scopes",
       "message": "fix((): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -690,6 +866,10 @@
       "category": "scopes",
       "message": "fix(()!: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -706,6 +886,10 @@
       "category": "scopes",
       "message": "fix(.): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -722,6 +906,10 @@
       "category": "scopes",
       "message": "fix(.)!: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -738,6 +926,10 @@
       "category": "scopes",
       "message": "fix(123): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -754,6 +946,10 @@
       "category": "scopes",
       "message": "fix(123)!: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -770,6 +966,10 @@
       "category": "scopes",
       "message": "fix(foo)bar): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -786,6 +986,10 @@
       "category": "scopes",
       "message": "fix(foo)bar)!: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -802,6 +1006,10 @@
       "category": "scopes",
       "message": "fix(foo(bar)): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -818,6 +1026,10 @@
       "category": "scopes",
       "message": "fix(foo(bar))!: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -834,6 +1046,10 @@
       "category": "scopes",
       "message": "fix(scope!): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -850,6 +1066,10 @@
       "category": "scopes",
       "message": "fix(scope!)!: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -866,6 +1086,10 @@
       "category": "scopes",
       "message": "fix([scope]): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -882,6 +1106,10 @@
       "category": "scopes",
       "message": "fix([scope])!: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -898,6 +1126,10 @@
       "category": "header-layout",
       "message": "fix!: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -914,6 +1146,10 @@
       "category": "header-layout",
       "message": "fix!!: change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-empty",
         "type-empty"
@@ -933,6 +1169,10 @@
       "category": "header-layout",
       "message": "fix:change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-empty",
         "type-empty"
@@ -952,6 +1192,10 @@
       "category": "header-layout",
       "message": "fix:  change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -968,6 +1212,10 @@
       "category": "header-layout",
       "message": "fix : change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-empty",
         "type-empty"
@@ -987,6 +1235,10 @@
       "category": "header-layout",
       "message": "fix\t: change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-empty",
         "type-empty",
@@ -1007,6 +1259,10 @@
       "category": "header-layout",
       "message": " fix: change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "header-trim",
         "subject-empty",
@@ -1027,6 +1283,10 @@
       "category": "header-layout",
       "message": "fix: change behavior ",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "header-trim"
       ],
@@ -1045,6 +1305,10 @@
       "category": "header-layout",
       "message": "fix:",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-empty",
         "type-empty"
@@ -1064,6 +1328,10 @@
       "category": "header-layout",
       "message": "fix: ",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "header-trim",
         "subject-empty"
@@ -1083,6 +1351,10 @@
       "category": "header-layout",
       "message": "fix:  ",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "header-trim"
       ],
@@ -1101,6 +1373,10 @@
       "category": "header-layout",
       "message": "fix: .",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-full-stop"
       ],
@@ -1119,6 +1395,10 @@
       "category": "header-layout",
       "message": "fix: ...",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1135,6 +1415,10 @@
       "category": "header-layout",
       "message": "fix: !",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1151,6 +1435,10 @@
       "category": "header-layout",
       "message": "fix: ?",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1167,6 +1455,10 @@
       "category": "header-layout",
       "message": "fix: 1",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1183,6 +1475,10 @@
       "category": "header-layout",
       "message": "fix: #123",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1199,6 +1495,10 @@
       "category": "header-layout",
       "message": "fix(scope)!: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1215,6 +1515,10 @@
       "category": "header-layout",
       "message": "fix(scope) !: change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-empty",
         "type-empty"
@@ -1234,6 +1538,10 @@
       "category": "header-layout",
       "message": "fix(scope): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1250,6 +1558,10 @@
       "category": "header-layout",
       "message": "fix(abc)(def): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1266,6 +1578,10 @@
       "category": "header-layout",
       "message": "fix(abc:def): change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1282,6 +1598,10 @@
       "category": "header-layout",
       "message": "fix: change: behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1298,6 +1618,10 @@
       "category": "header-layout",
       "message": "fix!:",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-empty",
         "type-empty"
@@ -1317,6 +1641,10 @@
       "category": "header-layout",
       "message": "fix():",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-empty",
         "type-empty"
@@ -1336,6 +1664,10 @@
       "category": "header-layout",
       "message": "fix: :",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1352,6 +1684,10 @@
       "category": "header-layout",
       "message": "fix: -",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1368,6 +1704,10 @@
       "category": "header-layout",
       "message": "fix: _",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1384,6 +1724,10 @@
       "category": "subject-case",
       "message": "fix: Change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-case"
       ],
@@ -1402,6 +1746,10 @@
       "category": "subject-case",
       "message": "fix: CHANGE BEHAVIOR",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-case"
       ],
@@ -1420,6 +1768,10 @@
       "category": "subject-case",
       "message": "fix: ChangeBehavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-case"
       ],
@@ -1438,6 +1790,10 @@
       "category": "subject-case",
       "message": "fix: changeBehavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1454,6 +1810,10 @@
       "category": "subject-case",
       "message": "fix: change Behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1470,6 +1830,10 @@
       "category": "subject-case",
       "message": "fix: change BEHAVIOR",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1486,6 +1850,10 @@
       "category": "subject-case",
       "message": "fix: cHANGE BEHAVIOR",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1502,6 +1870,10 @@
       "category": "subject-case",
       "message": "fix: iOS support",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1518,6 +1890,10 @@
       "category": "subject-case",
       "message": "fix: IOS support",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-case"
       ],
@@ -1536,6 +1912,10 @@
       "category": "subject-case",
       "message": "fix: API support",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-case"
       ],
@@ -1554,6 +1934,10 @@
       "category": "subject-case",
       "message": "fix: api Support",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1570,6 +1954,10 @@
       "category": "subject-case",
       "message": "fix: api-support",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1586,6 +1974,10 @@
       "category": "subject-case",
       "message": "fix: Api-support",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-case"
       ],
@@ -1604,6 +1996,10 @@
       "category": "subject-case",
       "message": "fix: URLParser",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-case"
       ],
@@ -1622,6 +2018,10 @@
       "category": "subject-case",
       "message": "fix: urlParser",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1638,6 +2038,10 @@
       "category": "subject-case",
       "message": "fix: fix API",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1654,6 +2058,10 @@
       "category": "subject-case",
       "message": "fix: fix api",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1670,6 +2078,10 @@
       "category": "subject-case",
       "message": "fix: Fix API",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-case"
       ],
@@ -1688,6 +2100,10 @@
       "category": "subject-case",
       "message": "fix: camelCase",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1704,6 +2120,10 @@
       "category": "subject-case",
       "message": "fix: PascalCase",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-case"
       ],
@@ -1722,6 +2142,10 @@
       "category": "subject-case",
       "message": "fix: lower_case",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1738,6 +2162,10 @@
       "category": "subject-case",
       "message": "fix: UPPER_CASE",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-case"
       ],
@@ -1756,6 +2184,10 @@
       "category": "subject-case",
       "message": "fix: snake_case",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1772,6 +2204,10 @@
       "category": "subject-case",
       "message": "fix: kebab-case",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1788,6 +2224,10 @@
       "category": "subject-case",
       "message": "fix: lower.words",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1804,6 +2244,10 @@
       "category": "subject-case",
       "message": "fix: UPPER.WORDS",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-case"
       ],
@@ -1822,6 +2266,10 @@
       "category": "subject-case",
       "message": "fix: 'Quoted text'",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1838,6 +2286,10 @@
       "category": "subject-case",
       "message": "fix: \"Quoted Text\"",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1854,6 +2306,10 @@
       "category": "subject-case",
       "message": "fix: `Quoted Text`",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1870,6 +2326,10 @@
       "category": "subject-case",
       "message": "fix: 123 Upper text",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1886,6 +2346,10 @@
       "category": "subject-case",
       "message": "fix: 1Change",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1902,6 +2366,10 @@
       "category": "subject-case",
       "message": "fix: (Upper text)",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1918,6 +2386,10 @@
       "category": "subject-case",
       "message": "fix: [Upper text]",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1934,6 +2406,10 @@
       "category": "subject-case",
       "message": "fix: !Upper text",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1950,6 +2426,10 @@
       "category": "subject-case",
       "message": "fix: _Upper text",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1966,6 +2446,10 @@
       "category": "subject-case",
       "message": "fix: -Upper text",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1982,6 +2466,10 @@
       "category": "subject-case",
       "message": "fix: :Upper text",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -1998,6 +2486,10 @@
       "category": "subject-case",
       "message": "fix: @Upper text",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2014,6 +2506,10 @@
       "category": "subject-case",
       "message": "fix: a",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2030,6 +2526,10 @@
       "category": "subject-case",
       "message": "fix: A",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-case"
       ],
@@ -2048,6 +2548,10 @@
       "category": "subject-case",
       "message": "fix: x Y",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2064,6 +2568,10 @@
       "category": "subject-case",
       "message": "fix: X y",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-case"
       ],
@@ -2082,6 +2590,10 @@
       "category": "subject-case",
       "message": "fix: xY",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2098,6 +2610,10 @@
       "category": "subject-case",
       "message": "fix: XY",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-case"
       ],
@@ -2116,6 +2632,10 @@
       "category": "subject-case",
       "message": "fix: c++ support",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2132,6 +2652,10 @@
       "category": "subject-case",
       "message": "fix: C++ support",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-case"
       ],
@@ -2150,6 +2674,10 @@
       "category": "subject-case",
       "message": "fix: a.B",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2166,6 +2694,10 @@
       "category": "subject-case",
       "message": "fix: A.b",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-case"
       ],
@@ -2184,6 +2716,10 @@
       "category": "subject-case",
       "message": "fix: a/b",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2200,6 +2736,10 @@
       "category": "subject-case",
       "message": "fix: A/B",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-case"
       ],
@@ -2218,6 +2758,10 @@
       "category": "subject-end",
       "message": "fix: change behavior.",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-full-stop"
       ],
@@ -2236,6 +2780,10 @@
       "category": "subject-end",
       "message": "fix: change behavior..",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-full-stop"
       ],
@@ -2254,6 +2802,10 @@
       "category": "subject-end",
       "message": "fix: change behavior...",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2270,6 +2822,10 @@
       "category": "subject-end",
       "message": "fix: change behavior....",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2286,6 +2842,10 @@
       "category": "subject-end",
       "message": "fix: change behavior!",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2302,6 +2862,10 @@
       "category": "subject-end",
       "message": "fix: change behavior?",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2318,6 +2882,10 @@
       "category": "subject-end",
       "message": "fix: change behavior;",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2334,6 +2902,10 @@
       "category": "subject-end",
       "message": "fix: change behavior :",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2350,6 +2922,10 @@
       "category": "subject-end",
       "message": "fix: change behavior:",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2366,6 +2942,10 @@
       "category": "subject-end",
       "message": "fix: change behavior. ",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "header-trim"
       ],
@@ -2384,6 +2964,10 @@
       "category": "subject-end",
       "message": "fix: change behavior... ",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "header-trim"
       ],
@@ -2402,6 +2986,10 @@
       "category": "outer-normalization",
       "message": "fix: change behavior\n",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2418,6 +3006,10 @@
       "category": "outer-normalization",
       "message": "fix: change behavior\n\n",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2434,6 +3026,10 @@
       "category": "outer-normalization",
       "message": "fix: change behavior\n\n\n",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2450,6 +3046,10 @@
       "category": "outer-normalization",
       "message": "\nfix: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2466,6 +3066,10 @@
       "category": "outer-normalization",
       "message": "\nfix: change behavior\n",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2482,6 +3086,10 @@
       "category": "outer-normalization",
       "message": "\nfix: change behavior\n\n",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2498,6 +3106,10 @@
       "category": "outer-normalization",
       "message": "\nfix: change behavior\n\n\n",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2514,6 +3126,10 @@
       "category": "outer-normalization",
       "message": "\n\nfix: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2530,6 +3146,10 @@
       "category": "outer-normalization",
       "message": "\n\nfix: change behavior\n",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2546,6 +3166,10 @@
       "category": "outer-normalization",
       "message": "\n\nfix: change behavior\n\n",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2562,6 +3186,10 @@
       "category": "outer-normalization",
       "message": "\n\nfix: change behavior\n\n\n",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2578,6 +3206,10 @@
       "category": "outer-normalization",
       "message": " fix: change behavior\n",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "header-trim",
         "subject-empty",
@@ -2598,6 +3230,10 @@
       "category": "outer-normalization",
       "message": " fix: change behavior\n\n",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "header-trim",
         "subject-empty",
@@ -2618,6 +3254,10 @@
       "category": "outer-normalization",
       "message": " fix: change behavior\n\n\n",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "header-trim",
         "subject-empty",
@@ -2638,6 +3278,10 @@
       "category": "outer-normalization",
       "message": "\tfix: change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "header-trim",
         "subject-empty",
@@ -2659,6 +3303,10 @@
       "category": "outer-normalization",
       "message": "\tfix: change behavior\n",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "header-trim",
         "subject-empty",
@@ -2680,6 +3328,10 @@
       "category": "outer-normalization",
       "message": "\tfix: change behavior\n\n",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "header-trim",
         "subject-empty",
@@ -2701,6 +3353,10 @@
       "category": "outer-normalization",
       "message": "\tfix: change behavior\n\n\n",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "header-trim",
         "subject-empty",
@@ -2722,6 +3378,10 @@
       "category": "outer-normalization",
       "message": "\r\nfix: change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "ascii-message"
       ],
@@ -2740,6 +3400,10 @@
       "category": "outer-normalization",
       "message": "\r\nfix: change behavior\n",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "ascii-message"
       ],
@@ -2758,6 +3422,10 @@
       "category": "outer-normalization",
       "message": "\r\nfix: change behavior\n\n",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "ascii-message"
       ],
@@ -2776,6 +3444,10 @@
       "category": "outer-normalization",
       "message": "\r\nfix: change behavior\n\n\n",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "ascii-message"
       ],
@@ -2794,6 +3466,10 @@
       "category": "parser-prelude",
       "message": " \nfix: change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "header-trim",
         "subject-empty",
@@ -2816,6 +3492,10 @@
       "category": "parser-prelude",
       "message": "\n \nfix: change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "header-trim",
         "subject-empty",
@@ -2838,6 +3518,10 @@
       "category": "parser-prelude",
       "message": "gpg: diagnostic\nfix: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2854,6 +3538,10 @@
       "category": "parser-prelude",
       "message": " gpg: diagnostic\nfix: change behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2870,6 +3558,10 @@
       "category": "parser-prelude",
       "message": "GPG: diagnostic\nfix: change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "type-case",
         "type-enum"
@@ -2891,6 +3583,10 @@
       "category": "parser-prelude",
       "message": "# editor comment\nfix: change behavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-empty",
         "type-empty"
@@ -2912,6 +3608,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\nbody text",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [
         "body-leading-blank"
@@ -2930,6 +3630,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\n\nbody text",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2946,6 +3650,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\n\nBody TEXT.",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2962,6 +3670,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\n\nline one\nline two",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2978,6 +3690,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\n\n# editor comment",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -2994,6 +3710,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\n\nBREAKING CHANGE: new behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3010,6 +3730,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\nBREAKING CHANGE: new behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [
         "footer-leading-blank"
@@ -3028,6 +3752,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\n\nBREAKING-CHANGE: new behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3044,6 +3772,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\n\nRefs: #123",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3060,6 +3792,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\n\nCloses #123",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3076,6 +3812,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\n\nCo-authored-by: Codex",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3092,6 +3832,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\n\nCo-authored-by: Other <other@example.com>",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3108,6 +3852,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\n\nSigned-off-by: Other <other@example.com>",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3124,6 +3872,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\n\nCo-authored-by: Other <other@example.com>\n\nDescription.",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3140,6 +3892,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\n\nbody.\n\nBREAKING CHANGE: new behavior",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3156,6 +3912,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\n\n\nbody text",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3172,6 +3932,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\n\nbody text\n\n",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3188,6 +3952,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\n\n ",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3204,6 +3972,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\n\n\t",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "ascii-message"
       ],
@@ -3222,6 +3994,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\n\n\r",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "ascii-message"
       ],
@@ -3240,6 +4016,10 @@
       "category": "body-footer",
       "message": "fix: change behavior\n\n\u0000",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "ascii-message"
       ],
@@ -3258,6 +4038,10 @@
       "category": "whole-header-length",
       "message": "fix: x",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3274,6 +4058,10 @@
       "category": "whole-header-length",
       "message": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3290,6 +4078,10 @@
       "category": "whole-header-length",
       "message": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3306,6 +4098,10 @@
       "category": "whole-header-length",
       "message": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "header-max-length",
         "message-max-length"
@@ -3325,6 +4121,10 @@
       "category": "whole-header-length",
       "message": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "header-max-length",
         "message-max-length"
@@ -3344,6 +4144,10 @@
       "category": "whole-body-length",
       "message": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3360,6 +4164,10 @@
       "category": "whole-body-length",
       "message": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3376,6 +4184,10 @@
       "category": "whole-body-length",
       "message": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "message-max-length"
       ],
@@ -3394,6 +4206,10 @@
       "category": "whole-body-length",
       "message": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "message-max-length"
       ],
@@ -3412,6 +4228,10 @@
       "category": "whole-body-terminal-lf",
       "message": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3428,6 +4248,10 @@
       "category": "whole-body-terminal-lf",
       "message": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3444,6 +4268,10 @@
       "category": "whole-body-terminal-lf",
       "message": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n",
       "valid": true,
+      "upstreamValid": true,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [],
       "warnings": [],
       "parsed": {
@@ -3460,6 +4288,10 @@
       "category": "whole-body-terminal-lf",
       "message": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "message-max-length"
       ],
@@ -3478,9 +4310,11 @@
       "category": "strict-message-policy",
       "message": "",
       "valid": false,
-      "errors": [
-        "parse-error"
-      ],
+      "upstreamValid": true,
+      "policyException": "empty-message-policy",
+      "lintError": null,
+      "parseError": "Expected a raw commit",
+      "errors": [],
       "warnings": [],
       "parsed": null
     },
@@ -3489,6 +4323,10 @@
       "category": "strict-message-policy",
       "message": "\n",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": "Expected a raw commit",
+      "parseError": "Expected a raw commit",
       "errors": [
         "parse-error"
       ],
@@ -3500,6 +4338,10 @@
       "category": "strict-message-policy",
       "message": "\n\n",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": "Expected a raw commit",
+      "parseError": "Expected a raw commit",
       "errors": [
         "parse-error"
       ],
@@ -3511,6 +4353,10 @@
       "category": "strict-message-policy",
       "message": "Merge branch main",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-empty",
         "type-empty"
@@ -3530,6 +4376,10 @@
       "category": "strict-message-policy",
       "message": "Revert \"fix: change\"",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-empty",
         "type-empty"
@@ -3549,6 +4399,10 @@
       "category": "strict-message-policy",
       "message": "fixup! fix: change",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-empty",
         "type-empty"
@@ -3568,6 +4422,10 @@
       "category": "strict-message-policy",
       "message": "squash! fix: change",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "subject-empty",
         "type-empty"
@@ -3587,6 +4445,10 @@
       "category": "strict-message-policy",
       "message": "fix: 日本語",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "ascii-message"
       ],
@@ -3605,6 +4467,10 @@
       "category": "strict-message-policy",
       "message": "fix: café",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "ascii-message"
       ],
@@ -3623,6 +4489,10 @@
       "category": "strict-message-policy",
       "message": "fix: change\tbehavior",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "ascii-message"
       ],
@@ -3641,6 +4511,10 @@
       "category": "strict-message-policy",
       "message": "fix: change\r\n",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "ascii-message"
       ],
@@ -3659,6 +4533,10 @@
       "category": "strict-message-policy",
       "message": "fix: change\u0000",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "ascii-message"
       ],
@@ -3677,6 +4555,10 @@
       "category": "strict-message-policy",
       "message": "fix: change",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "ascii-message"
       ],
@@ -3695,6 +4577,10 @@
       "category": "strict-message-policy",
       "message": "fix: change\u001b",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "ascii-message"
       ],
@@ -3713,6 +4599,10 @@
       "category": "strict-message-policy",
       "message": "fix: change\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "body-max-line-length",
         "message-max-length"
@@ -3732,6 +4622,10 @@
       "category": "strict-message-policy",
       "message": "fix: change\n\nhttps://example.com/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "valid": false,
+      "upstreamValid": false,
+      "policyException": null,
+      "lintError": null,
+      "parseError": null,
       "errors": [
         "message-max-length"
       ],

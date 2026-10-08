@@ -1,0 +1,392 @@
+{
+  "schema": 1,
+  "upstream": {
+    "repository": "https://github.com/conventional-changelog/commitlint",
+    "version": "21.2.3",
+    "tag": "v21.2.3",
+    "sourceSHA": "95d40569d2592bf9719bc27da2d51fc6b801e4ef",
+    "sourceSHAEvidence": "GitHub refs/tags/v21.2.3 identifies annotated tagObjectSHA; GitHub git/tags resolves its underlying sourceSHA commit, matching published package gitHead. Source archive downloaded by tagObjectSHA.",
+    "tagObjectSHA": "384960a8f54c2f0524c8ea5e89d5a919274239bd"
+  },
+  "expectedVersions": {
+    "@commitlint/cli": "21.2.3",
+    "@commitlint/rules": "21.2.3",
+    "@commitlint/parse": "21.2.3",
+    "@commitlint/lint": "21.2.3",
+    "@commitlint/config-conventional": "21.2.3",
+    "conventional-changelog-angular": "9.4.0",
+    "conventional-changelog-conventionalcommits": "10.4.1",
+    "conventional-commits-parser": "7.1.3"
+  },
+  "execution": {
+    "node": "v26.8.2",
+    "unicode": "17.0",
+    "bun": "1.3.6"
+  },
+  "files": [
+    {
+      "path": "@commitlint/rules/src/body-case.test.ts",
+      "sha256": "d380981652b6b7382627476026506e3a3826d195d902ba36ad0d7e0932362c5c"
+    },
+    {
+      "path": "@commitlint/rules/src/body-case.ts",
+      "sha256": "63a4c3d772cf17286792b01facc06d9fa4ca806c84848d33ad741caba3237e83"
+    },
+    {
+      "path": "@commitlint/rules/src/body-empty.test.ts",
+      "sha256": "f8ef39ad7c3726dc25b347accfe0d802e873e207689e279e5087d1b6939ff9c3"
+    },
+    {
+      "path": "@commitlint/rules/src/body-empty.ts",
+      "sha256": "ca8bcf9580919a3445ff10215a9ea680856650824f088bd32391b0be71871f39"
+    },
+    {
+      "path": "@commitlint/rules/src/body-full-stop.test.ts",
+      "sha256": "c817871447afe36283d2bbd826915fabeff10c253909c0fa894152f9aec3edc3"
+    },
+    {
+      "path": "@commitlint/rules/src/body-full-stop.ts",
+      "sha256": "bdbced92c804fed2d462c415dfd9fcd4e8b45c35929738de4074f330519d0f4d"
+    },
+    {
+      "path": "@commitlint/rules/src/body-leading-blank.test.ts",
+      "sha256": "38b91f6664062a9b2a39951883518a1fc94765fa72b368a7f35c883a4e044bbc"
+    },
+    {
+      "path": "@commitlint/rules/src/body-leading-blank.ts",
+      "sha256": "3aab1ba33ebd3f75d0f97b63b9afc1be6675906954769fa50e076d03636e6fb2"
+    },
+    {
+      "path": "@commitlint/rules/src/body-max-length.test.ts",
+      "sha256": "bfdf799c22960117eae6a9fcaa2cf8afc35b9c88f7b45a46c3ba6a580135cb74"
+    },
+    {
+      "path": "@commitlint/rules/src/body-max-length.ts",
+      "sha256": "f50503982db72c2d6a4910b7b76ae19837932d56abcd0b28b6b56932f2c6fd79"
+    },
+    {
+      "path": "@commitlint/rules/src/body-max-line-length.test.ts",
+      "sha256": "8887d935a5f14438f21d14f1c9cf56920395c23569be9958c55172bdbbe35189"
+    },
+    {
+      "path": "@commitlint/rules/src/body-max-line-length.ts",
+      "sha256": "e7ba2bfd273f02098500059c39d4e3090ece0bea33b303ad690d8c201f1de706"
+    },
+    {
+      "path": "@commitlint/rules/src/body-min-length.test.ts",
+      "sha256": "d8a9ec423b750a6deb2265e9315185e756eba560a3070638aacc36615d94d87c"
+    },
+    {
+      "path": "@commitlint/rules/src/body-min-length.ts",
+      "sha256": "693d83c44e33c6063845809c10989fa8caa06c40989976c483abb95425a75354"
+    },
+    {
+      "path": "@commitlint/rules/src/breaking-change-exclamation-mark.test.ts",
+      "sha256": "223d0b599e772bbc18defd2dd3e5e2df9044749889e04925b568f24755e5a09d"
+    },
+    {
+      "path": "@commitlint/rules/src/breaking-change-exclamation-mark.ts",
+      "sha256": "d8f3edbbc154c845c71c761a9e7749b73e159f3115d9e856fcde7731fb402972"
+    },
+    {
+      "path": "@commitlint/rules/src/footer-empty.test.ts",
+      "sha256": "983d4b5b704034b03c5714fee8e0492c0ebfa4fce7f58969d689fe1a8764a671"
+    },
+    {
+      "path": "@commitlint/rules/src/footer-empty.ts",
+      "sha256": "e8662b60d8aaf6a17e3069331433cc7bdeca4da072d8b4cd4340c7878bc57f16"
+    },
+    {
+      "path": "@commitlint/rules/src/footer-leading-blank.test.ts",
+      "sha256": "2ac92f6a0bb68eb8fe30afccaf9c9f94080306f56f4250469a64c9eee773911f"
+    },
+    {
+      "path": "@commitlint/rules/src/footer-leading-blank.ts",
+      "sha256": "ab2894b4f1df65c6042cf720ed926b197ab254f6becea918213b49014dbfb337"
+    },
+    {
+      "path": "@commitlint/rules/src/footer-max-length.test.ts",
+      "sha256": "ceba4b2109aef89a1263473716ee3b31736b39b4b91b64448c15cfa571defef8"
+    },
+    {
+      "path": "@commitlint/rules/src/footer-max-length.ts",
+      "sha256": "d0e60b12f43c90390ce13a84f25822a7312c419e91490ad53f3668ad0d632114"
+    },
+    {
+      "path": "@commitlint/rules/src/footer-max-line-length.test.ts",
+      "sha256": "e50d0ce5d69f8c60bf5f1b35e2bdc34378f9adc515c9b7b46b3c5e9f8938e0d6"
+    },
+    {
+      "path": "@commitlint/rules/src/footer-max-line-length.ts",
+      "sha256": "db607c275a17be012299c61c4965afbcf2411f3187d8e2cea37245db7d7d601c"
+    },
+    {
+      "path": "@commitlint/rules/src/footer-min-length.test.ts",
+      "sha256": "e0532f25cba40e48e890b173aacdddcda60577152afee0da949918f851f70884"
+    },
+    {
+      "path": "@commitlint/rules/src/footer-min-length.ts",
+      "sha256": "d36393d91e299164462ea25be0a7a443379e9f804ae2dec1835c70c7fc590660"
+    },
+    {
+      "path": "@commitlint/rules/src/header-case.test.ts",
+      "sha256": "cc69b2f8502a27a1d227990be668ec7d1dd81906bb4a7a20555f598633f8ba74"
+    },
+    {
+      "path": "@commitlint/rules/src/header-case.ts",
+      "sha256": "8e5b2f180ba6dec35a7f12a541035e7e8090a8975028f9a1b3bb86b51d178da8"
+    },
+    {
+      "path": "@commitlint/rules/src/header-full-stop.test.ts",
+      "sha256": "48678799bbc9d7c4c818f992dfac3f9653a1e4dfa67303d6fa70b5da917428eb"
+    },
+    {
+      "path": "@commitlint/rules/src/header-full-stop.ts",
+      "sha256": "e45e341431f9b6f0c19d55bf6380a0d56cdb64fb13f2374970e035c0f8ea4492"
+    },
+    {
+      "path": "@commitlint/rules/src/header-max-length.test.ts",
+      "sha256": "3b8f8f75c933cd76f3daee01d2fdc72904b8e1c60483ec7d567cde37a82ca4b4"
+    },
+    {
+      "path": "@commitlint/rules/src/header-max-length.ts",
+      "sha256": "a7cc286cfcce79eed85173188352e8d9749bf7dfdb9b60e6e86f40c27adc8b21"
+    },
+    {
+      "path": "@commitlint/rules/src/header-min-length.test.ts",
+      "sha256": "3a6ac431e695e2289e03ff4ba08babde3898cadb5203d8673c93982d794f4487"
+    },
+    {
+      "path": "@commitlint/rules/src/header-min-length.ts",
+      "sha256": "a1144b1b69a7cde2f3554a252fe89a64a51bc80041adccb2b197b8d345320534"
+    },
+    {
+      "path": "@commitlint/rules/src/header-trim.test.ts",
+      "sha256": "28c4dae2908b28bdb3ec4f8e98494ea99caca3364442402cc18663f3e0096bed"
+    },
+    {
+      "path": "@commitlint/rules/src/header-trim.ts",
+      "sha256": "535e356ec2f9e26143cff0f524e0e61395c2470ea50c9ea49f7ffa8e7f9505ae"
+    },
+    {
+      "path": "@commitlint/rules/src/index.test.ts",
+      "sha256": "cc41b71d3637fb8b2be6c581b850c04becf5b4937563fc7135b9d29b1d941c52"
+    },
+    {
+      "path": "@commitlint/rules/src/index.ts",
+      "sha256": "10889131cbc53530ca04da6a28d13da7f097b92020e8ac5dfd1f8b4c04c8f68a"
+    },
+    {
+      "path": "@commitlint/rules/src/references-empty.test.ts",
+      "sha256": "8bf90186255135261c8beab14698e1ff0fd64c9aed724a1ef7b6552258aae330"
+    },
+    {
+      "path": "@commitlint/rules/src/references-empty.ts",
+      "sha256": "305f723980de276ff80aa29c8e246dbc404848a5806bd84cad825736442fe891"
+    },
+    {
+      "path": "@commitlint/rules/src/scope-case.test.ts",
+      "sha256": "806e250a831b959def6fbb9b60d188f6585330b96673252414b8ed24ee9585fe"
+    },
+    {
+      "path": "@commitlint/rules/src/scope-case.ts",
+      "sha256": "e36f80ae4d9e622c38a59d35ce2d49dcf911eb20d195f9a7e46bb58a8baf6fe1"
+    },
+    {
+      "path": "@commitlint/rules/src/scope-delimiter-style.test.ts",
+      "sha256": "10497d7853c7c892b4901b1ca70303e6f35a0314c9719353a48abe9127fc7d45"
+    },
+    {
+      "path": "@commitlint/rules/src/scope-delimiter-style.ts",
+      "sha256": "d9ac47a0e3abcd72ece62cc84a76dc1ebf0dea63b03aea6d9ae33bb14d4d620c"
+    },
+    {
+      "path": "@commitlint/rules/src/scope-empty.test.ts",
+      "sha256": "2927984059bbfc8921f9fdd7f81905a42532dd8f1a4186a361af41ba15ca4fd0"
+    },
+    {
+      "path": "@commitlint/rules/src/scope-empty.ts",
+      "sha256": "5f37d2358da271146126ff49cfb912e7a170ecfa10e69ed3cada61b9177bd153"
+    },
+    {
+      "path": "@commitlint/rules/src/scope-enum.test.ts",
+      "sha256": "21fccdf726e4da3ae86fcc899afd53ebc5d7c957a8ff975332da0fe38a194aa2"
+    },
+    {
+      "path": "@commitlint/rules/src/scope-enum.ts",
+      "sha256": "ba6a2ad7b060ffba581a14ade9533a07688d931d8877369fd1f67dba768bd36d"
+    },
+    {
+      "path": "@commitlint/rules/src/scope-max-length.test.ts",
+      "sha256": "99c7af393110caa6f1ecc5e720d92ff1ceab97fb6979e06565009bad3092fa9b"
+    },
+    {
+      "path": "@commitlint/rules/src/scope-max-length.ts",
+      "sha256": "fb6bd316ad1acb0a9641150da257512b1c42578a0f161a7d60d4612cfa7ed070"
+    },
+    {
+      "path": "@commitlint/rules/src/scope-min-length.test.ts",
+      "sha256": "05853aa439b10db5a77a6866fd2e822323a2aae1eb4659bfa64f6624457fadb3"
+    },
+    {
+      "path": "@commitlint/rules/src/scope-min-length.ts",
+      "sha256": "953213b6f1dbfe679caaba943f0c5985548939f6d7592d59bc119e6f18823ec3"
+    },
+    {
+      "path": "@commitlint/rules/src/signed-off-by.test.ts",
+      "sha256": "79a7c4330eb73bea22175a044e7b9ef10332eb798eeee80e032cdc1aa01668f0"
+    },
+    {
+      "path": "@commitlint/rules/src/signed-off-by.ts",
+      "sha256": "986b0292ad5fcd23abcbec23f4294adaf619c37c44f6de32872b08d7e5f2a099"
+    },
+    {
+      "path": "@commitlint/rules/src/subject-case.test.ts",
+      "sha256": "daf0e247b85166135c1a80861a0b612b8b0e765758f7ccd23a714ced2d8fbd48"
+    },
+    {
+      "path": "@commitlint/rules/src/subject-case.ts",
+      "sha256": "bb263dc82e2bd5c30ba5f2bb09bffe48e19805a015e85c8143546142916c7401"
+    },
+    {
+      "path": "@commitlint/rules/src/subject-empty.test.ts",
+      "sha256": "f28bcefdd430d5418e078c26fd7cb75f95a7ca04043fcfcf799310826f1d889b"
+    },
+    {
+      "path": "@commitlint/rules/src/subject-empty.ts",
+      "sha256": "4d7cecdfdafca761d066b245e35313362bdc2337999aaf93767b238db4e082b5"
+    },
+    {
+      "path": "@commitlint/rules/src/subject-exclamation-mark.test.ts",
+      "sha256": "bddc86afec0f9e3e8e4c23ab9b4add0e8bbe4e042502d7120eb8ba74680927f9"
+    },
+    {
+      "path": "@commitlint/rules/src/subject-exclamation-mark.ts",
+      "sha256": "d999751bcd2efc1b71ae9d39679cb9eddcc8d50d5b7aa37279c3f72c27b5f195"
+    },
+    {
+      "path": "@commitlint/rules/src/subject-full-stop.test.ts",
+      "sha256": "e5dd461e9d344562abc2c55dfbbcf99816d561dde51bcfc552ff9918b0f42856"
+    },
+    {
+      "path": "@commitlint/rules/src/subject-full-stop.ts",
+      "sha256": "b6627dfc9497e7e5790ee53dfa31991d17afeac07bab161b46f58f47ee8b312f"
+    },
+    {
+      "path": "@commitlint/rules/src/subject-max-length.test.ts",
+      "sha256": "595637837e18ea2b045af808bb54114a1f5c5270b83a6295ff9ae723d941c8ca"
+    },
+    {
+      "path": "@commitlint/rules/src/subject-max-length.ts",
+      "sha256": "3336514759a3576ccbd9e924a84ddf80a4f3c4baf2173af597c05474ca7853bf"
+    },
+    {
+      "path": "@commitlint/rules/src/subject-min-length.test.ts",
+      "sha256": "8b9ab8629b32891c132f472f1b797602bd048d4596a3a2a951aff2c883d5f1ec"
+    },
+    {
+      "path": "@commitlint/rules/src/subject-min-length.ts",
+      "sha256": "0d092927e7104b43e2f9fcebac415e221df47e794187bba7b095a241c82fed50"
+    },
+    {
+      "path": "@commitlint/rules/src/trailer-exists.test.ts",
+      "sha256": "30bb11ae5bef763ed9bcbaa9bc25668c50c879747f87239d4622f910ac4c21d4"
+    },
+    {
+      "path": "@commitlint/rules/src/trailer-exists.ts",
+      "sha256": "59627caf35d4a165e487a0276db40cd393e0ceadefc5c21c53069ed5330aac28"
+    },
+    {
+      "path": "@commitlint/rules/src/type-case.test.ts",
+      "sha256": "d4b9d71ed2b8ddc7fb9829773e9ebe3cd680c413f5e347b382495da1aa1f1525"
+    },
+    {
+      "path": "@commitlint/rules/src/type-case.ts",
+      "sha256": "8b73c5532924043ad6a8674d67c6667252b38d27196741b9555ac26d38905c19"
+    },
+    {
+      "path": "@commitlint/rules/src/type-empty.test.ts",
+      "sha256": "87428a456b0940a9d5806650c2a430afeb2adca5c22e5430a7a149cf5ff62b20"
+    },
+    {
+      "path": "@commitlint/rules/src/type-empty.ts",
+      "sha256": "2ab7fa36c9562cd6d611e416ff448c48a9384e29a7fd9d23cc200aab82e4ee8f"
+    },
+    {
+      "path": "@commitlint/rules/src/type-enum.test.ts",
+      "sha256": "f246e64e2f6e46c17bde36c806460e3838260cd4d7427f62301fe7ab6e693ca0"
+    },
+    {
+      "path": "@commitlint/rules/src/type-enum.ts",
+      "sha256": "d39ee033dee04fd530914d62d5b2f5461094798d4827c4453850d5598ead88cb"
+    },
+    {
+      "path": "@commitlint/rules/src/type-max-length.test.ts",
+      "sha256": "fcab1e640bf8f0896ec1af8d46bf0ef8f44fadfcc637ae3123873ca8028319e8"
+    },
+    {
+      "path": "@commitlint/rules/src/type-max-length.ts",
+      "sha256": "8056bb414988dbc3d5193e7b75025b95c3967fbd6db19a31df1289256914b6ca"
+    },
+    {
+      "path": "@commitlint/rules/src/type-min-length.test.ts",
+      "sha256": "7aeea54e4624f9b1e6329e2128f9fc5c4c4fa8c9a0b86b6863ef86c6c76b5762"
+    },
+    {
+      "path": "@commitlint/rules/src/type-min-length.ts",
+      "sha256": "3d7a5cf41feb1387b622c5977a2f33c5c306c34cdcaaee9a8399568f794e2dcc"
+    },
+    {
+      "path": "docs/reference/rules.md",
+      "sha256": "7ce0d3760afac8647b34b6765f62d6575b8992ffb9af7e37601e410c2f3aa0c3"
+    },
+    {
+      "path": "license.md",
+      "sha256": "98e11c1eb758c34d5176d8b4ccc78f452431e86cec1a0198b916c16bd7d75aee"
+    }
+  ],
+  "coverage": {
+    "functionalTests": 532,
+    "metaTests": 3,
+    "ruleNames": [
+      "body-case",
+      "body-empty",
+      "body-full-stop",
+      "body-leading-blank",
+      "body-max-length",
+      "body-max-line-length",
+      "body-min-length",
+      "breaking-change-exclamation-mark",
+      "footer-empty",
+      "footer-leading-blank",
+      "footer-max-length",
+      "footer-max-line-length",
+      "footer-min-length",
+      "header-case",
+      "header-full-stop",
+      "header-max-length",
+      "header-min-length",
+      "header-trim",
+      "references-empty",
+      "scope-case",
+      "scope-delimiter-style",
+      "scope-empty",
+      "scope-enum",
+      "scope-max-length",
+      "scope-min-length",
+      "signed-off-by",
+      "subject-case",
+      "subject-empty",
+      "subject-exclamation-mark",
+      "subject-full-stop",
+      "subject-max-length",
+      "subject-min-length",
+      "trailer-exists",
+      "type-case",
+      "type-empty",
+      "type-enum",
+      "type-max-length",
+      "type-min-length"
+    ]
+  }
+}

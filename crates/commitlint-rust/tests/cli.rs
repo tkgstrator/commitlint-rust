@@ -4,6 +4,49 @@ use common::*;
 use std::{fs, path::Path};
 
 #[test]
+fn verbose_refusal_prints_all_diagnostics_and_legacy_error() {
+    let f = Fixture::new();
+    let result = f.run(
+        Path::new(env!("CARGO_BIN_EXE_commitlint")),
+        &["--verbose"],
+        &f.root,
+        &[],
+        Some(b"BANANA: Uppercase."),
+        "",
+    );
+    assert!(!result.status.success());
+    let stderr = String::from_utf8_lossy(&result.stderr);
+    for name in [
+        "subject-case",
+        "subject-full-stop",
+        "type-case",
+        "type-enum",
+    ] {
+        assert!(stderr.contains(name), "{stderr}");
+    }
+    assert!(stderr.contains("unsupported or non-lowercase Conventional Commit type"));
+}
+
+#[test]
+fn verbose_reports_warning_without_rejection() {
+    let f = Fixture::new();
+    let result = f.run(
+        Path::new(env!("CARGO_BIN_EXE_commitlint")),
+        &["--verbose"],
+        &f.root,
+        &[],
+        Some(b"fix: change behavior\nbody text"),
+        "",
+    );
+    assert!(
+        result.status.success(),
+        "{}",
+        String::from_utf8_lossy(&result.stderr)
+    );
+    assert!(String::from_utf8_lossy(&result.stderr).contains("body-leading-blank"));
+}
+
+#[test]
 fn stdin_needs_no_git_gh_or_authentication() {
     let f = Fixture::new();
     // Empty PATH: nothing at all can be resolved.

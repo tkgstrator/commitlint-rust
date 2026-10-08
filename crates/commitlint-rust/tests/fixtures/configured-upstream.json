@@ -1,0 +1,6418 @@
+{
+  "schema": 1,
+  "description": "Actual pinned load/lint JSON-configuration differential. Native strict-profile differences are explicit; original upstream results are never replaced.",
+  "execution": {
+    "node": "v26.8.2",
+    "unicode": "17.0"
+  },
+  "versions": {
+    "@commitlint/load": "21.2.3",
+    "@commitlint/lint": "21.2.3",
+    "@commitlint/parse": "21.2.3",
+    "@commitlint/config-conventional": "21.2.3",
+    "conventional-changelog-angular": "9.4.0",
+    "conventional-changelog-conventionalcommits": "10.4.1",
+    "conventional-commits-parser": "7.1.3",
+    "es-toolkit": "1.52.0"
+  },
+  "packageGitHeads": {
+    "@commitlint/load": "95d40569d2592bf9719bc27da2d51fc6b801e4ef",
+    "@commitlint/lint": "95d40569d2592bf9719bc27da2d51fc6b801e4ef",
+    "@commitlint/parse": "95d40569d2592bf9719bc27da2d51fc6b801e4ef",
+    "@commitlint/config-conventional": "95d40569d2592bf9719bc27da2d51fc6b801e4ef"
+  },
+  "cases": [
+    {
+      "id": "preset-100-pass",
+      "message": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "configText": "{\"extends\":[\"@commitlint/config-conventional\"],\"defaultIgnores\":false}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "body-leading-blank": [
+              1,
+              "always"
+            ],
+            "body-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ],
+            "footer-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-max-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-trim": [
+              2,
+              "always"
+            ],
+            "subject-case": [
+              2,
+              "never",
+              [
+                "sentence-case",
+                "start-case",
+                "pascal-case",
+                "upper-case"
+              ]
+            ],
+            "subject-empty": [
+              2,
+              "never"
+            ],
+            "subject-full-stop": [
+              2,
+              "never",
+              "."
+            ],
+            "type-case": [
+              2,
+              "always",
+              "lower-case"
+            ],
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "type-enum": [
+              2,
+              "always",
+              [
+                "build",
+                "chore",
+                "ci",
+                "docs",
+                "feat",
+                "fix",
+                "perf",
+                "refactor",
+                "revert",
+                "style",
+                "test"
+              ]
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-conventionalcommits",
+          "parserOpts": {
+            "headerPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!?: (.*)$",
+              "flags": ""
+            },
+            "breakingHeaderPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!: (.*)$",
+              "flags": ""
+            },
+            "headerCorrespondence": [
+              "type",
+              "scope",
+              "subject"
+            ],
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING-CHANGE"
+            ],
+            "revertPattern": {
+              "$type": "regexp",
+              "source": "^(?:Revert|revert:)\\s\"?([\\s\\S]+?)\"?\\s*This reverts commit (\\w*)\\.",
+              "flags": "i"
+            },
+            "revertCorrespondence": [
+              "header",
+              "hash"
+            ],
+            "issuePrefixes": [
+              "#"
+            ]
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        },
+        "parsed": {
+          "header": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "type": "fix",
+          "scope": null,
+          "subject": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "body": null,
+          "footer": null,
+          "raw": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "preset-100-fail",
+      "message": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "configText": "{\"extends\":[\"@commitlint/config-conventional\"],\"defaultIgnores\":false}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "body-leading-blank": [
+              1,
+              "always"
+            ],
+            "body-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ],
+            "footer-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-max-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-trim": [
+              2,
+              "always"
+            ],
+            "subject-case": [
+              2,
+              "never",
+              [
+                "sentence-case",
+                "start-case",
+                "pascal-case",
+                "upper-case"
+              ]
+            ],
+            "subject-empty": [
+              2,
+              "never"
+            ],
+            "subject-full-stop": [
+              2,
+              "never",
+              "."
+            ],
+            "type-case": [
+              2,
+              "always",
+              "lower-case"
+            ],
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "type-enum": [
+              2,
+              "always",
+              [
+                "build",
+                "chore",
+                "ci",
+                "docs",
+                "feat",
+                "fix",
+                "perf",
+                "refactor",
+                "revert",
+                "style",
+                "test"
+              ]
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-conventionalcommits",
+          "parserOpts": {
+            "headerPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!?: (.*)$",
+              "flags": ""
+            },
+            "breakingHeaderPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!: (.*)$",
+              "flags": ""
+            },
+            "headerCorrespondence": [
+              "type",
+              "scope",
+              "subject"
+            ],
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING-CHANGE"
+            ],
+            "revertPattern": {
+              "$type": "regexp",
+              "source": "^(?:Revert|revert:)\\s\"?([\\s\\S]+?)\"?\\s*This reverts commit (\\w*)\\.",
+              "flags": "i"
+            },
+            "revertCorrespondence": [
+              "header",
+              "hash"
+            ],
+            "issuePrefixes": [
+              "#"
+            ]
+          }
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "header-max-length",
+              "message": "header must not be longer than 100 characters, current length is 101"
+            }
+          ],
+          "warnings": [],
+          "input": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        },
+        "parsed": {
+          "header": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "type": "fix",
+          "scope": null,
+          "subject": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "body": null,
+          "footer": null,
+          "raw": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "preset-128-override-pass",
+      "message": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "configText": "{\"extends\":[\"@commitlint/config-conventional\"],\"defaultIgnores\":false,\"rules\":{\"header-max-length\":[2,\"always\",128]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "body-leading-blank": [
+              1,
+              "always"
+            ],
+            "body-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ],
+            "footer-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-max-length": [
+              2,
+              "always",
+              128
+            ],
+            "header-trim": [
+              2,
+              "always"
+            ],
+            "subject-case": [
+              2,
+              "never",
+              [
+                "sentence-case",
+                "start-case",
+                "pascal-case",
+                "upper-case"
+              ]
+            ],
+            "subject-empty": [
+              2,
+              "never"
+            ],
+            "subject-full-stop": [
+              2,
+              "never",
+              "."
+            ],
+            "type-case": [
+              2,
+              "always",
+              "lower-case"
+            ],
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "type-enum": [
+              2,
+              "always",
+              [
+                "build",
+                "chore",
+                "ci",
+                "docs",
+                "feat",
+                "fix",
+                "perf",
+                "refactor",
+                "revert",
+                "style",
+                "test"
+              ]
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-conventionalcommits",
+          "parserOpts": {
+            "headerPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!?: (.*)$",
+              "flags": ""
+            },
+            "breakingHeaderPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!: (.*)$",
+              "flags": ""
+            },
+            "headerCorrespondence": [
+              "type",
+              "scope",
+              "subject"
+            ],
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING-CHANGE"
+            ],
+            "revertPattern": {
+              "$type": "regexp",
+              "source": "^(?:Revert|revert:)\\s\"?([\\s\\S]+?)\"?\\s*This reverts commit (\\w*)\\.",
+              "flags": "i"
+            },
+            "revertCorrespondence": [
+              "header",
+              "hash"
+            ],
+            "issuePrefixes": [
+              "#"
+            ]
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        },
+        "parsed": {
+          "header": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "type": "fix",
+          "scope": null,
+          "subject": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "body": null,
+          "footer": null,
+          "raw": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "preset-128-override-fail",
+      "message": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "configText": "{\"extends\":[\"@commitlint/config-conventional\"],\"defaultIgnores\":false,\"rules\":{\"header-max-length\":[2,\"always\",128]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "body-leading-blank": [
+              1,
+              "always"
+            ],
+            "body-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ],
+            "footer-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-max-length": [
+              2,
+              "always",
+              128
+            ],
+            "header-trim": [
+              2,
+              "always"
+            ],
+            "subject-case": [
+              2,
+              "never",
+              [
+                "sentence-case",
+                "start-case",
+                "pascal-case",
+                "upper-case"
+              ]
+            ],
+            "subject-empty": [
+              2,
+              "never"
+            ],
+            "subject-full-stop": [
+              2,
+              "never",
+              "."
+            ],
+            "type-case": [
+              2,
+              "always",
+              "lower-case"
+            ],
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "type-enum": [
+              2,
+              "always",
+              [
+                "build",
+                "chore",
+                "ci",
+                "docs",
+                "feat",
+                "fix",
+                "perf",
+                "refactor",
+                "revert",
+                "style",
+                "test"
+              ]
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-conventionalcommits",
+          "parserOpts": {
+            "headerPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!?: (.*)$",
+              "flags": ""
+            },
+            "breakingHeaderPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!: (.*)$",
+              "flags": ""
+            },
+            "headerCorrespondence": [
+              "type",
+              "scope",
+              "subject"
+            ],
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING-CHANGE"
+            ],
+            "revertPattern": {
+              "$type": "regexp",
+              "source": "^(?:Revert|revert:)\\s\"?([\\s\\S]+?)\"?\\s*This reverts commit (\\w*)\\.",
+              "flags": "i"
+            },
+            "revertCorrespondence": [
+              "header",
+              "hash"
+            ],
+            "issuePrefixes": [
+              "#"
+            ]
+          }
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "header-max-length",
+              "message": "header must not be longer than 128 characters, current length is 129"
+            }
+          ],
+          "warnings": [],
+          "input": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        },
+        "parsed": {
+          "header": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "type": "fix",
+          "scope": null,
+          "subject": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "body": null,
+          "footer": null,
+          "raw": "fix: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "preset-body-100",
+      "message": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "configText": "{\"extends\":[\"@commitlint/config-conventional\"],\"defaultIgnores\":false}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "body-leading-blank": [
+              1,
+              "always"
+            ],
+            "body-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ],
+            "footer-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-max-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-trim": [
+              2,
+              "always"
+            ],
+            "subject-case": [
+              2,
+              "never",
+              [
+                "sentence-case",
+                "start-case",
+                "pascal-case",
+                "upper-case"
+              ]
+            ],
+            "subject-empty": [
+              2,
+              "never"
+            ],
+            "subject-full-stop": [
+              2,
+              "never",
+              "."
+            ],
+            "type-case": [
+              2,
+              "always",
+              "lower-case"
+            ],
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "type-enum": [
+              2,
+              "always",
+              [
+                "build",
+                "chore",
+                "ci",
+                "docs",
+                "feat",
+                "fix",
+                "perf",
+                "refactor",
+                "revert",
+                "style",
+                "test"
+              ]
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-conventionalcommits",
+          "parserOpts": {
+            "headerPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!?: (.*)$",
+              "flags": ""
+            },
+            "breakingHeaderPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!: (.*)$",
+              "flags": ""
+            },
+            "headerCorrespondence": [
+              "type",
+              "scope",
+              "subject"
+            ],
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING-CHANGE"
+            ],
+            "revertPattern": {
+              "$type": "regexp",
+              "source": "^(?:Revert|revert:)\\s\"?([\\s\\S]+?)\"?\\s*This reverts commit (\\w*)\\.",
+              "flags": "i"
+            },
+            "revertCorrespondence": [
+              "header",
+              "hash"
+            ],
+            "issuePrefixes": [
+              "#"
+            ]
+          }
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "body-max-line-length",
+              "message": "body's lines must not be longer than 100 characters"
+            }
+          ],
+          "warnings": [],
+          "input": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        },
+        "parsed": {
+          "header": "fix: a",
+          "type": "fix",
+          "scope": null,
+          "subject": "a",
+          "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "footer": null,
+          "raw": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "preset-body-128-override",
+      "message": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "configText": "{\"extends\":[\"@commitlint/config-conventional\"],\"defaultIgnores\":false,\"rules\":{\"body-max-line-length\":[2,\"always\",128]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "body-leading-blank": [
+              1,
+              "always"
+            ],
+            "body-max-line-length": [
+              2,
+              "always",
+              128
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ],
+            "footer-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-max-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-trim": [
+              2,
+              "always"
+            ],
+            "subject-case": [
+              2,
+              "never",
+              [
+                "sentence-case",
+                "start-case",
+                "pascal-case",
+                "upper-case"
+              ]
+            ],
+            "subject-empty": [
+              2,
+              "never"
+            ],
+            "subject-full-stop": [
+              2,
+              "never",
+              "."
+            ],
+            "type-case": [
+              2,
+              "always",
+              "lower-case"
+            ],
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "type-enum": [
+              2,
+              "always",
+              [
+                "build",
+                "chore",
+                "ci",
+                "docs",
+                "feat",
+                "fix",
+                "perf",
+                "refactor",
+                "revert",
+                "style",
+                "test"
+              ]
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-conventionalcommits",
+          "parserOpts": {
+            "headerPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!?: (.*)$",
+              "flags": ""
+            },
+            "breakingHeaderPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!: (.*)$",
+              "flags": ""
+            },
+            "headerCorrespondence": [
+              "type",
+              "scope",
+              "subject"
+            ],
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING-CHANGE"
+            ],
+            "revertPattern": {
+              "$type": "regexp",
+              "source": "^(?:Revert|revert:)\\s\"?([\\s\\S]+?)\"?\\s*This reverts commit (\\w*)\\.",
+              "flags": "i"
+            },
+            "revertCorrespondence": [
+              "header",
+              "hash"
+            ],
+            "issuePrefixes": [
+              "#"
+            ]
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        },
+        "parsed": {
+          "header": "fix: a",
+          "type": "fix",
+          "scope": null,
+          "subject": "a",
+          "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "footer": null,
+          "raw": "fix: a\n\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "preset-override-disabled-shorthand",
+      "message": "INVALID: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "configText": "{\"extends\":[\"@commitlint/config-conventional\"],\"defaultIgnores\":false,\"rules\":{\"header-max-length\":[0]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "body-leading-blank": [
+              1,
+              "always"
+            ],
+            "body-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ],
+            "footer-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-max-length": [
+              0
+            ],
+            "header-trim": [
+              2,
+              "always"
+            ],
+            "subject-case": [
+              2,
+              "never",
+              [
+                "sentence-case",
+                "start-case",
+                "pascal-case",
+                "upper-case"
+              ]
+            ],
+            "subject-empty": [
+              2,
+              "never"
+            ],
+            "subject-full-stop": [
+              2,
+              "never",
+              "."
+            ],
+            "type-case": [
+              2,
+              "always",
+              "lower-case"
+            ],
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "type-enum": [
+              2,
+              "always",
+              [
+                "build",
+                "chore",
+                "ci",
+                "docs",
+                "feat",
+                "fix",
+                "perf",
+                "refactor",
+                "revert",
+                "style",
+                "test"
+              ]
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-conventionalcommits",
+          "parserOpts": {
+            "headerPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!?: (.*)$",
+              "flags": ""
+            },
+            "breakingHeaderPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!: (.*)$",
+              "flags": ""
+            },
+            "headerCorrespondence": [
+              "type",
+              "scope",
+              "subject"
+            ],
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING-CHANGE"
+            ],
+            "revertPattern": {
+              "$type": "regexp",
+              "source": "^(?:Revert|revert:)\\s\"?([\\s\\S]+?)\"?\\s*This reverts commit (\\w*)\\.",
+              "flags": "i"
+            },
+            "revertCorrespondence": [
+              "header",
+              "hash"
+            ],
+            "issuePrefixes": [
+              "#"
+            ]
+          }
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-case",
+              "message": "type must be lower-case"
+            },
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-enum",
+              "message": "type must be one of [build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test]"
+            }
+          ],
+          "warnings": [],
+          "input": "INVALID: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        },
+        "parsed": {
+          "header": "INVALID: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "type": "INVALID",
+          "scope": null,
+          "subject": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "body": null,
+          "footer": null,
+          "raw": "INVALID: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "preset-override-disabled-full-tuple",
+      "message": "INVALID: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "configText": "{\"extends\":[\"@commitlint/config-conventional\"],\"defaultIgnores\":false,\"rules\":{\"header-max-length\":[0,\"always\",{\"unused\":true}]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "body-leading-blank": [
+              1,
+              "always"
+            ],
+            "body-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ],
+            "footer-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-max-length": [
+              0,
+              "always",
+              {
+                "unused": true
+              }
+            ],
+            "header-trim": [
+              2,
+              "always"
+            ],
+            "subject-case": [
+              2,
+              "never",
+              [
+                "sentence-case",
+                "start-case",
+                "pascal-case",
+                "upper-case"
+              ]
+            ],
+            "subject-empty": [
+              2,
+              "never"
+            ],
+            "subject-full-stop": [
+              2,
+              "never",
+              "."
+            ],
+            "type-case": [
+              2,
+              "always",
+              "lower-case"
+            ],
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "type-enum": [
+              2,
+              "always",
+              [
+                "build",
+                "chore",
+                "ci",
+                "docs",
+                "feat",
+                "fix",
+                "perf",
+                "refactor",
+                "revert",
+                "style",
+                "test"
+              ]
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-conventionalcommits",
+          "parserOpts": {
+            "headerPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!?: (.*)$",
+              "flags": ""
+            },
+            "breakingHeaderPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!: (.*)$",
+              "flags": ""
+            },
+            "headerCorrespondence": [
+              "type",
+              "scope",
+              "subject"
+            ],
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING-CHANGE"
+            ],
+            "revertPattern": {
+              "$type": "regexp",
+              "source": "^(?:Revert|revert:)\\s\"?([\\s\\S]+?)\"?\\s*This reverts commit (\\w*)\\.",
+              "flags": "i"
+            },
+            "revertCorrespondence": [
+              "header",
+              "hash"
+            ],
+            "issuePrefixes": [
+              "#"
+            ]
+          }
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-case",
+              "message": "type must be lower-case"
+            },
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-enum",
+              "message": "type must be one of [build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test]"
+            }
+          ],
+          "warnings": [],
+          "input": "INVALID: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        },
+        "parsed": {
+          "header": "INVALID: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "type": "INVALID",
+          "scope": null,
+          "subject": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "body": null,
+          "footer": null,
+          "raw": "INVALID: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "severity-0",
+      "message": "invalid header",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[0]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              0
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "invalid header"
+        },
+        "parsed": {
+          "header": "invalid header",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "invalid header",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "severity-1",
+      "message": "invalid header",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[1,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              1,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [
+            {
+              "level": 1,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "input": "invalid header"
+        },
+        "parsed": {
+          "header": "invalid header",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "invalid header",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "severity-2",
+      "message": "invalid header",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "invalid header"
+        },
+        "parsed": {
+          "header": "invalid header",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "invalid header",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "severity-number-2.0",
+      "message": "invalid header",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2.0,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "invalid header"
+        },
+        "parsed": {
+          "header": "invalid header",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "invalid header",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "severity-number-2e0",
+      "message": "invalid header",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2e0,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "invalid header"
+        },
+        "parsed": {
+          "header": "invalid header",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "invalid header",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "severity-number-0.0",
+      "message": "invalid header",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[0.0,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              0,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "invalid header"
+        },
+        "parsed": {
+          "header": "invalid header",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "invalid header",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "severity-number-0e0",
+      "message": "invalid header",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[0e0,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              0,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "invalid header"
+        },
+        "parsed": {
+          "header": "invalid header",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "invalid header",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "severity-warning-and-error-order",
+      "message": "invalid",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"scope-empty\":[2,\"never\"],\"subject-empty\":[1,\"never\"],\"header-max-length\":[2,\"always\",1],\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "scope-empty": [
+              2,
+              "never"
+            ],
+            "subject-empty": [
+              1,
+              "never"
+            ],
+            "header-max-length": [
+              2,
+              "always",
+              1
+            ],
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "scope-empty",
+              "message": "scope may not be empty"
+            },
+            {
+              "level": 2,
+              "valid": false,
+              "name": "header-max-length",
+              "message": "header must not be longer than 1 characters, current length is 7"
+            },
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [
+            {
+              "level": 1,
+              "valid": false,
+              "name": "subject-empty",
+              "message": "subject may not be empty"
+            }
+          ],
+          "input": "invalid"
+        },
+        "parsed": {
+          "header": "invalid",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "invalid",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "severity-reversed-error-order",
+      "message": "invalid",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"],\"header-max-length\":[2,\"always\",1],\"subject-empty\":[1,\"never\"],\"scope-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "header-max-length": [
+              2,
+              "always",
+              1
+            ],
+            "subject-empty": [
+              1,
+              "never"
+            ],
+            "scope-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            },
+            {
+              "level": 2,
+              "valid": false,
+              "name": "header-max-length",
+              "message": "header must not be longer than 1 characters, current length is 7"
+            },
+            {
+              "level": 2,
+              "valid": false,
+              "name": "scope-empty",
+              "message": "scope may not be empty"
+            }
+          ],
+          "warnings": [
+            {
+              "level": 1,
+              "valid": false,
+              "name": "subject-empty",
+              "message": "subject may not be empty"
+            }
+          ],
+          "input": "invalid"
+        },
+        "parsed": {
+          "header": "invalid",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "invalid",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "disabled-trailer-no-git",
+      "message": "fix: a",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"trailer-exists\":[0]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "trailer-exists": [
+              0
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: a"
+        },
+        "parsed": {
+          "header": "fix: a",
+          "type": "fix",
+          "scope": null,
+          "subject": "a",
+          "body": null,
+          "footer": null,
+          "raw": "fix: a",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "disabled-value-unused",
+      "message": "fix: a",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"trailer-exists\":[0,\"always\",{\"unused\":true}]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "trailer-exists": [
+              0,
+              "always",
+              {
+                "unused": true
+              }
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: a"
+        },
+        "parsed": {
+          "header": "fix: a",
+          "type": "fix",
+          "scope": null,
+          "subject": "a",
+          "body": null,
+          "footer": null,
+          "raw": "fix: a",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "parser-string-conventional-changelog-angular",
+      "message": "feat!: change\n\nBREAKING CHANGE: x",
+      "configText": "{\"parserPreset\":\"conventional-changelog-angular\",\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"],\"breaking-change-exclamation-mark\":[2,\"always\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "breaking-change-exclamation-mark": [
+              2,
+              "always"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-angular",
+          "parserOpts": {
+            "headerPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?: (.*)$",
+              "flags": ""
+            },
+            "headerCorrespondence": [
+              "type",
+              "scope",
+              "subject"
+            ],
+            "noteKeywords": [
+              "BREAKING CHANGE"
+            ],
+            "revertPattern": {
+              "$type": "regexp",
+              "source": "^(?:Revert|revert:)\\s\"?([\\s\\S]+?)\"?\\s*This reverts commit (\\w{7,40})\\b",
+              "flags": "i"
+            },
+            "revertCorrespondence": [
+              "header",
+              "hash"
+            ]
+          }
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "feat!: change\n\nBREAKING CHANGE: x"
+        },
+        "parsed": {
+          "header": "feat!: change",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": "",
+          "footer": "BREAKING CHANGE: x",
+          "raw": "feat!: change\n\nBREAKING CHANGE: x",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "parser-object-conventional-changelog-angular",
+      "message": "feat!: change",
+      "configText": "{\"parserPreset\":{\"name\":\"conventional-changelog-angular\",\"parserOpts\":{}},\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-angular",
+          "parserOpts": {}
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "feat!: change"
+        },
+        "parsed": {
+          "header": "feat!: change",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "feat!: change",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "parser-string-conventional-changelog-conventionalcommits",
+      "message": "feat!: change\n\nBREAKING CHANGE: x",
+      "configText": "{\"parserPreset\":\"conventional-changelog-conventionalcommits\",\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"],\"breaking-change-exclamation-mark\":[2,\"always\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "breaking-change-exclamation-mark": [
+              2,
+              "always"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-conventionalcommits",
+          "parserOpts": {
+            "headerPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!?: (.*)$",
+              "flags": ""
+            },
+            "breakingHeaderPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!: (.*)$",
+              "flags": ""
+            },
+            "headerCorrespondence": [
+              "type",
+              "scope",
+              "subject"
+            ],
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING-CHANGE"
+            ],
+            "revertPattern": {
+              "$type": "regexp",
+              "source": "^(?:Revert|revert:)\\s\"?([\\s\\S]+?)\"?\\s*This reverts commit (\\w*)\\.",
+              "flags": "i"
+            },
+            "revertCorrespondence": [
+              "header",
+              "hash"
+            ],
+            "issuePrefixes": [
+              "#"
+            ]
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "feat!: change\n\nBREAKING CHANGE: x"
+        },
+        "parsed": {
+          "header": "feat!: change",
+          "type": "feat",
+          "scope": null,
+          "subject": "change",
+          "body": "",
+          "footer": "BREAKING CHANGE: x",
+          "raw": "feat!: change\n\nBREAKING CHANGE: x",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "parser-object-conventional-changelog-conventionalcommits",
+      "message": "feat!: change",
+      "configText": "{\"parserPreset\":{\"name\":\"conventional-changelog-conventionalcommits\",\"parserOpts\":{}},\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-conventionalcommits",
+          "parserOpts": {}
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "feat!: change"
+        },
+        "parsed": {
+          "header": "feat!: change",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "feat!: change",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "parser-object-prefix-no-extends-conventional-changelog-angular",
+      "message": "feat!: change REF-1",
+      "configText": "{\"parserPreset\":{\"name\":\"conventional-changelog-angular\",\"parserOpts\":{\"issuePrefixes\":[\"REF-\"]}},\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"],\"references-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "references-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-angular",
+          "parserOpts": {
+            "issuePrefixes": [
+              "REF-"
+            ]
+          }
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "feat!: change REF-1"
+        },
+        "parsed": {
+          "header": "feat!: change REF-1",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "feat!: change REF-1",
+          "references": [
+            {
+              "raw": "feat!: change REF-1",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "parser-object-prefix-with-conventional-conventional-changelog-angular",
+      "message": "feat!: change REF-1",
+      "configText": "{\"extends\":[\"@commitlint/config-conventional\"],\"defaultIgnores\":false,\"parserPreset\":{\"name\":\"conventional-changelog-angular\",\"parserOpts\":{\"issuePrefixes\":[\"REF-\"]}}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "body-leading-blank": [
+              1,
+              "always"
+            ],
+            "body-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ],
+            "footer-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-max-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-trim": [
+              2,
+              "always"
+            ],
+            "subject-case": [
+              2,
+              "never",
+              [
+                "sentence-case",
+                "start-case",
+                "pascal-case",
+                "upper-case"
+              ]
+            ],
+            "subject-empty": [
+              2,
+              "never"
+            ],
+            "subject-full-stop": [
+              2,
+              "never",
+              "."
+            ],
+            "type-case": [
+              2,
+              "always",
+              "lower-case"
+            ],
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "type-enum": [
+              2,
+              "always",
+              [
+                "build",
+                "chore",
+                "ci",
+                "docs",
+                "feat",
+                "fix",
+                "perf",
+                "refactor",
+                "revert",
+                "style",
+                "test"
+              ]
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-angular",
+          "parserOpts": {
+            "issuePrefixes": [
+              "REF-"
+            ]
+          }
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "subject-empty",
+              "message": "subject may not be empty"
+            },
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "feat!: change REF-1"
+        },
+        "parsed": {
+          "header": "feat!: change REF-1",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "feat!: change REF-1",
+          "references": [
+            {
+              "raw": "feat!: change REF-1",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "parser-object-prefix-no-extends-conventional-changelog-conventionalcommits",
+      "message": "feat!: change REF-1",
+      "configText": "{\"parserPreset\":{\"name\":\"conventional-changelog-conventionalcommits\",\"parserOpts\":{\"issuePrefixes\":[\"REF-\"]}},\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"],\"references-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "references-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-conventionalcommits",
+          "parserOpts": {
+            "issuePrefixes": [
+              "REF-"
+            ]
+          }
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "feat!: change REF-1"
+        },
+        "parsed": {
+          "header": "feat!: change REF-1",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "feat!: change REF-1",
+          "references": [
+            {
+              "raw": "feat!: change REF-1",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "parser-object-prefix-with-conventional-conventional-changelog-conventionalcommits",
+      "message": "feat!: change REF-1",
+      "configText": "{\"extends\":[\"@commitlint/config-conventional\"],\"defaultIgnores\":false,\"parserPreset\":{\"name\":\"conventional-changelog-conventionalcommits\",\"parserOpts\":{\"issuePrefixes\":[\"REF-\"]}}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "body-leading-blank": [
+              1,
+              "always"
+            ],
+            "body-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ],
+            "footer-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-max-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-trim": [
+              2,
+              "always"
+            ],
+            "subject-case": [
+              2,
+              "never",
+              [
+                "sentence-case",
+                "start-case",
+                "pascal-case",
+                "upper-case"
+              ]
+            ],
+            "subject-empty": [
+              2,
+              "never"
+            ],
+            "subject-full-stop": [
+              2,
+              "never",
+              "."
+            ],
+            "type-case": [
+              2,
+              "always",
+              "lower-case"
+            ],
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "type-enum": [
+              2,
+              "always",
+              [
+                "build",
+                "chore",
+                "ci",
+                "docs",
+                "feat",
+                "fix",
+                "perf",
+                "refactor",
+                "revert",
+                "style",
+                "test"
+              ]
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-conventionalcommits",
+          "parserOpts": {
+            "issuePrefixes": [
+              "REF-"
+            ]
+          }
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "subject-empty",
+              "message": "subject may not be empty"
+            },
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "feat!: change REF-1"
+        },
+        "parsed": {
+          "header": "feat!: change REF-1",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "feat!: change REF-1",
+          "references": [
+            {
+              "raw": "feat!: change REF-1",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "parser-options-only-overrides-conventional",
+      "message": "feat!: change REF-1",
+      "configText": "{\"extends\":[\"@commitlint/config-conventional\"],\"defaultIgnores\":false,\"parserPreset\":{\"parserOpts\":{\"issuePrefixes\":[\"REF-\"]}}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "body-leading-blank": [
+              1,
+              "always"
+            ],
+            "body-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ],
+            "footer-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-max-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-trim": [
+              2,
+              "always"
+            ],
+            "subject-case": [
+              2,
+              "never",
+              [
+                "sentence-case",
+                "start-case",
+                "pascal-case",
+                "upper-case"
+              ]
+            ],
+            "subject-empty": [
+              2,
+              "never"
+            ],
+            "subject-full-stop": [
+              2,
+              "never",
+              "."
+            ],
+            "type-case": [
+              2,
+              "always",
+              "lower-case"
+            ],
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "type-enum": [
+              2,
+              "always",
+              [
+                "build",
+                "chore",
+                "ci",
+                "docs",
+                "feat",
+                "fix",
+                "perf",
+                "refactor",
+                "revert",
+                "style",
+                "test"
+              ]
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-conventionalcommits",
+          "parserOpts": {
+            "issuePrefixes": [
+              "REF-"
+            ]
+          }
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "subject-empty",
+              "message": "subject may not be empty"
+            },
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "feat!: change REF-1"
+        },
+        "parsed": {
+          "header": "feat!: change REF-1",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "feat!: change REF-1",
+          "references": [
+            {
+              "raw": "feat!: change REF-1",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "parser-empty-object-overrides-conventional",
+      "message": "feat!: change",
+      "configText": "{\"extends\":[\"@commitlint/config-conventional\"],\"defaultIgnores\":false,\"parserPreset\":{}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "body-leading-blank": [
+              1,
+              "always"
+            ],
+            "body-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ],
+            "footer-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-max-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-trim": [
+              2,
+              "always"
+            ],
+            "subject-case": [
+              2,
+              "never",
+              [
+                "sentence-case",
+                "start-case",
+                "pascal-case",
+                "upper-case"
+              ]
+            ],
+            "subject-empty": [
+              2,
+              "never"
+            ],
+            "subject-full-stop": [
+              2,
+              "never",
+              "."
+            ],
+            "type-case": [
+              2,
+              "always",
+              "lower-case"
+            ],
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "type-enum": [
+              2,
+              "always",
+              [
+                "build",
+                "chore",
+                "ci",
+                "docs",
+                "feat",
+                "fix",
+                "perf",
+                "refactor",
+                "revert",
+                "style",
+                "test"
+              ]
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-conventionalcommits",
+          "parserOpts": {
+            "headerPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!?: (.*)$",
+              "flags": ""
+            },
+            "breakingHeaderPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!: (.*)$",
+              "flags": ""
+            },
+            "headerCorrespondence": [
+              "type",
+              "scope",
+              "subject"
+            ],
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING-CHANGE"
+            ],
+            "revertPattern": {
+              "$type": "regexp",
+              "source": "^(?:Revert|revert:)\\s\"?([\\s\\S]+?)\"?\\s*This reverts commit (\\w*)\\.",
+              "flags": "i"
+            },
+            "revertCorrespondence": [
+              "header",
+              "hash"
+            ],
+            "issuePrefixes": [
+              "#"
+            ]
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "feat!: change"
+        },
+        "parsed": {
+          "header": "feat!: change",
+          "type": "feat",
+          "scope": null,
+          "subject": "change",
+          "body": null,
+          "footer": null,
+          "raw": "feat!: change",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "parser-name-only-overrides-conventional",
+      "message": "feat!: change",
+      "configText": "{\"extends\":[\"@commitlint/config-conventional\"],\"defaultIgnores\":false,\"parserPreset\":{\"name\":\"conventional-changelog-conventionalcommits\"}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "body-leading-blank": [
+              1,
+              "always"
+            ],
+            "body-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ],
+            "footer-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-max-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-trim": [
+              2,
+              "always"
+            ],
+            "subject-case": [
+              2,
+              "never",
+              [
+                "sentence-case",
+                "start-case",
+                "pascal-case",
+                "upper-case"
+              ]
+            ],
+            "subject-empty": [
+              2,
+              "never"
+            ],
+            "subject-full-stop": [
+              2,
+              "never",
+              "."
+            ],
+            "type-case": [
+              2,
+              "always",
+              "lower-case"
+            ],
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "type-enum": [
+              2,
+              "always",
+              [
+                "build",
+                "chore",
+                "ci",
+                "docs",
+                "feat",
+                "fix",
+                "perf",
+                "refactor",
+                "revert",
+                "style",
+                "test"
+              ]
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-conventionalcommits",
+          "parserOpts": {
+            "headerPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!?: (.*)$",
+              "flags": ""
+            },
+            "breakingHeaderPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!: (.*)$",
+              "flags": ""
+            },
+            "headerCorrespondence": [
+              "type",
+              "scope",
+              "subject"
+            ],
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING-CHANGE"
+            ],
+            "revertPattern": {
+              "$type": "regexp",
+              "source": "^(?:Revert|revert:)\\s\"?([\\s\\S]+?)\"?\\s*This reverts commit (\\w*)\\.",
+              "flags": "i"
+            },
+            "revertCorrespondence": [
+              "header",
+              "hash"
+            ],
+            "issuePrefixes": [
+              "#"
+            ]
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "feat!: change"
+        },
+        "parsed": {
+          "header": "feat!: change",
+          "type": "feat",
+          "scope": null,
+          "subject": "change",
+          "body": null,
+          "footer": null,
+          "raw": "feat!: change",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "parser-angular-name-only-keeps-inherited-conventional",
+      "message": "feat!: change",
+      "configText": "{\"extends\":[\"@commitlint/config-conventional\"],\"defaultIgnores\":false,\"parserPreset\":{\"name\":\"conventional-changelog-angular\"}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "body-leading-blank": [
+              1,
+              "always"
+            ],
+            "body-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ],
+            "footer-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-max-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-trim": [
+              2,
+              "always"
+            ],
+            "subject-case": [
+              2,
+              "never",
+              [
+                "sentence-case",
+                "start-case",
+                "pascal-case",
+                "upper-case"
+              ]
+            ],
+            "subject-empty": [
+              2,
+              "never"
+            ],
+            "subject-full-stop": [
+              2,
+              "never",
+              "."
+            ],
+            "type-case": [
+              2,
+              "always",
+              "lower-case"
+            ],
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "type-enum": [
+              2,
+              "always",
+              [
+                "build",
+                "chore",
+                "ci",
+                "docs",
+                "feat",
+                "fix",
+                "perf",
+                "refactor",
+                "revert",
+                "style",
+                "test"
+              ]
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-angular",
+          "parserOpts": {
+            "headerPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!?: (.*)$",
+              "flags": ""
+            },
+            "breakingHeaderPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!: (.*)$",
+              "flags": ""
+            },
+            "headerCorrespondence": [
+              "type",
+              "scope",
+              "subject"
+            ],
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING-CHANGE"
+            ],
+            "revertPattern": {
+              "$type": "regexp",
+              "source": "^(?:Revert|revert:)\\s\"?([\\s\\S]+?)\"?\\s*This reverts commit (\\w*)\\.",
+              "flags": "i"
+            },
+            "revertCorrespondence": [
+              "header",
+              "hash"
+            ],
+            "issuePrefixes": [
+              "#"
+            ]
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "feat!: change"
+        },
+        "parsed": {
+          "header": "feat!: change",
+          "type": "feat",
+          "scope": null,
+          "subject": "change",
+          "body": null,
+          "footer": null,
+          "raw": "feat!: change",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "parser-object-options-only",
+      "message": "fix: a\n# ignored\n\nbody",
+      "configText": "{\"parserPreset\":{\"parserOpts\":{\"commentChar\":\"#\"}},\"defaultIgnores\":false,\"rules\":{\"body-leading-blank\":[1,\"always\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "body-leading-blank": [
+              1,
+              "always"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": {
+            "commentChar": "#"
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [
+            {
+              "level": 1,
+              "valid": false,
+              "name": "body-leading-blank",
+              "message": "body must have leading blank line"
+            }
+          ],
+          "input": "fix: a\n\nbody"
+        },
+        "parsed": {
+          "header": "fix: a",
+          "type": "fix",
+          "scope": null,
+          "subject": "a",
+          "body": "body",
+          "footer": null,
+          "raw": "fix: a\n# ignored\n\nbody",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "parser-comment-signed-off",
+      "message": "fix: a\n\nbody\n\nSigned-off-by:\n# comment",
+      "configText": "{\"parserPreset\":{\"name\":\"conventional-changelog-angular\",\"parserOpts\":{\"commentChar\":\"#\"}},\"defaultIgnores\":false,\"rules\":{\"signed-off-by\":[2,\"always\",\"Signed-off-by:\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "signed-off-by": [
+              2,
+              "always",
+              "Signed-off-by:"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-angular",
+          "parserOpts": {
+            "commentChar": "#"
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: a\n\nbody\n\nSigned-off-by:"
+        },
+        "parsed": {
+          "header": "fix: a",
+          "type": "fix",
+          "scope": null,
+          "subject": "a",
+          "body": "body\n\nSigned-off-by:",
+          "footer": null,
+          "raw": "fix: a\n\nbody\n\nSigned-off-by:\n# comment",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "parser-prefix-33",
+      "message": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4",
+      "configText": "{\"parserPreset\":{\"name\":\"conventional-changelog-angular\",\"parserOpts\":{\"issuePrefixes\":[\"REF-\"]}},\"defaultIgnores\":false,\"rules\":{\"references-empty\":[2,\"never\"],\"footer-leading-blank\":[1,\"always\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "references-empty": [
+              2,
+              "never"
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-angular",
+          "parserOpts": {
+            "issuePrefixes": [
+              "REF-"
+            ]
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4"
+        },
+        "parsed": {
+          "header": "fix: REF-1",
+          "type": "fix",
+          "scope": null,
+          "subject": "REF-1",
+          "body": "",
+          "footer": "addresses REF-2\ncloses REF-3\n# comment REF-4",
+          "raw": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4",
+          "references": [
+            {
+              "raw": "fix: REF-1",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "1"
+            },
+            {
+              "raw": "addresses REF-2",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "2"
+            },
+            {
+              "raw": "REF-3",
+              "action": "closes",
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "3"
+            },
+            {
+              "raw": "# comment REF-4",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "parser-prefix-34",
+      "message": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4",
+      "configText": "{\"parserPreset\":{\"name\":\"conventional-changelog-angular\",\"parserOpts\":{\"issuePrefixes\":[\"R-\",\"REF-\"]}},\"defaultIgnores\":false,\"rules\":{\"references-empty\":[2,\"never\"],\"footer-leading-blank\":[1,\"always\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "references-empty": [
+              2,
+              "never"
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-angular",
+          "parserOpts": {
+            "issuePrefixes": [
+              "R-",
+              "REF-"
+            ]
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4"
+        },
+        "parsed": {
+          "header": "fix: REF-1",
+          "type": "fix",
+          "scope": null,
+          "subject": "REF-1",
+          "body": "",
+          "footer": "addresses REF-2\ncloses REF-3\n# comment REF-4",
+          "raw": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4",
+          "references": [
+            {
+              "raw": "fix: REF-1",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "1"
+            },
+            {
+              "raw": "addresses REF-2",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "2"
+            },
+            {
+              "raw": "REF-3",
+              "action": "closes",
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "3"
+            },
+            {
+              "raw": "# comment REF-4",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "parser-prefix-35",
+      "message": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4",
+      "configText": "{\"parserPreset\":{\"name\":\"conventional-changelog-angular\",\"parserOpts\":{\"issuePrefixes\":[\"REF-\",\"R-\"]}},\"defaultIgnores\":false,\"rules\":{\"references-empty\":[2,\"never\"],\"footer-leading-blank\":[1,\"always\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "references-empty": [
+              2,
+              "never"
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-angular",
+          "parserOpts": {
+            "issuePrefixes": [
+              "REF-",
+              "R-"
+            ]
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4"
+        },
+        "parsed": {
+          "header": "fix: REF-1",
+          "type": "fix",
+          "scope": null,
+          "subject": "REF-1",
+          "body": "",
+          "footer": "addresses REF-2\ncloses REF-3\n# comment REF-4",
+          "raw": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4",
+          "references": [
+            {
+              "raw": "fix: REF-1",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "1"
+            },
+            {
+              "raw": "addresses REF-2",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "2"
+            },
+            {
+              "raw": "REF-3",
+              "action": "closes",
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "3"
+            },
+            {
+              "raw": "# comment REF-4",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "parser-prefix-36",
+      "message": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4",
+      "configText": "{\"parserPreset\":{\"name\":\"conventional-changelog-angular\",\"parserOpts\":{\"issuePrefixes\":[\"REF-\"],\"issuePrefixesCaseSensitive\":true}},\"defaultIgnores\":false,\"rules\":{\"references-empty\":[2,\"never\"],\"footer-leading-blank\":[1,\"always\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "references-empty": [
+              2,
+              "never"
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-angular",
+          "parserOpts": {
+            "issuePrefixes": [
+              "REF-"
+            ],
+            "issuePrefixesCaseSensitive": true
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4"
+        },
+        "parsed": {
+          "header": "fix: REF-1",
+          "type": "fix",
+          "scope": null,
+          "subject": "REF-1",
+          "body": "",
+          "footer": "addresses REF-2\ncloses REF-3\n# comment REF-4",
+          "raw": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4",
+          "references": [
+            {
+              "raw": "fix: REF-1",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "1"
+            },
+            {
+              "raw": "addresses REF-2",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "2"
+            },
+            {
+              "raw": "REF-3",
+              "action": "closes",
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "3"
+            },
+            {
+              "raw": "# comment REF-4",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "parser-prefix-37",
+      "message": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4",
+      "configText": "{\"parserPreset\":{\"name\":\"conventional-changelog-angular\",\"parserOpts\":{\"issuePrefixes\":[\"ref-\"],\"issuePrefixesCaseSensitive\":false}},\"defaultIgnores\":false,\"rules\":{\"references-empty\":[2,\"never\"],\"footer-leading-blank\":[1,\"always\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "references-empty": [
+              2,
+              "never"
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-angular",
+          "parserOpts": {
+            "issuePrefixes": [
+              "ref-"
+            ],
+            "issuePrefixesCaseSensitive": false
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4"
+        },
+        "parsed": {
+          "header": "fix: REF-1",
+          "type": "fix",
+          "scope": null,
+          "subject": "REF-1",
+          "body": "",
+          "footer": "addresses REF-2\ncloses REF-3\n# comment REF-4",
+          "raw": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4",
+          "references": [
+            {
+              "raw": "fix: REF-1",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "1"
+            },
+            {
+              "raw": "addresses REF-2",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "2"
+            },
+            {
+              "raw": "REF-3",
+              "action": "closes",
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "3"
+            },
+            {
+              "raw": "# comment REF-4",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "parser-prefix-38",
+      "message": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4",
+      "configText": "{\"parserPreset\":{\"name\":\"conventional-changelog-angular\",\"parserOpts\":{\"issuePrefixes\":[]}},\"defaultIgnores\":false,\"rules\":{\"references-empty\":[2,\"never\"],\"footer-leading-blank\":[1,\"always\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "references-empty": [
+              2,
+              "never"
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-angular",
+          "parserOpts": {
+            "issuePrefixes": []
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4"
+        },
+        "parsed": {
+          "header": "fix: REF-1",
+          "type": "fix",
+          "scope": null,
+          "subject": "REF-1",
+          "body": "",
+          "footer": "addresses REF-2\ncloses REF-3\n# comment REF-4",
+          "raw": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4",
+          "references": [
+            {
+              "raw": "fix: REF-1",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "",
+              "issue": "REF-1"
+            },
+            {
+              "raw": "addresses",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "",
+              "issue": "addresses"
+            },
+            {
+              "raw": " REF-2",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "",
+              "issue": "REF-2"
+            },
+            {
+              "raw": "REF-3",
+              "action": "closes",
+              "owner": null,
+              "repository": null,
+              "prefix": "",
+              "issue": "REF-3"
+            },
+            {
+              "raw": "# comment",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "",
+              "issue": "comment"
+            },
+            {
+              "raw": " REF-4",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "",
+              "issue": "REF-4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "parser-prefix-39",
+      "message": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4",
+      "configText": "{\"parserPreset\":{\"name\":\"conventional-changelog-angular\",\"parserOpts\":{\"issuePrefixes\":[\"REF-\"],\"referenceActions\":[\"addresses\"]}},\"defaultIgnores\":false,\"rules\":{\"references-empty\":[2,\"never\"],\"footer-leading-blank\":[1,\"always\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "references-empty": [
+              2,
+              "never"
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-angular",
+          "parserOpts": {
+            "issuePrefixes": [
+              "REF-"
+            ],
+            "referenceActions": [
+              "addresses"
+            ]
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4"
+        },
+        "parsed": {
+          "header": "fix: REF-1",
+          "type": "fix",
+          "scope": null,
+          "subject": "REF-1",
+          "body": "",
+          "footer": "addresses REF-2\ncloses REF-3\n# comment REF-4",
+          "raw": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4",
+          "references": [
+            {
+              "raw": "fix: REF-1",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "1"
+            },
+            {
+              "raw": "REF-2",
+              "action": "addresses",
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "2"
+            },
+            {
+              "raw": "closes REF-3",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "3"
+            },
+            {
+              "raw": "# comment REF-4",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "parser-prefix-40",
+      "message": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4",
+      "configText": "{\"parserPreset\":{\"name\":\"conventional-changelog-angular\",\"parserOpts\":{\"issuePrefixes\":[\"REF-\"],\"referenceActions\":[]}},\"defaultIgnores\":false,\"rules\":{\"references-empty\":[2,\"never\"],\"footer-leading-blank\":[1,\"always\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "references-empty": [
+              2,
+              "never"
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-angular",
+          "parserOpts": {
+            "issuePrefixes": [
+              "REF-"
+            ],
+            "referenceActions": []
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4"
+        },
+        "parsed": {
+          "header": "fix: REF-1",
+          "type": "fix",
+          "scope": null,
+          "subject": "REF-1",
+          "body": "",
+          "footer": "addresses REF-2\ncloses REF-3\n# comment REF-4",
+          "raw": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4",
+          "references": [
+            {
+              "raw": "REF-1",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "1"
+            },
+            {
+              "raw": "addresses REF-2",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "2"
+            },
+            {
+              "raw": "closes REF-3",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "3"
+            },
+            {
+              "raw": "comment REF-4",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "parser-prefix-41",
+      "message": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4",
+      "configText": "{\"parserPreset\":{\"name\":\"conventional-changelog-angular\",\"parserOpts\":{\"issuePrefixes\":[\"REF-\"],\"commentChar\":\"#\"}},\"defaultIgnores\":false,\"rules\":{\"references-empty\":[2,\"never\"],\"footer-leading-blank\":[1,\"always\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "references-empty": [
+              2,
+              "never"
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-angular",
+          "parserOpts": {
+            "issuePrefixes": [
+              "REF-"
+            ],
+            "commentChar": "#"
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: REF-1\n\naddresses REF-2\ncloses REF-3"
+        },
+        "parsed": {
+          "header": "fix: REF-1",
+          "type": "fix",
+          "scope": null,
+          "subject": "REF-1",
+          "body": "",
+          "footer": "addresses REF-2\ncloses REF-3",
+          "raw": "fix: REF-1\n\naddresses REF-2\ncloses REF-3\n# comment REF-4",
+          "references": [
+            {
+              "raw": "fix: REF-1",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "1"
+            },
+            {
+              "raw": "addresses REF-2",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "2"
+            },
+            {
+              "raw": "REF-3",
+              "action": "closes",
+              "owner": null,
+              "repository": null,
+              "prefix": "REF-",
+              "issue": "3"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "parser-prefix-case-sensitive-miss",
+      "message": "fix: ref-1",
+      "configText": "{\"parserPreset\":{\"parserOpts\":{\"issuePrefixes\":[\"REF-\"],\"issuePrefixesCaseSensitive\":true}},\"defaultIgnores\":false,\"rules\":{\"references-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "references-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": {
+            "issuePrefixes": [
+              "REF-"
+            ],
+            "issuePrefixesCaseSensitive": true
+          }
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "references-empty",
+              "message": "references may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "fix: ref-1"
+        },
+        "parsed": {
+          "header": "fix: ref-1",
+          "type": "fix",
+          "scope": null,
+          "subject": "ref-1",
+          "body": null,
+          "footer": null,
+          "raw": "fix: ref-1",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "unicode-configured",
+      "message": "fix: café",
+      "configText": "{\"extends\":[\"@commitlint/config-conventional\"],\"defaultIgnores\":false,\"rules\":{\"subject-case\":[0]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "body-leading-blank": [
+              1,
+              "always"
+            ],
+            "body-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "footer-leading-blank": [
+              1,
+              "always"
+            ],
+            "footer-max-line-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-max-length": [
+              2,
+              "always",
+              100
+            ],
+            "header-trim": [
+              2,
+              "always"
+            ],
+            "subject-case": [
+              0
+            ],
+            "subject-empty": [
+              2,
+              "never"
+            ],
+            "subject-full-stop": [
+              2,
+              "never",
+              "."
+            ],
+            "type-case": [
+              2,
+              "always",
+              "lower-case"
+            ],
+            "type-empty": [
+              2,
+              "never"
+            ],
+            "type-enum": [
+              2,
+              "always",
+              [
+                "build",
+                "chore",
+                "ci",
+                "docs",
+                "feat",
+                "fix",
+                "perf",
+                "refactor",
+                "revert",
+                "style",
+                "test"
+              ]
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": "conventional-changelog-conventionalcommits",
+          "parserOpts": {
+            "headerPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!?: (.*)$",
+              "flags": ""
+            },
+            "breakingHeaderPattern": {
+              "$type": "regexp",
+              "source": "^(\\w*)(?:\\((.*)\\))?!: (.*)$",
+              "flags": ""
+            },
+            "headerCorrespondence": [
+              "type",
+              "scope",
+              "subject"
+            ],
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING-CHANGE"
+            ],
+            "revertPattern": {
+              "$type": "regexp",
+              "source": "^(?:Revert|revert:)\\s\"?([\\s\\S]+?)\"?\\s*This reverts commit (\\w*)\\.",
+              "flags": "i"
+            },
+            "revertCorrespondence": [
+              "header",
+              "hash"
+            ],
+            "issuePrefixes": [
+              "#"
+            ]
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: café"
+        },
+        "parsed": {
+          "header": "fix: café",
+          "type": "fix",
+          "scope": null,
+          "subject": "café",
+          "body": null,
+          "footer": null,
+          "raw": "fix: café",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "complex-case-checks",
+      "message": "fix(API|parser): change",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"scope-case\":[2,\"always\",{\"cases\":[{\"case\":\"uppercase\",\"when\":\"never\"}],\"delimiters\":[\"|\"]}]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "scope-case": [
+              2,
+              "always",
+              {
+                "cases": [
+                  {
+                    "case": "uppercase",
+                    "when": "never"
+                  }
+                ],
+                "delimiters": [
+                  "|"
+                ]
+              }
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix(API|parser): change"
+        },
+        "parsed": {
+          "header": "fix(API|parser): change",
+          "type": "fix",
+          "scope": "API|parser",
+          "subject": "change",
+          "body": null,
+          "footer": null,
+          "raw": "fix(API|parser): change",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "complex-scope-enum",
+      "message": "fix(API|parser): change",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"scope-enum\":[2,\"always\",{\"scopes\":[\"API\",\"parser\"],\"delimiters\":[\"|\"]}]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "scope-enum": [
+              2,
+              "always",
+              {
+                "scopes": [
+                  "API",
+                  "parser"
+                ],
+                "delimiters": [
+                  "|"
+                ]
+              }
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix(API|parser): change"
+        },
+        "parsed": {
+          "header": "fix(API|parser): change",
+          "type": "fix",
+          "scope": "API|parser",
+          "subject": "change",
+          "body": null,
+          "footer": null,
+          "raw": "fix(API|parser): change",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "empty-46",
+      "message": "",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": "Expected a raw commit",
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": ""
+        },
+        "parsed": null
+      }
+    },
+    {
+      "id": "empty-47",
+      "message": "\n",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "lint-error",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": "Expected a raw commit",
+        "parseError": "Expected a raw commit",
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "empty-48",
+      "message": "\n\n",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "lint-error",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": "Expected a raw commit",
+        "parseError": "Expected a raw commit",
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "empty-49",
+      "message": " ",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "lint-error",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": "Expected a raw commit",
+        "parseError": "Expected a raw commit",
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "empty-50",
+      "message": "\t",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "lint-error",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": "Expected a raw commit",
+        "parseError": "Expected a raw commit",
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "empty-51",
+      "message": "gpg: diagnostic",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "gpg: diagnostic"
+        },
+        "parsed": {
+          "header": null,
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "gpg: diagnostic",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "default-ignore-52",
+      "message": "Merge branch main",
+      "configText": "{\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": true,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "Merge branch main"
+        },
+        "parsed": {
+          "header": "Merge branch main",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "Merge branch main",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "ignore-disabled-53",
+      "message": "Merge branch main",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "Merge branch main"
+        },
+        "parsed": {
+          "header": "Merge branch main",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "Merge branch main",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "default-ignore-54",
+      "message": "Merge pull request #1",
+      "configText": "{\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": true,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "Merge pull request #1"
+        },
+        "parsed": {
+          "header": "Merge pull request #1",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "Merge pull request #1",
+          "references": [
+            {
+              "raw": "Merge pull request #1",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "#",
+              "issue": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "ignore-disabled-55",
+      "message": "Merge pull request #1",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "Merge pull request #1"
+        },
+        "parsed": {
+          "header": "Merge pull request #1",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "Merge pull request #1",
+          "references": [
+            {
+              "raw": "Merge pull request #1",
+              "action": null,
+              "owner": null,
+              "repository": null,
+              "prefix": "#",
+              "issue": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "default-ignore-56",
+      "message": "Revert \"fix: x\"",
+      "configText": "{\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": true,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "Revert \"fix: x\""
+        },
+        "parsed": {
+          "header": "Revert \"fix: x\"",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "Revert \"fix: x\"",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "ignore-disabled-57",
+      "message": "Revert \"fix: x\"",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "Revert \"fix: x\""
+        },
+        "parsed": {
+          "header": "Revert \"fix: x\"",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "Revert \"fix: x\"",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "default-ignore-58",
+      "message": "fixup! fix: x",
+      "configText": "{\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": true,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fixup! fix: x"
+        },
+        "parsed": {
+          "header": "fixup! fix: x",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "fixup! fix: x",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "ignore-disabled-59",
+      "message": "fixup! fix: x",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "fixup! fix: x"
+        },
+        "parsed": {
+          "header": "fixup! fix: x",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "fixup! fix: x",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "default-ignore-60",
+      "message": "squash! fix: x",
+      "configText": "{\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": true,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "squash! fix: x"
+        },
+        "parsed": {
+          "header": "squash! fix: x",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "squash! fix: x",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "ignore-disabled-61",
+      "message": "squash! fix: x",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "squash! fix: x"
+        },
+        "parsed": {
+          "header": "squash! fix: x",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "squash! fix: x",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "default-ignore-62",
+      "message": "amend! fix: x",
+      "configText": "{\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": true,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "amend! fix: x"
+        },
+        "parsed": {
+          "header": "amend! fix: x",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "amend! fix: x",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "ignore-disabled-63",
+      "message": "amend! fix: x",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "amend! fix: x"
+        },
+        "parsed": {
+          "header": "amend! fix: x",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "amend! fix: x",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "default-ignore-64",
+      "message": "1.2.3",
+      "configText": "{\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": true,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "1.2.3"
+        },
+        "parsed": {
+          "header": "1.2.3",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "1.2.3",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "ignore-disabled-65",
+      "message": "1.2.3",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "1.2.3"
+        },
+        "parsed": {
+          "header": "1.2.3",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "1.2.3",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "default-ignore-66",
+      "message": "v1.2.3",
+      "configText": "{\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": true,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "v1.2.3"
+        },
+        "parsed": {
+          "header": "v1.2.3",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "v1.2.3",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "ignore-disabled-67",
+      "message": "v1.2.3",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "v1.2.3"
+        },
+        "parsed": {
+          "header": "v1.2.3",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "v1.2.3",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "default-ignore-68",
+      "message": "1.2.3-alpha.1+build.2",
+      "configText": "{\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": true,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "1.2.3-alpha.1+build.2"
+        },
+        "parsed": {
+          "header": "1.2.3-alpha.1+build.2",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "1.2.3-alpha.1+build.2",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "ignore-disabled-69",
+      "message": "1.2.3-alpha.1+build.2",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "1.2.3-alpha.1+build.2"
+        },
+        "parsed": {
+          "header": "1.2.3-alpha.1+build.2",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "1.2.3-alpha.1+build.2",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "default-ignore-70",
+      "message": "chore(release): v1.2.3 [skip ci]",
+      "configText": "{\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": true,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "chore(release): v1.2.3 [skip ci]"
+        },
+        "parsed": {
+          "header": "chore(release): v1.2.3 [skip ci]",
+          "type": "chore",
+          "scope": "release",
+          "subject": "v1.2.3 [skip ci]",
+          "body": null,
+          "footer": null,
+          "raw": "chore(release): v1.2.3 [skip ci]",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "ignore-disabled-71",
+      "message": "chore(release): v1.2.3 [skip ci]",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "chore(release): v1.2.3 [skip ci]"
+        },
+        "parsed": {
+          "header": "chore(release): v1.2.3 [skip ci]",
+          "type": "chore",
+          "scope": "release",
+          "subject": "v1.2.3 [skip ci]",
+          "body": null,
+          "footer": null,
+          "raw": "chore(release): v1.2.3 [skip ci]",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "default-ignore-72",
+      "message": "chore: 1.2.3\nbody",
+      "configText": "{\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": true,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "chore: 1.2.3\nbody"
+        },
+        "parsed": {
+          "header": "chore: 1.2.3",
+          "type": "chore",
+          "scope": null,
+          "subject": "1.2.3",
+          "body": "body",
+          "footer": null,
+          "raw": "chore: 1.2.3\nbody",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "ignore-disabled-73",
+      "message": "chore: 1.2.3\nbody",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "chore: 1.2.3\n\nbody"
+        },
+        "parsed": {
+          "header": "chore: 1.2.3",
+          "type": "chore",
+          "scope": null,
+          "subject": "1.2.3",
+          "body": "body",
+          "footer": null,
+          "raw": "chore: 1.2.3\nbody",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "default-ignore-74",
+      "message": "\n1.2.3",
+      "configText": "{\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "1.2.3"
+        },
+        "parsed": {
+          "header": "1.2.3",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "\n1.2.3",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "ignore-disabled-75",
+      "message": "\n1.2.3",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "1.2.3"
+        },
+        "parsed": {
+          "header": "1.2.3",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "\n1.2.3",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "default-ignore-76",
+      "message": "Automatic merge branches",
+      "configText": "{\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": true,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "Automatic merge branches"
+        },
+        "parsed": {
+          "header": "Automatic merge branches",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "Automatic merge branches",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "ignore-disabled-77",
+      "message": "Automatic merge branches",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "Automatic merge branches"
+        },
+        "parsed": {
+          "header": "Automatic merge branches",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "Automatic merge branches",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "default-ignore-78",
+      "message": "Auto-merged a into b",
+      "configText": "{\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": true,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "Auto-merged a into b"
+        },
+        "parsed": {
+          "header": "Auto-merged a into b",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "Auto-merged a into b",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "ignore-disabled-79",
+      "message": "Auto-merged a into b",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "Auto-merged a into b"
+        },
+        "parsed": {
+          "header": "Auto-merged a into b",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "Auto-merged a into b",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "default-ignore-80",
+      "message": "Merged PR 3: something",
+      "configText": "{\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": true,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "Merged PR 3: something"
+        },
+        "parsed": {
+          "header": "Merged PR 3: something",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "Merged PR 3: something",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "ignore-disabled-81",
+      "message": "Merged PR 3: something",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "Merged PR 3: something"
+        },
+        "parsed": {
+          "header": "Merged PR 3: something",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "Merged PR 3: something",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "default-ignore-82",
+      "message": "Merge remote-tracking branch origin/main",
+      "configText": "{\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": true,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "Merge remote-tracking branch origin/main"
+        },
+        "parsed": {
+          "header": "Merge remote-tracking branch origin/main",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "Merge remote-tracking branch origin/main",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "ignore-disabled-83",
+      "message": "Merge remote-tracking branch origin/main",
+      "configText": "{\"defaultIgnores\":false,\"rules\":{\"type-empty\":[2,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "match",
+      "category": "supported",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never"
+            ]
+          },
+          "defaultIgnores": false,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "type-empty",
+              "message": "type may not be empty"
+            }
+          ],
+          "warnings": [],
+          "input": "Merge remote-tracking branch origin/main"
+        },
+        "parsed": {
+          "header": "Merge remote-tracking branch origin/main",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "Merge remote-tracking branch origin/main",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "fractional-severity",
+      "message": "fix: a",
+      "configText": "{\"rules\":{\"header-max-length\":[1.5,\"always\",1]}}",
+      "deviation": "fractional-severity",
+      "nativeExpected": "config-error",
+      "category": "profile-difference",
+      "upstream": {
+        "loadError": "Commitlint configuration in <fixture-cwd>/.commitlintrc.json is invalid:\n\t- \"/rules/header-max-length/0\" must be equal to one of the allowed values. Value: 1.5.\n\t- \"/rules/header-max-length\" should be a function. Value: [1.5,\"always\",1].\n\t- \"/rules/header-max-length\" must match exactly one schema in oneOf. Value: [1.5,\"always\",1].\n",
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": null,
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "null-value",
+      "message": "fix: a",
+      "configText": "{\"rules\":{\"header-max-length\":[2,\"always\",null]}}",
+      "deviation": "null-value",
+      "nativeExpected": "config-error",
+      "category": "profile-difference",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "header-max-length": [
+              2,
+              "always",
+              null
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": false,
+          "errors": [
+            {
+              "level": 2,
+              "valid": false,
+              "name": "header-max-length",
+              "message": "header must not be longer than null characters, current length is 6"
+            }
+          ],
+          "warnings": [],
+          "input": "fix: a"
+        },
+        "parsed": {
+          "header": "fix: a",
+          "type": "fix",
+          "scope": null,
+          "subject": "a",
+          "body": null,
+          "footer": null,
+          "raw": "fix: a",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "null-case-value",
+      "message": "fix: a",
+      "configText": "{\"rules\":{\"subject-case\":[2,\"always\",null]}}",
+      "deviation": "null-case-value",
+      "nativeExpected": "config-error",
+      "category": "profile-difference",
+      "upstream": {
+        "loadError": null,
+        "lintError": "Cannot read properties of null (reading 'case')",
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "subject-case": [
+              2,
+              "always",
+              null
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": null,
+        "parsed": {
+          "header": "fix: a",
+          "type": "fix",
+          "scope": null,
+          "subject": "a",
+          "body": null,
+          "footer": null,
+          "raw": "fix: a",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "unused-native-value",
+      "message": "fix: a",
+      "configText": "{\"rules\":{\"type-empty\":[2,\"never\",\"unused\"]}}",
+      "deviation": "unused-native-value",
+      "nativeExpected": "config-error",
+      "category": "profile-difference",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2,
+              "never",
+              "unused"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: a"
+        },
+        "parsed": {
+          "header": "fix: a",
+          "type": "fix",
+          "scope": null,
+          "subject": "a",
+          "body": null,
+          "footer": null,
+          "raw": "fix: a",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "unknown-case-target",
+      "message": "fix: a",
+      "configText": "{\"rules\":{\"subject-case\":[2,\"always\",\"no-such-case\"]}}",
+      "deviation": "unknown-case-target",
+      "nativeExpected": "config-error",
+      "category": "profile-difference",
+      "upstream": {
+        "loadError": null,
+        "lintError": "to-case: Unknown target case \"no-such-case\"",
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "subject-case": [
+              2,
+              "always",
+              "no-such-case"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": null,
+        "parsed": {
+          "header": "fix: a",
+          "type": "fix",
+          "scope": null,
+          "subject": "a",
+          "body": null,
+          "footer": null,
+          "raw": "fix: a",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "plugins-empty",
+      "message": "fix: a",
+      "configText": "{\"plugins\":[],\"rules\":{}}",
+      "deviation": "plugins-empty",
+      "nativeExpected": "config-error",
+      "category": "profile-difference",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {},
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: a"
+        },
+        "parsed": {
+          "header": "fix: a",
+          "type": "fix",
+          "scope": null,
+          "subject": "a",
+          "body": null,
+          "footer": null,
+          "raw": "fix: a",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "custom-parser-pattern",
+      "message": "fix: a",
+      "configText": "{\"parserPreset\":{\"parserOpts\":{\"headerPattern\":\"^(.*)$\"}},\"rules\":{}}",
+      "deviation": "custom-parser-pattern",
+      "nativeExpected": "config-error",
+      "category": "profile-difference",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {},
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": {
+            "headerPattern": "^(.*)$"
+          }
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: a"
+        },
+        "parsed": {
+          "header": "fix: a",
+          "type": "fix: a",
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "fix: a",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "unknown-before-shortcut-91",
+      "message": "",
+      "configText": "{\"rules\":{\"unknown-rule\":[2,\"always\"]}}",
+      "deviation": "validate-config-before-shortcut",
+      "nativeExpected": "config-error",
+      "category": "profile-difference",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": "Expected a raw commit",
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "unknown-rule": [
+              2,
+              "always"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": ""
+        },
+        "parsed": null
+      }
+    },
+    {
+      "id": "bad-severity-before-shortcut-92",
+      "message": "",
+      "configText": "{\"rules\":{\"type-empty\":[1.5,\"never\"]}}",
+      "deviation": "strict-integral-severity-before-shortcut",
+      "nativeExpected": "config-error",
+      "category": "profile-difference",
+      "upstream": {
+        "loadError": "Commitlint configuration in <fixture-cwd>/.commitlintrc.json is invalid:\n\t- \"/rules/type-empty/0\" must be equal to one of the allowed values. Value: 1.5.\n\t- \"/rules/type-empty\" should be a function. Value: [1.5,\"never\"].\n\t- \"/rules/type-empty\" must match exactly one schema in oneOf. Value: [1.5,\"never\"].\n",
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": null,
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "unknown-before-shortcut-93",
+      "message": "Merge branch main",
+      "configText": "{\"rules\":{\"unknown-rule\":[2,\"always\"]}}",
+      "deviation": "validate-config-before-shortcut",
+      "nativeExpected": "config-error",
+      "category": "profile-difference",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": true,
+        "loaded": {
+          "rules": {
+            "unknown-rule": [
+              2,
+              "always"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "Merge branch main"
+        },
+        "parsed": {
+          "header": "Merge branch main",
+          "type": null,
+          "scope": null,
+          "subject": null,
+          "body": null,
+          "footer": null,
+          "raw": "Merge branch main",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "bad-severity-before-shortcut-94",
+      "message": "Merge branch main",
+      "configText": "{\"rules\":{\"type-empty\":[1.5,\"never\"]}}",
+      "deviation": "strict-integral-severity-before-shortcut",
+      "nativeExpected": "config-error",
+      "category": "profile-difference",
+      "upstream": {
+        "loadError": "Commitlint configuration in <fixture-cwd>/.commitlintrc.json is invalid:\n\t- \"/rules/type-empty/0\" must be equal to one of the allowed values. Value: 1.5.\n\t- \"/rules/type-empty\" should be a function. Value: [1.5,\"never\"].\n\t- \"/rules/type-empty\" must match exactly one schema in oneOf. Value: [1.5,\"never\"].\n",
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": null,
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "unknown-before-shortcut-95",
+      "message": "\n",
+      "configText": "{\"rules\":{\"unknown-rule\":[2,\"always\"]}}",
+      "deviation": "validate-config-before-shortcut",
+      "nativeExpected": "config-error",
+      "category": "profile-difference",
+      "upstream": {
+        "loadError": null,
+        "lintError": "Expected a raw commit",
+        "parseError": "Expected a raw commit",
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "unknown-rule": [
+              2,
+              "always"
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "bad-severity-before-shortcut-96",
+      "message": "\n",
+      "configText": "{\"rules\":{\"type-empty\":[1.5,\"never\"]}}",
+      "deviation": "strict-integral-severity-before-shortcut",
+      "nativeExpected": "config-error",
+      "category": "profile-difference",
+      "upstream": {
+        "loadError": "Commitlint configuration in <fixture-cwd>/.commitlintrc.json is invalid:\n\t- \"/rules/type-empty/0\" must be equal to one of the allowed values. Value: 1.5.\n\t- \"/rules/type-empty\" should be a function. Value: [1.5,\"never\"].\n\t- \"/rules/type-empty\" must match exactly one schema in oneOf. Value: [1.5,\"never\"].\n",
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": null,
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "config-not-object",
+      "message": "fix: a",
+      "configText": "[]",
+      "deviation": null,
+      "nativeExpected": "config-error",
+      "category": "invalid-configuration",
+      "upstream": {
+        "loadError": "Commitlint configuration in <fixture-cwd>/.commitlintrc.json is invalid:\n\t- Config has the wrong type - must be object.\n",
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": null,
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "config-null",
+      "message": "fix: a",
+      "configText": "null",
+      "deviation": "strict-root-object",
+      "nativeExpected": "config-error",
+      "category": "invalid-configuration",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {},
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: a"
+        },
+        "parsed": {
+          "header": "fix: a",
+          "type": "fix",
+          "scope": null,
+          "subject": "a",
+          "body": null,
+          "footer": null,
+          "raw": "fix: a",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "invalid-json",
+      "message": "fix: a",
+      "configText": "{bad",
+      "deviation": null,
+      "nativeExpected": "config-error",
+      "category": "invalid-configuration",
+      "upstream": {
+        "loadError": "JSON Error in <fixture-cwd>/.commitlintrc.json:\nExpected property name or '}' in JSON at position 1 (line 1 column 2) while parsing '{bad'",
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": null,
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "rules-not-object",
+      "message": "fix: a",
+      "configText": "{\"rules\":[]}",
+      "deviation": null,
+      "nativeExpected": "config-error",
+      "category": "invalid-configuration",
+      "upstream": {
+        "loadError": "Commitlint configuration in <fixture-cwd>/.commitlintrc.json is invalid:\n\t- Property \"rules\" has the wrong type - must be object.\n",
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": null,
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "rule-not-array",
+      "message": "fix: a",
+      "configText": "{\"rules\":{\"type-empty\":\"never\"}}",
+      "deviation": null,
+      "nativeExpected": "config-error",
+      "category": "invalid-configuration",
+      "upstream": {
+        "loadError": "Commitlint configuration in <fixture-cwd>/.commitlintrc.json is invalid:\n\t- Property \"rules/type-empty\" has the wrong type - must be array.\n\t- \"/rules/type-empty\" should be a function. Value: \"never\".\n\t- \"/rules/type-empty\" must match exactly one schema in oneOf. Value: \"never\".\n",
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": null,
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "empty-tuple",
+      "message": "fix: a",
+      "configText": "{\"rules\":{\"type-empty\":[]}}",
+      "deviation": null,
+      "nativeExpected": "config-error",
+      "category": "invalid-configuration",
+      "upstream": {
+        "loadError": "Commitlint configuration in <fixture-cwd>/.commitlintrc.json is invalid:\n\t- \"/rules/type-empty\" must NOT have fewer than 1 items. Value: [].\n\t- \"/rules/type-empty\" should be a function. Value: [].\n\t- \"/rules/type-empty\" must match exactly one schema in oneOf. Value: [].\n",
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": null,
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "too-long-tuple",
+      "message": "fix: a",
+      "configText": "{\"rules\":{\"type-empty\":[2,\"never\",null,3]}}",
+      "deviation": null,
+      "nativeExpected": "config-error",
+      "category": "invalid-configuration",
+      "upstream": {
+        "loadError": "Commitlint configuration in <fixture-cwd>/.commitlintrc.json is invalid:\n\t- \"/rules/type-empty\" must NOT have more than 3 items. Value: [2,\"never\",null,3].\n\t- \"/rules/type-empty\" should be a function. Value: [2,\"never\",null,3].\n\t- \"/rules/type-empty\" must match exactly one schema in oneOf. Value: [2,\"never\",null,3].\n",
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": null,
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "severity-3",
+      "message": "fix: a",
+      "configText": "{\"rules\":{\"type-empty\":[3,\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "config-error",
+      "category": "invalid-configuration",
+      "upstream": {
+        "loadError": "Commitlint configuration in <fixture-cwd>/.commitlintrc.json is invalid:\n\t- \"/rules/type-empty/0\" must be equal to one of the allowed values. Value: 3.\n\t- \"/rules/type-empty\" should be a function. Value: [3,\"never\"].\n\t- \"/rules/type-empty\" must match exactly one schema in oneOf. Value: [3,\"never\"].\n",
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": null,
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "severity-text",
+      "message": "fix: a",
+      "configText": "{\"rules\":{\"type-empty\":[\"2\",\"never\"]}}",
+      "deviation": null,
+      "nativeExpected": "config-error",
+      "category": "invalid-configuration",
+      "upstream": {
+        "loadError": "Commitlint configuration in <fixture-cwd>/.commitlintrc.json is invalid:\n\t- Property \"rules/type-empty/0\" has the wrong type - must be number.\n\t- \"/rules/type-empty/0\" must be equal to one of the allowed values. Value: \"2\".\n\t- \"/rules/type-empty\" should be a function. Value: [\"2\",\"never\"].\n\t- \"/rules/type-empty\" must match exactly one schema in oneOf. Value: [\"2\",\"never\"].\n",
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": null,
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "condition-invalid",
+      "message": "fix: a",
+      "configText": "{\"rules\":{\"type-empty\":[2,\"banana\"]}}",
+      "deviation": null,
+      "nativeExpected": "config-error",
+      "category": "invalid-configuration",
+      "upstream": {
+        "loadError": "Commitlint configuration in <fixture-cwd>/.commitlintrc.json is invalid:\n\t- \"/rules/type-empty/1\" must be equal to one of the allowed values. Value: \"banana\".\n\t- \"/rules/type-empty\" should be a function. Value: [2,\"banana\"].\n\t- \"/rules/type-empty\" must match exactly one schema in oneOf. Value: [2,\"banana\"].\n",
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": null,
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "condition-null",
+      "message": "fix: a",
+      "configText": "{\"rules\":{\"type-empty\":[2,null]}}",
+      "deviation": null,
+      "nativeExpected": "config-error",
+      "category": "invalid-configuration",
+      "upstream": {
+        "loadError": "Commitlint configuration in <fixture-cwd>/.commitlintrc.json is invalid:\n\t- Property \"rules/type-empty/1\" has the wrong type - must be string.\n\t- \"/rules/type-empty/1\" must be equal to one of the allowed values. Value: null.\n\t- \"/rules/type-empty\" should be a function. Value: [2,null].\n\t- \"/rules/type-empty\" must match exactly one schema in oneOf. Value: [2,null].\n",
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": null,
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "missing-condition",
+      "message": "fix: a",
+      "configText": "{\"rules\":{\"type-empty\":[2]}}",
+      "deviation": null,
+      "nativeExpected": "config-error",
+      "category": "invalid-configuration",
+      "upstream": {
+        "loadError": null,
+        "lintError": "config for rule type-empty must be 2 or 3 items long, received [ 2 ] of length 1",
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {
+            "type-empty": [
+              2
+            ]
+          },
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": null
+        },
+        "result": null,
+        "parsed": {
+          "header": "fix: a",
+          "type": "fix",
+          "scope": null,
+          "subject": "a",
+          "body": null,
+          "footer": null,
+          "raw": "fix: a",
+          "references": []
+        }
+      }
+    },
+    {
+      "id": "default-ignores-not-bool",
+      "message": "fix: a",
+      "configText": "{\"defaultIgnores\":\"yes\"}",
+      "deviation": null,
+      "nativeExpected": "config-error",
+      "category": "invalid-configuration",
+      "upstream": {
+        "loadError": "Commitlint configuration in <fixture-cwd>/.commitlintrc.json is invalid:\n\t- Property \"defaultIgnores\" has the wrong type - must be boolean.\n",
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": null,
+        "result": null,
+        "parsed": null
+      }
+    },
+    {
+      "id": "parser-options-not-object",
+      "message": "fix: a",
+      "configText": "{\"parserPreset\":{\"parserOpts\":[]}}",
+      "deviation": "strict-parser-options-object",
+      "nativeExpected": "config-error",
+      "category": "invalid-configuration",
+      "upstream": {
+        "loadError": null,
+        "lintError": null,
+        "parseError": null,
+        "ignored": false,
+        "loaded": {
+          "rules": {},
+          "defaultIgnores": null,
+          "parserPreset": null,
+          "parserOpts": []
+        },
+        "result": {
+          "valid": true,
+          "errors": [],
+          "warnings": [],
+          "input": "fix: a"
+        },
+        "parsed": {
+          "header": "fix: a",
+          "type": "fix",
+          "scope": null,
+          "subject": "a",
+          "body": null,
+          "footer": null,
+          "raw": "fix: a",
+          "references": []
+        }
+      }
+    }
+  ]
+}

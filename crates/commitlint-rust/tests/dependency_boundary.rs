@@ -2,14 +2,13 @@
 use std::{fs, path::Path};
 
 #[test]
-fn manifest_declares_no_guard_or_json_runtime_dependency() {
+fn manifest_declares_no_guard_runtime_dependency() {
     let manifest =
         fs::read_to_string(Path::new(env!("CARGO_MANIFEST_DIR")).join("Cargo.toml")).unwrap();
     let runtime = manifest.split("[dev-dependencies]").next().unwrap();
-    for forbidden in ["commitguard", "serde", "gh-commit-guard"] {
+    for forbidden in ["commitguard", "gh-commit-guard"] {
         assert!(!runtime.contains(forbidden), "{forbidden}");
     }
-    assert!(manifest.contains("[dev-dependencies]\nserde_json"));
 }
 
 #[test]
@@ -27,9 +26,7 @@ fn sources_have_no_guard_config_identity_gh_or_hook_references() {
         for forbidden in [
             "commitguard",
             "gh_commit_guard",
-            "config.json",
             "Identity",
-            "serde",
             "\"gh\"",
             "core.hooksPath",
             "recognized_ai",

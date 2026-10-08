@@ -1,0 +1,31 @@
+{
+  "id": "commitguard",
+  "version": "1.0.0",
+  "name": "Commitguard",
+  "description": "Installs the published Commitguard v0.2.0 native guard and activates guarded Git for the workspace on every container start. Requires a human github.com gh login.",
+  "documentationURL": "https://github.com/tkgstrator/commitlint-rust/tree/master/features/commitguard",
+  "options": {
+    "autoActivate": {
+      "type": "boolean",
+      "default": true,
+      "description": "Activate the guard on container start. While not activated, ordinary Git fails closed with login/setup instructions. When false, Git runs unguarded until /usr/local/share/commitguard/setup is run manually."
+    }
+  },
+  "containerEnv": {
+    "PATH": "/usr/local/share/commitguard/bin:${PATH}"
+  },
+  "postStartCommand": [
+    "/usr/local/share/commitguard/setup",
+    "--auto"
+  ],
+  "dependsOn": {
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "os-provided"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/git",
+    "ghcr.io/devcontainers/features/github-cli"
+  ]
+}

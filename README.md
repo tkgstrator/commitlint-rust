@@ -307,3 +307,17 @@ See [the approved profile](docs/superpowers/specs/2026-10-08-immutable-origin-pr
 The [Integration workflow](.github/workflows/integration.yaml) follows the devcontainers Rust example: formatting, Clippy, commit message checks, upstream oracle tests, and native Linux/macOS tests and builds on x86_64 and ARM64. It verifies all release archives, checksums and build provenance before saving artifacts.
 
 The [Deployment workflow](.github/workflows/deployment.yaml) reuses Integration for an existing version tag and creates a GitHub Release only after all checks pass. It refuses existing releases; manual runs validate without publishing. See [maintainer release instructions](INSTALL.md#cicd) for coordinated versions and Homebrew Formula updates.
+
+## Dev Container Feature
+
+Add the `commitguard` Feature to install the native guard plus Git and gh on Debian/Ubuntu, amd64/arm64:
+
+```json
+{
+  "features": {
+    "ghcr.io/tkgstrator/commitlint-rust/commitguard:1": {}
+  }
+}
+```
+
+The guard activates automatically at container start. Authenticate with `gh auth login -h github.com` before committing or pushing; use `commitguard-devcontainer-setup` to retry setup. The Feature pins published native v0.2.0 and verifies its archive digest. See [Feature options and workspace effects](features/commitguard/README.md).

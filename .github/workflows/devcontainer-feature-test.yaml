@@ -1,0 +1,77 @@
+name: Devcontainer Feature Test
+on:
+  push:
+    branches-ignore:
+      - master
+    paths:
+      - 'features/**'
+      - 'tests/devcontainer-feature/**'
+      - 'scripts/test-devcontainer-feature.sh'
+      - '.github/workflows/devcontainer-feature-*.yaml'
+  pull_request:
+    paths:
+      - 'features/**'
+      - 'tests/devcontainer-feature/**'
+      - 'scripts/test-devcontainer-feature.sh'
+      - '.github/workflows/devcontainer-feature-*.yaml'
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: feature-test-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  validate:
+    name: Validate feature metadata
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: devcontainers/action@bef2cf2d1a019b00b45e184f83035e01bd1972f3 # v1
+        with:
+          validate-only: true
+          base-path-to-features: ./features
+          devcontainer-cli-version: 0.89.0
+          generate-docs: false
+          disable-repo-tagging: true
+
+  test:
+    name: Test ${{ matrix.runner }} ${{ matrix.base_image }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runner:
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
+        base_image:
+          - mcr.microsoft.com/devcontainers/base:ubuntu-24.04
+          - mcr.microsoft.com/devcontainers/base:debian
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 26.8.2
+      - name: Install pinned Dev Containers CLI
+        run: |
+          set -euo pipefail
+          prefix="$RUNNER_TEMP/devcontainer-cli"
+          npm install --prefix "$prefix" @devcontainers/cli@0.89.0
+          echo "DEVCONTAINER_CLI=$prefix/node_modules/.bin/devcontainer" >> "$GITHUB_ENV"
+      - name: Run feature runtime tests
+        env:
+          BASE_IMAGE: ${{ matrix.base_image }}
+        run: sh scripts/test-devcontainer-feature.sh "$BASE_IMAGE"

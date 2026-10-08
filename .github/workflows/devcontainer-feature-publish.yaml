@@ -1,0 +1,64 @@
+name: Devcontainer Feature Publish
+on:
+  workflow_dispatch:
+    # Run from master only; publishes OCI artifacts and creates no Git tags.
+
+permissions:
+  contents: read
+
+concurrency:
+  group: feature-publish-${{ github.ref }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test:
+    name: Feature test
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    uses: ./.github/workflows/devcontainer-feature-test.yaml
+    permissions:
+      contents: read
+
+  validate:
+    name: Validate feature metadata
+    needs: test
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: devcontainers/action@bef2cf2d1a019b00b45e184f83035e01bd1972f3 # v1
+        with:
+          validate-only: true
+          base-path-to-features: ./features
+          devcontainer-cli-version: 0.89.0
+          generate-docs: false
+          disable-repo-tagging: true
+
+  publish:
+    name: Publish features
+    needs: [test, validate]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: devcontainers/action@bef2cf2d1a019b00b45e184f83035e01bd1972f3 # v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          publish-features: true
+          base-path-to-features: ./features
+          devcontainer-cli-version: 0.89.0
+          generate-docs: false
+          disable-repo-tagging: true
+          features-namespace: tkgstrator/commitlint-rust
+          oci-registry: ghcr.io

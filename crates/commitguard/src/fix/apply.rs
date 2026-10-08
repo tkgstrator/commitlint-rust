@@ -268,11 +268,12 @@ fn execute(cfg: &Config, root: &Path, j: &mut Journal) -> Result<()> {
         Some(replay::query(cfg, &j.staging, &["rev-parse", "--absolute-git-dir"])?.into());
     j.phase = "staged".into();
     storage::save_journal(root, j)?;
-    if replay::query(
+    if !replay::query(
         cfg,
         &j.staging,
         &["status", "--porcelain=v1", "--untracked-files=all"],
-    )? != ""
+    )?
+    .is_empty()
     {
         return Err("checkout hooks dirtied staging; evidence retained".into());
     }
@@ -307,11 +308,12 @@ fn execute(cfg: &Config, root: &Path, j: &mut Journal) -> Result<()> {
             return Err("actual replacement differs from durable verified bytes".into());
         }
     }
-    if replay::query(
+    if !replay::query(
         cfg,
         &j.staging,
         &["status", "--porcelain=v1", "--untracked-files=all"],
-    )? != ""
+    )?
+    .is_empty()
     {
         return Err("hooks modified staging worktree; retained evidence".into());
     }
@@ -341,11 +343,12 @@ fn execute(cfg: &Config, root: &Path, j: &mut Journal) -> Result<()> {
         &j.receipt.source_root,
         &["rev-parse", &j.receipt.branch],
     )? != final_oid
-        || replay::query(
+        || !replay::query(
             cfg,
             &j.receipt.source_root,
             &["status", "--porcelain=v1", "--untracked-files=all"],
-        )? != ""
+        )?
+        .is_empty()
     {
         return Err("post-promotion hook/concurrent change detected; no automatic rollback".into());
     }

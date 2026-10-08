@@ -41,13 +41,13 @@ fn run(name: &str) -> Result<i32> {
     let _strict_scope = strict.then(crate::auth::StrictScope::enter);
     // fix may locate the installed HOME configuration before installation;
     // other portable checker commands keep executable-only discovery.
-    if args.first().map(String::as_str) == Some("fix") && config.is_none() {
-        if let Some(home) = std::env::var_os("HOME") {
-            let path =
-                PathBuf::from(home).join(".local/share/gh-commit-identity/guard/config.json");
-            if path.exists() {
-                config = Some(Config::read(&path)?);
-            }
+    if args.first().map(String::as_str) == Some("fix")
+        && config.is_none()
+        && let Some(home) = std::env::var_os("HOME")
+    {
+        let path = PathBuf::from(home).join(".local/share/gh-commit-identity/guard/config.json");
+        if path.exists() {
+            config = Some(Config::read(&path)?);
         }
     }
     let mode=args.first().map(String::as_str).ok_or("usage: gh-commit-guard <account|identity|message|commits|push|pre-push|hook|sign|git|install|bulk-write|bulk-write-tags|version>")?;

@@ -371,11 +371,12 @@ pub(super) fn run(cfg: &Config, root: &Path, j: &mut Journal) -> Result<()> {
             )?;
             let new_oid = query(cfg, &j.staging, &["rev-parse", "HEAD"])?;
             verify_one(cfg, j, index, &new_oid)?;
-            if query(
+            if !query(
                 cfg,
                 &j.staging,
                 &["status", "--porcelain=v1", "--untracked-files=all"],
-            )? != ""
+            )?
+            .is_empty()
             {
                 return Err("hook changed staging worktree; retained evidence".into());
             }

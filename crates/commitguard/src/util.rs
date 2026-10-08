@@ -208,10 +208,10 @@ pub fn find_tool(name: &str) -> Result<PathBuf> {
                     return Ok(native);
                 }
             }
-            if let Ok(self_path) = std::env::current_exe() {
-                if self_path.canonicalize().ok() == Some(path.clone()) {
-                    continue;
-                }
+            if let Ok(self_path) = std::env::current_exe()
+                && self_path.canonicalize().ok() == Some(path.clone())
+            {
+                continue;
             }
         }
         return Ok(path);

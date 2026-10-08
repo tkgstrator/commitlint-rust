@@ -181,14 +181,13 @@ pub fn run(args: &[String], config: Option<&Config>) -> Result<()> {
         index += 2;
     }
     let manifest_file = manifest_file.ok_or("bulk-write requires --manifest FILE")?;
-    if let Some(digest) = &confirm {
-        if digest.len() != 64
+    if let Some(digest) = &confirm
+        && (digest.len() != 64
             || !digest
                 .bytes()
-                .all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
-        {
-            return Err("invalid bulk confirmation digest".into());
-        }
+                .all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b)))
+    {
+        return Err("invalid bulk confirmation digest".into());
     }
     let raw_manifest = state::read_input(&manifest_file, MAX_MANIFEST)?;
     let manifest: Manifest = serde_json::from_slice(&raw_manifest)

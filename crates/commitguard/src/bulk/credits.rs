@@ -28,6 +28,12 @@ pub(super) fn add(counter: &mut Counter, values: &Counter) {
 fn singleton(value: Actor) -> Counter {
     BTreeMap::from([(value, 1)])
 }
+fn version_regex() -> &'static Regex {
+    static VERSION: OnceLock<Regex> = OnceLock::new();
+    VERSION.get_or_init(|| {
+        Regex::new(r"^([0-9]+(?:\.[0-9]+)*)(?:-([0-9]+)m| *\(([0-9]+)m context\))?$").unwrap()
+    })
+}
 fn claude(name: &str) -> Option<Actor> {
     static RE: OnceLock<Regex> = OnceLock::new();
     let captures = RE.get_or_init(|| Regex::new(r"^claude(?: +(opus|sonnet|haiku|fable)(?: +([0-9]+(?:\.[0-9]+)*))?(?: +\(([0-9]+)m context\))?)?$").unwrap()).captures(name)?;
@@ -191,10 +197,7 @@ fn compact_unweighted(value: &str) -> Result<Counter> {
             );
             continue;
         }
-        static VERSION: OnceLock<Regex> = OnceLock::new();
-        let regex = VERSION.get_or_init(|| {
-            Regex::new(r"^([0-9]+(?:\.[0-9]+)*)(?:-([0-9]+)m| *\(([0-9]+)m context\))?$").unwrap()
-        });
+        let regex = version_regex();
         for version in segment.split('/') {
             let captures = regex
                 .captures(version.trim())

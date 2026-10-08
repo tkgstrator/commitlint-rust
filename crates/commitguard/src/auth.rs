@@ -193,10 +193,10 @@ pub(crate) fn cache_directory_for_home(home: &Path) -> Result<PathBuf> {
 }
 fn check_ancestors(path: &Path) -> Result<()> {
     for parent in path.ancestors() {
-        if let Ok(meta) = fs::symlink_metadata(parent) {
-            if !meta.is_dir() || meta.file_type().is_symlink() {
-                return Err("unsafe authentication cache directory".into());
-            }
+        if let Ok(meta) = fs::symlink_metadata(parent)
+            && (!meta.is_dir() || meta.file_type().is_symlink())
+        {
+            return Err("unsafe authentication cache directory".into());
         }
     }
     Ok(())

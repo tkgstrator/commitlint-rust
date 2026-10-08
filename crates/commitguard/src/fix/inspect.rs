@@ -352,7 +352,7 @@ fn validate_raw_ident(value: &str) -> Result<()> {
     }
     let zone = date.as_bytes();
     if zone.len() != 5
-        || ![b'+', b'-'].contains(&zone[0])
+        || !b"+-".contains(&zone[0])
         || !zone[1..].iter().all(u8::is_ascii_digit)
         || date[1..3].parse::<u8>().unwrap_or(255) > 23
         || date[3..5].parse::<u8>().unwrap_or(255) > 59
@@ -555,15 +555,14 @@ fn safe_destination(url: &str) -> Result<()> {
     }
     if let Some((scheme, rest)) = url.split_once("://") {
         let authority = rest.split(['/', '#']).next().unwrap_or_default();
-        if let Some((userinfo, _)) = authority.rsplit_once('@') {
-            if matches!(scheme.to_ascii_lowercase().as_str(), "http" | "https")
+        if let Some((userinfo, _)) = authority.rsplit_once('@')
+            && (matches!(scheme.to_ascii_lowercase().as_str(), "http" | "https")
                 || userinfo.contains(':')
-                || userinfo.to_ascii_lowercase().contains("%3a")
-            {
-                return Err(
-                    "credential-bearing remote URLs are unsupported; use gh authentication".into(),
-                );
-            }
+                || userinfo.to_ascii_lowercase().contains("%3a"))
+        {
+            return Err(
+                "credential-bearing remote URLs are unsupported; use gh authentication".into(),
+            );
         }
     }
     Ok(())
@@ -731,10 +730,9 @@ fn original_hooks(
             .map(PathBuf::from)
             .or_else(|| cfg.previous_hooks.clone())
     });
-    let chosen = if is_guard || configured.is_none() {
-        mapping.unwrap_or_else(|| common.join("hooks"))
-    } else {
-        configured.unwrap()
+    let chosen = match configured {
+        Some(configured) if !is_guard => configured,
+        _ => mapping.unwrap_or_else(|| common.join("hooks")),
     };
     let chosen = if let Ok(rest) = chosen.strip_prefix("~") {
         PathBuf::from(env::var_os("HOME").ok_or("cannot expand original hooksPath")?).join(rest)
@@ -751,10 +749,10 @@ fn original_hooks(
             return Err("original hooksPath is not a directory".into());
         }
         let chosen = absolute(&chosen)?;
-        if let Some(guard) = guard {
-            if chosen == guard.canonicalize().unwrap_or(guard) {
-                return Err("recursive original guard hook chain is unsupported".into());
-            }
+        if let Some(guard) = guard
+            && chosen == guard.canonicalize().unwrap_or(guard)
+        {
+            return Err("recursive original guard hook chain is unsupported".into());
         }
         Ok(chosen)
     } else {

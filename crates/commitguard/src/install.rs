@@ -74,18 +74,18 @@ fn projected_depth(path: &Path, depth: usize) -> Result<PathBuf> {
     if path.exists() {
         return io(fs::canonicalize(path), "resolve setup path");
     }
-    if let Ok(meta) = fs::symlink_metadata(path) {
-        if meta.file_type().is_symlink() {
-            let target = io(fs::read_link(path), "resolve setup symlink")?;
-            return projected_depth(
-                &if target.is_absolute() {
-                    target
-                } else {
-                    path.parent().unwrap_or(Path::new(".")).join(target)
-                },
-                depth + 1,
-            );
-        }
+    if let Ok(meta) = fs::symlink_metadata(path)
+        && meta.file_type().is_symlink()
+    {
+        let target = io(fs::read_link(path), "resolve setup symlink")?;
+        return projected_depth(
+            &if target.is_absolute() {
+                target
+            } else {
+                path.parent().unwrap_or(Path::new(".")).join(target)
+            },
+            depth + 1,
+        );
     }
     let parent = path.parent().ok_or("cannot resolve setup parent")?;
     let name = path.file_name().ok_or("cannot resolve setup filename")?;

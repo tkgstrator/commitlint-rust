@@ -258,9 +258,7 @@ fn transformed_prose(entry: &TagEntry, source: &str, candidate: &str, tagger: &s
             .split_once(':')
             .ok_or("tag appended prose is not a credit")?;
         let key = key.to_ascii_lowercase();
-        if key == "co-authored-by" && policy::recognized_ai(value.trim()) {
-            found = true;
-        } else if key == "ai-credit" {
+        if (key == "co-authored-by" && policy::recognized_ai(value.trim())) || key == "ai-credit" {
             found = true;
         } else {
             return Err(
@@ -384,11 +382,8 @@ fn private_receipt(path: &Path) -> Result<Vec<u8>> {
     return Err("tag writer requires private Unix receipt storage".into());
     Ok(bytes)
 }
-fn receipt(
-    git: &Git,
-    path: Option<&Path>,
-    identity: &Identity,
-) -> Result<(BTreeMap<String, String>, Vec<u8>, Vec<u8>)> {
+type ReceiptParts = (BTreeMap<String, String>, Vec<u8>, Vec<u8>);
+fn receipt(git: &Git, path: Option<&Path>, identity: &Identity) -> Result<ReceiptParts> {
     let Some(path) = path else {
         return Ok((BTreeMap::new(), Vec::new(), Vec::new()));
     };

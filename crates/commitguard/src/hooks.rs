@@ -51,10 +51,10 @@ fn repository_dirs(cfg: &Config, name: &str) -> Result<Option<(PathBuf, PathBuf)
     Ok(None)
 }
 fn expand_home(path: &Path) -> PathBuf {
-    if let Ok(rest) = path.strip_prefix("~") {
-        if let Some(home) = env::var_os("HOME") {
-            return PathBuf::from(home).join(rest);
-        }
+    if let Ok(rest) = path.strip_prefix("~")
+        && let Some(home) = env::var_os("HOME")
+    {
+        return PathBuf::from(home).join(rest);
     }
     path.to_path_buf()
 }

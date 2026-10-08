@@ -33,22 +33,20 @@ fn split(args: &[String]) -> Result<usize> {
         ]
         .iter()
         .any(|prefix| value.starts_with(prefix))
-        {
-            i += 1;
-        } else if [
-            "--no-pager",
-            "--paginate",
-            "--bare",
-            "--no-replace-objects",
-            "--no-optional-locks",
-            "--literal-pathspecs",
-            "--glob-pathspecs",
-            "--noglob-pathspecs",
-            "--icase-pathspecs",
-            "--no-lazy-fetch",
-            "--no-advice",
-        ]
-        .contains(&value)
+            || [
+                "--no-pager",
+                "--paginate",
+                "--bare",
+                "--no-replace-objects",
+                "--no-optional-locks",
+                "--literal-pathspecs",
+                "--glob-pathspecs",
+                "--noglob-pathspecs",
+                "--icase-pathspecs",
+                "--no-lazy-fetch",
+                "--no-advice",
+            ]
+            .contains(&value)
         {
             i += 1;
         } else if [

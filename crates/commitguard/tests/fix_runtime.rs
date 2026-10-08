@@ -26,6 +26,8 @@ const OLD_EMAIL: &str = "mistake@example.test";
 const CREDIT: &str = "Co-authored-by: Claude <noreply@anthropic.com>";
 const DATES: [&str; 2] = ["1000000000 +0530", "1000000060 -0700"];
 
+type HistorySnapshot = ((String, String, String, Option<Vec<u8>>), String);
+
 struct History {
     f: Fixture,
     repo: PathBuf,
@@ -187,7 +189,7 @@ impl History {
         )
     }
 
-    fn snapshot(&self) -> ((String, String, String, Option<Vec<u8>>), String) {
+    fn snapshot(&self) -> HistorySnapshot {
         (
             self.source_state(),
             self.f.raw(&["show-ref"], &self.repo, &[]),
@@ -371,10 +373,11 @@ fn json_documents(dir: &Path, documents: &mut Vec<Value>) {
             if entry.file_name() != "objects" && entry.file_name() != "logs" {
                 json_documents(&path, documents);
             }
-        } else if kind.is_file() && entry.metadata().unwrap().len() <= 4 * 1024 * 1024 {
-            if let Ok(value) = serde_json::from_slice(&fs::read(path).unwrap()) {
-                documents.push(value);
-            }
+        } else if kind.is_file()
+            && entry.metadata().unwrap().len() <= 4 * 1024 * 1024
+            && let Ok(value) = serde_json::from_slice(&fs::read(path).unwrap())
+        {
+            documents.push(value);
         }
     }
 }

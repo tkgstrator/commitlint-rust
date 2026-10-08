@@ -23,6 +23,7 @@ defaults:
 
 env:
   CARGO_TERM_COLOR: always
+  RUST_VERSION: 1.99.0
 
 jobs:
   fmt:
@@ -34,15 +35,15 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
           persist-credentials: false
-      - name: Install Rust (stable, minimal)
+      - name: Install pinned Rust (minimal)
         run: |
           if ! command -v rustup >/dev/null 2>&1; then
             curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain none
             echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
             export PATH="$HOME/.cargo/bin:$PATH"
           fi
-          rustup toolchain install stable --profile minimal --component rustfmt --no-self-update
-          rustup default stable
+          rustup toolchain install "$RUST_VERSION" --profile minimal --component rustfmt --no-self-update
+          rustup default "$RUST_VERSION"
       - name: cargo fmt
         run: cargo fmt --all -- --check
 
@@ -55,15 +56,15 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
           persist-credentials: false
-      - name: Install Rust (stable, minimal)
+      - name: Install pinned Rust (minimal)
         run: |
           if ! command -v rustup >/dev/null 2>&1; then
             curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain none
             echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
             export PATH="$HOME/.cargo/bin:$PATH"
           fi
-          rustup toolchain install stable --profile minimal --component clippy --no-self-update
-          rustup default stable
+          rustup toolchain install "$RUST_VERSION" --profile minimal --component clippy --no-self-update
+          rustup default "$RUST_VERSION"
       - name: cargo clippy
         run: cargo clippy --workspace --all-targets --all-features --locked -- -D warnings
 
@@ -97,15 +98,15 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
           persist-credentials: false
-      - name: Install Rust (stable, minimal)
+      - name: Install pinned Rust (minimal)
         run: |
           if ! command -v rustup >/dev/null 2>&1; then
             curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain none
             echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
             export PATH="$HOME/.cargo/bin:$PATH"
           fi
-          rustup toolchain install stable --profile minimal --no-self-update
-          rustup default stable
+          rustup toolchain install "$RUST_VERSION" --profile minimal --no-self-update
+          rustup default "$RUST_VERSION"
       - name: Build commitlint
         run: cargo build -p commitlint-rust --locked
       - name: Lint commit messages
@@ -168,7 +169,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
           persist-credentials: false
-      - name: Install Rust (stable, minimal)
+      - name: Install pinned Rust (minimal)
         env:
           TARGET: ${{ matrix.target }}
         run: |
@@ -177,8 +178,8 @@ jobs:
             echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
             export PATH="$HOME/.cargo/bin:$PATH"
           fi
-          rustup toolchain install stable --profile minimal --no-self-update
-          rustup default stable
+          rustup toolchain install "$RUST_VERSION" --profile minimal --no-self-update
+          rustup default "$RUST_VERSION"
           rustup target add "$TARGET"
       - name: Install musl toolchain
         if: runner.os == 'Linux'

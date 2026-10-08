@@ -487,7 +487,7 @@ fn nested_gitlink_substitution_requires_exact_path_old_and_new_declaration() {
     let candidate = raw.replacen(tree_line, &format!("tree {new_tree}"), 1);
     let mut m = b.save(
         vec![b.entry(&source, candidate.as_bytes())],
-        &[new_child.clone()],
+        std::slice::from_ref(&new_child),
     );
     refused(b.call(None, false, &[]));
     let path_hex = b"vendor/lib"

@@ -187,12 +187,10 @@ fn attribution(
             return Err("declared main AI credit is missing from the candidate message".into());
         }
         let key = ai.keys().next().unwrap().clone();
-        if let Some(known) = credits::checked_standard(&main_value(header)?)? {
-            if key != known {
-                return Err(
-                    "recognized main AI provider/model/version/context cannot change".into(),
-                );
-            }
+        if let Some(known) = credits::checked_standard(&main_value(header)?)?
+            && key != known
+        {
+            return Err("recognized main AI provider/model/version/context cannot change".into());
         }
         mains.insert(key);
     }
@@ -351,11 +349,12 @@ pub(super) fn all(
                     return Err("bulk origin add must bind the complete actual source bytes".into());
                 }
             }
-            Some(SourceProvenance::Preserve) => {
-                if old.origin.is_none() || new.origin != old.origin {
-                    return Err("bulk origin preserve must copy the exact source origin".into());
-                }
+            Some(SourceProvenance::Preserve)
+                if old.origin.is_none() || new.origin != old.origin =>
+            {
+                return Err("bulk origin preserve must copy the exact source origin".into());
             }
+            Some(SourceProvenance::Preserve) => {}
         }
         if entry.source_provenance.is_some() && entry.ownership.is_none() {
             return Err("bulk origin profile requires positive exact source ownership".into());
@@ -418,11 +417,11 @@ struct TreeEntry {
     oid: String,
 }
 fn decode_hex(value: &str) -> Result<Vec<u8>> {
-    if value.is_empty() || value.len() % 2 != 0 {
+    if value.is_empty() || !value.len().is_multiple_of(2) {
         return Err("invalid bulk gitlink path_hex".into());
     }
     let mut bytes = Vec::with_capacity(value.len() / 2);
-    for pair in value.as_bytes().chunks_exact(2) {
+    for pair in value.as_bytes().as_chunks::<2>().0 {
         fn nibble(b: u8) -> Result<u8> {
             match b {
                 b'0'..=b'9' => Ok(b - b'0'),

@@ -3,6 +3,16 @@
 # has activated the guard; otherwise it runs persisted native Git or guarded Git.
 base=/usr/local/share/commitguard
 
+# Later Feature installers run as root with a BuildKit-provided, read-only
+# feature-content mount. This kernel evidence cannot be spoofed by a runtime
+# environment variable; workspaces are not mounted during the image build.
+if [ "$(id -u)" = 0 ] && awk '$5 ~ /^\/tmp\/build-features-src\// { found=1 } END { exit !found }' /proc/self/mountinfo; then
+  native=
+  IFS= read -r native < "$base/native-git" || native=
+  [ -n "$native" ] && [ -x "$native" ] || exit 1
+  exec "$native" "$@"
+fi
+
 auto=true
 if [ -r "$base/options" ]; then
   auto=

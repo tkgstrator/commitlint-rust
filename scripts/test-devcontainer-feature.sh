@@ -18,14 +18,17 @@ trap cleanup EXIT
 trap 'exit 129' HUP
 trap 'exit 130' INT
 trap 'exit 143' TERM
-mkdir -p "$tmp/project/.devcontainer/features"
+mkdir -p "$tmp/project/.devcontainer/features/after-guard"
 cp -R "$repo/features/commitguard" "$tmp/project/.devcontainer/features/"
+printf '%s\n' '{"id":"after-guard","name":"Build regression","version":"1.0.0","dependsOn":{"./features/commitguard":{}}}' > "$tmp/project/.devcontainer/features/after-guard/devcontainer-feature.json"
+printf '%s\n' '#!/bin/sh' 'set -e' 'git --version' > "$tmp/project/.devcontainer/features/after-guard/install.sh"
+chmod +x "$tmp/project/.devcontainer/features/after-guard/install.sh"
 # Fixed supported base names avoid interpolating arbitrary JSON/shell values.
 case "$base_image" in
   mcr.microsoft.com/devcontainers/base:ubuntu-24.04|mcr.microsoft.com/devcontainers/base:debian) ;;
   *) echo 'unsupported test base image' >&2; exit 1 ;;
 esac
-printf '{"image":"%s","remoteUser":"vscode","features":{"./features/commitguard":{}}}\n' "$base_image" > "$tmp/project/.devcontainer/devcontainer.json"
+printf '{"image":"%s","remoteUser":"vscode","features":{"./features/commitguard":{},"./features/after-guard":{}}}\n' "$base_image" > "$tmp/project/.devcontainer/devcontainer.json"
 "$cli" build --oci-auth-hardening --workspace-folder "$tmp/project" --image-name "$image" --output "type=docker,dest=$tmp/image.tar"
 [ -s "$tmp/image.tar" ]
 docker image load --input "$tmp/image.tar"
@@ -38,12 +41,8 @@ docker run --rm --name "$container" --user root --entrypoint /bin/sh \
   --mount "type=bind,src=$repo/tests/devcontainer-feature,dst=/test,readonly" \
   --mount "type=bind,src=$repo/features,dst=/source,readonly" \
   "$image" /test/download.sh
-# A wholly shared HOME must be rejected before any workspace/host mutations.
-mkdir "$tmp/shared-home"
-printf 'retain\n' > "$tmp/shared-home/sentinel"
+# A root-owned mounted HOME reaches the actual mount check on Linux as well.
 docker run --rm --name "$container" --user root --entrypoint /bin/sh \
-  --mount "type=bind,src=$tmp/shared-home,dst=/shared-home" \
-  --env HOME=/shared-home "$image" -c \
-  'cd /tmp; /usr/local/share/commitguard/setup --auto > /tmp/error 2>&1 && exit 1; grep -q "container-private HOME" /tmp/error; test "$(cat /shared-home/sentinel)" = retain'
-[ "$(find "$tmp/shared-home" -type f | wc -l | tr -d ' ')" = 1 ]
+  --mount type=tmpfs,dst=/shared-home --env HOME=/shared-home "$image" -c \
+  'printf "retain\n" > /shared-home/sentinel; mkdir /tmp/mount-test; /usr/bin/git -C /tmp/mount-test init -q; cd /tmp/mount-test; /usr/local/share/commitguard/setup --auto > /tmp/error 2>&1 && exit 1; grep -q "container-private HOME" /tmp/error; test "$(cat /shared-home/sentinel)" = retain; test "$(find /shared-home -type f | wc -l)" = 1'
 echo 'PASS shared HOME rejected before mutation'

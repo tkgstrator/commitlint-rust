@@ -27,5 +27,9 @@
   "installsAfter": [
     "ghcr.io/devcontainers/features/git",
     "ghcr.io/devcontainers/features/github-cli"
+  ],
+  "onCreateCommand": [
+    "/usr/local/share/commitguard/setup",
+    "--auto"
   ]
 }

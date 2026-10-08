@@ -1,7 +1,7 @@
 # Commitguard Dev Container Feature
 
 Installs the published Commitguard `v0.2.0` guard-only release and activates
-guarded Git for the workspace repository each time the container starts.
+guarded Git for the workspace repository when the container is created and each time it starts.
 
 ```json
 "features": { "ghcr.io/tkgstrator/commitlint-rust/commitguard:1": {} }
@@ -12,7 +12,7 @@ guarded Git for the workspace repository each time the container starts.
 - Debian or Ubuntu image, amd64 or arm64.
 - Depends on the official `git` (`os-provided`) and `github-cli` features.
 - A **human** `github.com` login in `gh` (`gh auth login -h github.com`) for actual commits and pushes. Activation itself can complete before login. No credential is used or stored at build time.
-- A container-private `HOME`. Activation refuses symlinked or mounted managed
+- A container-private `HOME` and symlink-free managed agent/guard trees. Activation refuses symlinked or mounted managed
   paths (shell rc files, `~/.gitconfig`, guard state). Separate host mounts at
   `~/.codex` / `~/.claude` are allowed and never touched.
 - `GIT_CONFIG_GLOBAL` must be unset or `$HOME/.gitconfig`.
@@ -21,7 +21,7 @@ guarded Git for the workspace repository each time the container starts.
 
 | Option | Default | Meaning |
 | --- | --- | --- |
-| `autoActivate` | `true` | Run activation in `postStartCommand`. |
+| `autoActivate` | `true` | Run activation in `onCreateCommand` and `postStartCommand`. |
 
 The option is recorded root-owned in `/usr/local/share/commitguard/options`;
 runtime environment variables do not override it. Container administrators can modify image files.
@@ -54,4 +54,4 @@ repository found from the start directory.
 
 Activation preserves existing hooks and adds the managed policy block to workspace `AGENTS.md` and `CLAUDE.md`. It creates native skills in workspace `.codex/skills/gh-commit-identity` and `.claude/skills/gh-commit-identity`; exclude these generated binary directories from source control. Shell configuration and global Git hooks are installed in the container user's private HOME. Native v0.2.0 also sets workspace-local devflow policy keys; those paths refer to this container.
 
-The workspace must already be a Git repository. Initialize it before opening the container. A ready marker records the last successful installation; an earlier valid native guard continues enforcing policy if a later startup fails before changing managed files.
+The workspace must already be a Git repository. Initialize it before opening the container. A ready marker records the last successful installation; Git remains guarded or blocked if a later startup fails; the ready marker is only replaced after successful verification.

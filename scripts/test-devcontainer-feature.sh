@@ -8,10 +8,12 @@ tmp=$(mktemp -d)
 nonce=$(date +%s)-$$
 image=commitguard-feature-test:$nonce
 container=commitguard-feature-test-$nonce
+builder=commitguard-feature-builder-$nonce
 # Every resource belongs to this invocation. Never prune shared Docker resources.
 cleanup() {
   docker rm -f "$container" >/dev/null 2>&1 || true
   docker image rm "$image" >/dev/null 2>&1 || true
+  docker buildx rm "$builder" >/dev/null 2>&1 || true
   rm -rf "$tmp"
 }
 trap cleanup EXIT
@@ -29,6 +31,9 @@ case "$base_image" in
   *) echo 'unsupported test base image' >&2; exit 1 ;;
 esac
 printf '{"image":"%s","remoteUser":"vscode","features":{"./features/commitguard":{},"./features/after-guard":{}}}\n' "$base_image" > "$tmp/project/.devcontainer/devcontainer.json"
+docker buildx create --name "$builder" --driver docker-container
+BUILDX_BUILDER=$builder
+export BUILDX_BUILDER
 "$cli" build --oci-auth-hardening --workspace-folder "$tmp/project" --image-name "$image" --output "type=docker,dest=$tmp/image.tar"
 [ -s "$tmp/image.tar" ]
 docker image load --input "$tmp/image.tar"

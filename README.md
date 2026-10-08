@@ -301,3 +301,9 @@ Normal commit/push checks validate known header syntax, current identity and mes
 policy; historical origin requires the operator's retained approved source evidence
 and exact outgoing object mapping. A header alone is not proof of origin.
 See [the approved profile](docs/superpowers/specs/2026-10-08-immutable-origin-profile.md).
+
+## CI/CD
+
+The [Integration workflow](.github/workflows/integration.yaml) follows the devcontainers Rust example: formatting, Clippy, commit message checks, upstream oracle tests, and native Linux/macOS tests and builds on x86_64 and ARM64. It verifies all release archives, checksums and build provenance before saving artifacts.
+
+The [Deployment workflow](.github/workflows/deployment.yaml) reuses Integration for an existing version tag and creates a GitHub Release only after all checks pass. It refuses existing releases; manual runs validate without publishing. See [maintainer release instructions](INSTALL.md#cicd) for coordinated versions and Homebrew Formula updates.

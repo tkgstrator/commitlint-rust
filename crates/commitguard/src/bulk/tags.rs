@@ -202,6 +202,7 @@ fn fake_entry(entry: &TagEntry) -> Result<Entry> {
             .collect(),
         remove_headers: Vec::new(),
         gitlinks: Vec::new(),
+        source_provenance: None,
     })
 }
 fn transformed_prose(entry: &TagEntry, source: &str, candidate: &str, tagger: &str) -> Result<()> {
@@ -424,9 +425,8 @@ fn receipt(
     let raw_manifest = private_receipt(&dir.join("manifest.json"))?;
     let manifest: Manifest =
         serde_json::from_slice(&raw_manifest).map_err(|_| "invalid receipt's retained manifest")?;
-    if manifest.schema_version != 1
-        || manifest.policy_version != 1
-        || manifest.common_dir != git.common
+    let origin_profile = super::profile(&manifest)?;
+    if manifest.common_dir != git.common
         || manifest.entries.is_empty()
         || manifest.entries.len() > MAX_ENTRIES
         || report.mapping.len() != manifest.entries.len()
@@ -447,7 +447,7 @@ fn receipt(
         .collect();
     let candidates = git.batch(&expected, "commit")?;
     let mut hash = Sha256::new();
-    feed(&mut hash, b"commitguard-bulk-v1");
+    feed(&mut hash, super::domain(origin_profile));
     feed(&mut hash, &raw_manifest);
     feed(
         &mut hash,
@@ -466,6 +466,9 @@ fn receipt(
     }
     if format!("{:x}", hash.finalize()) != report.digest {
         return Err("commit receipt digest does not bind retained approval and inputs".into());
+    }
+    for boundary in &sources[manifest.entries.len()..] {
+        validate::parse_profile(boundary, false, git.width, origin_profile)?;
     }
     let mut mapping = BTreeMap::new();
     let mut new_ids = BTreeSet::new();

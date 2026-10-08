@@ -508,3 +508,88 @@ fn exact_foreign_human_tag_credits_are_preserved_without_claiming_their_work() {
     );
     refused(t.call(None, false));
 }
+
+#[test]
+fn tag_retarget_reproves_v2_origin_profile_and_rejects_cross_domain_receipts() {
+    let t = Tags::new();
+    let source_commit = t.f.commit(&t.repo, "old approved source", &[]);
+    let raw = t.raw(&source_commit, "commit");
+    let text = String::from_utf8(raw.clone()).unwrap();
+    let (headers, _) = text.split_once("\n\n").unwrap();
+    let old_author = headers
+        .lines()
+        .find_map(|line| line.strip_prefix("author "))
+        .unwrap();
+    let candidate = format!(
+        "{headers}\nsource-sha256 {}\n\nfix: preserve origin in tag target\n",
+        sha(&raw)
+    )
+    .into_bytes();
+    let expected = t.oid(&candidate, "commit", false);
+    let candidate_path = t.f.root.join("origin candidate.commit");
+    fs::write(&candidate_path, &candidate).unwrap();
+    let manifest_path = t.f.root.join("origin manifest.json");
+    let manifest = json!({"schema_version":1,"policy_version":2,"provenance_profile":"source-sha256-v1","common_dir":t.common(),"boundaries":[],"entries":[{"source_oid":source_commit,"source_sha256":sha(&raw),"expected_oid":expected,"candidate_file":candidate_path,"candidate_sha256":sha(&candidate),"source_provenance":"add","ownership":{"old_author":old_author,"owned":true}}]});
+    fs::write(&manifest_path, serde_json::to_vec(&manifest).unwrap()).unwrap();
+    let preview = t.f.canonical(
+        &["bulk-write", "--manifest", manifest_path.to_str().unwrap()],
+        &t.repo,
+        &[],
+        None,
+    );
+    assert!(
+        preview.status.success(),
+        "{}",
+        String::from_utf8_lossy(&preview.stderr)
+    );
+    let report: Value = serde_json::from_slice(&preview.stdout).unwrap();
+    let commit_digest = report["digest"].as_str().unwrap();
+    accepted(t.f.canonical(
+        &[
+            "bulk-write",
+            "--manifest",
+            manifest_path.to_str().unwrap(),
+            "--confirm",
+            commit_digest,
+        ],
+        &t.repo,
+        &[],
+        None,
+    ));
+    let receipt = t
+        .common()
+        .join("commitguard-bulk")
+        .join(commit_digest)
+        .join("complete.json");
+    let source_tag = t.tag(
+        &source_commit,
+        "commit",
+        "origin-v1",
+        CANON,
+        "unchanged tag prose\n",
+    );
+    t.save(
+        vec![t.entry(
+            &source_tag,
+            &t.candidate(&source_tag, Some(&expected), None),
+        )],
+        Some(&receipt),
+    );
+    let digest = t.digest();
+    accepted(t.call(Some(&digest), false));
+    assert_eq!(t.count(), 0);
+    let retained = receipt.parent().unwrap().join("manifest.json");
+    let saved = fs::read(&retained).unwrap();
+    for policy in [1, 3] {
+        let mut changed = manifest.clone();
+        changed["policy_version"] = json!(policy);
+        fs::write(&retained, serde_json::to_vec(&changed).unwrap()).unwrap();
+        refused(t.call(None, false));
+    }
+    let mut changed = manifest;
+    changed["provenance_profile"] = json!("source-sha256-v2");
+    fs::write(&retained, serde_json::to_vec(&changed).unwrap()).unwrap();
+    refused(t.call(None, false));
+    fs::write(&retained, saved).unwrap();
+    accepted(t.call(None, false));
+}

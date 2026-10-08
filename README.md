@@ -166,3 +166,26 @@ Repeated actor credits can use a factual count such as
 128-character limit. Other prose is never inferred as attribution.
 Do not replace a live guard while another operation binds its binary/policy hash.
 See [the manifest and safety contract](docs/superpowers/specs/2026-10-07-commitguard-bulk-write.md).
+
+### Explicit legacy collision provenance (source build)
+
+For an explicitly approved legacy rewrite, `bulk-write` policy version 2 adds
+`"provenance_profile": "source-sha256-v1"` to the manifest and
+`"source_provenance": "add"` to each selected entry. An exact positive Author
+ownership declaration is required even for a canonical source. The candidate
+contains one final `source-sha256 <lowercase SHA256>` header immediately after
+Committer, equal to the complete actual original raw commit digest.
+This separates otherwise equal normalized commits without changing message words,
+dates, trees, ordered parents or attribution counts. The 128-character message
+limit stays unchanged; provenance is metadata and supplies no ownership authority.
+
+Later independently approved rewrites use `"source_provenance": "preserve"` and
+copy the original header unchanged. Recomputing it from an intermediate commit is
+refused. Default policy version 1 still rejects origin-bearing bulk objects;
+undeclared v2 entries do too. Ordinary V1 `fix` fails closed on this metadata;
+use the explicit bulk preserve route for later authorized history changes.
+Tag receipt reuse revalidates the v2 domain and actual source/candidate bytes.
+Normal commit/push checks validate known header syntax, current identity and message
+policy; historical origin requires the operator's retained approved source evidence
+and exact outgoing object mapping. A header alone is not proof of origin.
+See [the approved profile](docs/superpowers/specs/2026-10-08-immutable-origin-profile.md).

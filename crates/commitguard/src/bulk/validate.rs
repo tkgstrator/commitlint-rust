@@ -1,9 +1,11 @@
 //! Raw commit, attribution, graph and gitlink-only tree validation.
-use super::{Entry, MAX_BYTES, Manifest, git::Git};
+use super::{Entry, MAX_BYTES, Manifest, SourceProvenance, git::Git};
 use crate::{Identity, Result, core, policy};
+use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, BTreeSet};
 
 pub(super) struct Commit<'a> {
+    origin: Option<&'a str>,
     tree: &'a str,
     parents: Vec<&'a str>,
     author: &'a str,
@@ -17,12 +19,22 @@ fn oid(value: &str, width: usize) -> Result<()> {
     }
     Ok(())
 }
-pub(super) fn parse(bytes: &[u8], candidate: bool, width: usize) -> Result<Commit<'_>> {
+pub(super) fn parse_profile(
+    bytes: &[u8],
+    candidate: bool,
+    width: usize,
+    origin_profile: bool,
+) -> Result<Commit<'_>> {
     let raw = core::text(bytes)?;
     let (headers, message) = raw.split_once("\n\n").ok_or("malformed bulk commit")?;
     if headers.contains(['\r', '\0']) {
         return Err("malformed bulk commit headers".into());
     }
+    let origin = if origin_profile {
+        crate::provenance::header_origin(headers)?
+    } else {
+        None
+    };
     let mut tree = None;
     let mut parents = Vec::new();
     let mut author = None;
@@ -57,6 +69,7 @@ pub(super) fn parse(bytes: &[u8], candidate: bool, width: usize) -> Result<Commi
                 committer = Some(value);
                 stage = 3;
             }
+            crate::provenance::KEY if origin.is_some() && stage == 3 => {}
             "gpgsig" | "gpgsig-sha256" | "encoding" | "mergetag" if !candidate => {
                 if !removed.insert(key) {
                     return Err("duplicate removable bulk header".into());
@@ -66,6 +79,7 @@ pub(super) fn parse(bytes: &[u8], candidate: bool, width: usize) -> Result<Commi
         }
     }
     Ok(Commit {
+        origin,
         tree: tree.ok_or("missing bulk tree")?,
         parents,
         author: author.ok_or("missing bulk author")?,
@@ -315,13 +329,37 @@ pub(super) fn all(
         .iter()
         .map(|e| (e.source_oid.as_str(), e.expected_oid.as_str()))
         .collect();
+    let origin_profile = super::profile(manifest)?;
     let boundaries: BTreeSet<&str> = manifest.boundaries.iter().map(String::as_str).collect();
     let mut used_boundaries = BTreeSet::new();
     let mut tree_pairs = Vec::new();
     for ((entry, source), candidate) in manifest.entries.iter().zip(sources).zip(candidates) {
-        let old = parse(source, false, git.width)?;
-        let new = parse(candidate, true, git.width)?;
+        let old = parse_profile(source, false, git.width, origin_profile)?;
+        let new = parse_profile(candidate, true, git.width, origin_profile)?;
         core::validate_commit_bytes(&entry.expected_oid, candidate, identity)?;
+        match entry.source_provenance {
+            None if old.origin.is_some() || new.origin.is_some() => {
+                return Err("bulk origin metadata requires an explicit provenance mode".into());
+            }
+            None => {}
+            Some(SourceProvenance::Add) => {
+                let digest = format!("{:x}", Sha256::digest(source));
+                if old.origin.is_some()
+                    || digest != entry.source_sha256
+                    || new.origin != Some(digest.as_str())
+                {
+                    return Err("bulk origin add must bind the complete actual source bytes".into());
+                }
+            }
+            Some(SourceProvenance::Preserve) => {
+                if old.origin.is_none() || new.origin != old.origin {
+                    return Err("bulk origin preserve must copy the exact source origin".into());
+                }
+            }
+        }
+        if entry.source_provenance.is_some() && entry.ownership.is_none() {
+            return Err("bulk origin profile requires positive exact source ownership".into());
+        }
         if date(old.author)? != date(new.author)? || date(old.committer)? != date(new.committer)? {
             return Err("bulk candidate must preserve both raw date/timezone fields".into());
         }
@@ -601,6 +639,7 @@ pub(super) fn tag_attribution(
         author: tagger,
         committer: tagger,
         removed: BTreeSet::new(),
+        origin: None,
         message: old_message,
     };
     attribution(entry, &source, new_message, identity, false)

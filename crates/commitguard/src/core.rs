@@ -163,6 +163,7 @@ pub fn validate_commit_bytes(oid: &str, bytes: &[u8], identity: &Identity) -> Re
     if headers.contains(['\r', '\0']) {
         return Err(format!("malformed raw commit headers in {oid}"));
     }
+    crate::provenance::header_origin(headers).map_err(|error| format!("{error} in {oid}"))?;
     for line in headers.lines() {
         let key = line.split(' ').next().unwrap_or_default();
         if ["encoding", "gpgsig", "gpgsig-sha256"].contains(&key) {

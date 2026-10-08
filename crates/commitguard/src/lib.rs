@@ -6,6 +6,7 @@ pub mod fix;
 pub mod hooks;
 pub mod install;
 pub mod policy;
+pub mod provenance;
 pub mod util;
 pub mod wrapper;
 pub use commitlint_rust;

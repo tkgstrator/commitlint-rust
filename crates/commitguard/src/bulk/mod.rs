@@ -24,8 +24,51 @@ struct Manifest {
     schema_version: u32,
     policy_version: u32,
     common_dir: PathBuf,
+    #[serde(default, deserialize_with = "present")]
+    provenance_profile: Option<String>,
     boundaries: Vec<String>,
     entries: Vec<Entry>,
+}
+/// Absent is `None`; an explicit JSON null is an error, never an implicit default.
+fn present<'de, D, T>(deserializer: D) -> std::result::Result<Option<T>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    T: Deserialize<'de>,
+{
+    T::deserialize(deserializer).map(Some)
+}
+#[derive(Deserialize, Clone, Copy, PartialEq, Eq)]
+#[serde(rename_all = "lowercase")]
+enum SourceProvenance {
+    Add,
+    Preserve,
+}
+const V1_DOMAIN: &[u8] = b"commitguard-bulk-v1";
+const V2_DOMAIN: &[u8] = b"commitguard-bulk-v2-source-sha256-v1";
+const ORIGIN_PROFILE: &str = "source-sha256-v1";
+/// Central schema/policy/profile gate. Returns whether the origin profile is on.
+fn profile(manifest: &Manifest) -> Result<bool> {
+    if manifest.schema_version != 1 {
+        return Err("unsupported bulk schema or policy version".into());
+    }
+    match manifest.policy_version {
+        1 => {
+            if manifest.provenance_profile.is_some()
+                || manifest
+                    .entries
+                    .iter()
+                    .any(|e| e.source_provenance.is_some())
+            {
+                return Err("bulk provenance declarations require policy version 2".into());
+            }
+            Ok(false)
+        }
+        2 if manifest.provenance_profile.as_deref() == Some(ORIGIN_PROFILE) => Ok(true),
+        _ => Err("unsupported bulk schema, policy or provenance profile".into()),
+    }
+}
+fn domain(origin_profile: bool) -> &'static [u8] {
+    if origin_profile { V2_DOMAIN } else { V1_DOMAIN }
 }
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -45,6 +88,8 @@ struct Entry {
     remove_headers: Vec<String>,
     #[serde(default)]
     gitlinks: Vec<Gitlink>,
+    #[serde(default, deserialize_with = "present")]
+    source_provenance: Option<SourceProvenance>,
 }
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -148,9 +193,7 @@ pub fn run(args: &[String], config: Option<&Config>) -> Result<()> {
     let raw_manifest = state::read_input(&manifest_file, MAX_MANIFEST)?;
     let manifest: Manifest = serde_json::from_slice(&raw_manifest)
         .map_err(|_| "invalid bulk manifest (unknown, duplicate or malformed fields)")?;
-    if manifest.schema_version != 1 || manifest.policy_version != 1 {
-        return Err("unsupported bulk schema or policy version".into());
-    }
+    let origin_profile = profile(&manifest)?;
     if manifest.entries.is_empty() || manifest.entries.len() > MAX_ENTRIES {
         return Err("bulk entry count outside safe bounds".into());
     }
@@ -221,7 +264,7 @@ pub fn run(args: &[String], config: Option<&Config>) -> Result<()> {
     }
     // Boundary objects are real commits, not merely syntactically valid OIDs.
     for boundary in &objects[manifest.entries.len()..] {
-        validate::parse(boundary, false, git.width)?;
+        validate::parse_profile(boundary, false, git.width, origin_profile)?;
     }
     validate::all(
         &git,
@@ -231,7 +274,7 @@ pub fn run(args: &[String], config: Option<&Config>) -> Result<()> {
         &identity,
     )?;
     let mut hash = Sha256::new();
-    feed(&mut hash, b"commitguard-bulk-v1");
+    feed(&mut hash, domain(origin_profile));
     feed(&mut hash, &raw_manifest);
     feed(
         &mut hash,

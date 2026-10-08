@@ -32,6 +32,7 @@ impl Bulk {
             &f.bin.join("gh"),
             r#"#!/bin/sh
 case "$*" in
+ '--version') echo 'gh version 2.90.0 (isolated fixture)';;
  'auth token --hostname github.com')
    printf 'x\n' >> "$BULK_TOKEN_COUNT"
    if [ "${BULK_SWITCH:-0}" = 1 ]; then
@@ -68,9 +69,16 @@ esac
     }
     fn oid(&self, bytes: &[u8], write: bool) -> String {
         let args = if write {
-            vec!["hash-object", "-w", "-t", "commit", "--stdin"]
+            vec![
+                "hash-object",
+                "--literally",
+                "-w",
+                "-t",
+                "commit",
+                "--stdin",
+            ]
         } else {
-            vec!["hash-object", "-t", "commit", "--stdin"]
+            vec!["hash-object", "--literally", "-t", "commit", "--stdin"]
         };
         let r = self
             .f
@@ -1012,4 +1020,523 @@ fn rewrite_cannot_invent_or_duplicate_human_attribution_or_signoff() {
         b.write(&m);
         refused(b.call(None, false, &[]));
     }
+}
+
+fn with_origin(candidate: &[u8], origin: &str) -> Vec<u8> {
+    let raw = std::str::from_utf8(candidate).unwrap();
+    let (headers, message) = raw.split_once("\n\n").unwrap();
+    format!("{headers}\nsource-sha256 {origin}\n\n{message}").into_bytes()
+}
+fn origin_entry(b: &Bulk, source: &str, candidate: &[u8], mode: &str) -> Value {
+    let raw = b.raw(source);
+    let raw = std::str::from_utf8(&raw).unwrap();
+    let author = raw
+        .lines()
+        .find_map(|line| line.strip_prefix("author "))
+        .unwrap();
+    let mut entry = b.entry(source, candidate);
+    entry["source_provenance"] = mode.into();
+    entry["ownership"] = json!({"old_author":author,"owned":true});
+    entry
+}
+fn origin_manifest(b: &Bulk, entries: Vec<Value>, boundaries: &[String]) -> Value {
+    let mut m = b.save(entries, boundaries);
+    m["policy_version"] = 2.into();
+    m["provenance_profile"] = "source-sha256-v1".into();
+    b.write(&m);
+    m
+}
+
+#[test]
+fn origin_profile_distinguishes_colliding_roots_without_changing_words_dates_or_tree() {
+    let b = Bulk::new();
+    let first = b.f.commit(
+        &b.repo,
+        "different old message one",
+        &[
+            ("GIT_AUTHOR_DATE", "@100 +0930"),
+            ("GIT_COMMITTER_DATE", "@200 -0500"),
+        ],
+    );
+    let first_raw = String::from_utf8(b.raw(&first)).unwrap();
+    let second = b.oid(
+        first_raw
+            .replace("different old message one", "different old message two")
+            .as_bytes(),
+        true,
+    );
+    let common_candidate = b.message(&first, "fix: retain meaning", &[]);
+    assert_eq!(
+        common_candidate,
+        b.message(&second, "fix: retain meaning", &[])
+    );
+    let one = with_origin(&common_candidate, &sha(&b.raw(&first)));
+    let two = with_origin(&common_candidate, &sha(&b.raw(&second)));
+    let e1 = origin_entry(&b, &first, &one, "add");
+    let n1 = e1["expected_oid"].as_str().unwrap().to_string();
+    let e2 = origin_entry(&b, &second, &two, "add");
+    let n2 = e2["expected_oid"].as_str().unwrap().to_string();
+    assert_ne!(n1, n2);
+    origin_manifest(&b, vec![e1, e2], &[]);
+    let hooks = b.f.root.join("origin hooks");
+    fs::create_dir(&hooks).unwrap();
+    let marker = b.f.root.join("origin hook-ran");
+    executable(
+        &hooks.join("reference-transaction"),
+        &format!("#!/bin/sh\nprintf ran > '{}'\nexit 1\n", marker.display()),
+    );
+    b.f.raw(
+        &["config", "core.hooksPath", hooks.to_str().unwrap()],
+        &b.repo,
+        &[],
+    );
+    let before = b.snapshot();
+    let digest = b.digest();
+    assert!(!b.exists(&n1) && !b.exists(&n2));
+    let output = b.call(Some(&digest), false, &[]);
+    assert!(
+        output.status.success(),
+        "{}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    let report: Value = serde_json::from_slice(&output.stdout).unwrap();
+    assert_eq!(report["mapping"].as_array().unwrap().len(), 2);
+    assert_eq!(b.raw(&n1), one);
+    assert_eq!(b.raw(&n2), two);
+    assert_eq!(b.snapshot(), before);
+    assert!(!marker.exists());
+    assert_eq!(b.count(), 0);
+    accepted(b.call(Some(&digest), false, &[]));
+    for new in [&n1, &n2] {
+        let raw = String::from_utf8(b.raw(new)).unwrap();
+        assert!(raw.ends_with("\n\nfix: retain meaning\n"));
+        assert!(raw.contains("author tester <44+tester@users.noreply.github.com> 100 +0930\n"));
+        assert!(raw.contains(
+            "committer tester <44+tester@users.noreply.github.com> 200 -0500\nsource-sha256 "
+        ));
+    }
+}
+
+#[test]
+fn origin_default_policy_and_explicit_nulls_never_opt_in_implicitly() {
+    let b = Bulk::new();
+    let source = b.f.commit(&b.repo, "old root", &[]);
+    let plain = b.message(&source, "fix: ordinary", &[]);
+    let ordinary = b.save(vec![b.entry(&source, &plain)], &[]);
+    let digest = b.digest();
+    accepted(b.call(Some(&digest), false, &[]));
+    let origin = with_origin(
+        &b.message(&source, "fix: origin", &[]),
+        &sha(&b.raw(&source)),
+    );
+    b.save(vec![b.entry(&source, &origin)], &[]);
+    refused(b.call(None, false, &[]));
+    for field in ["provenance_profile", "source_provenance"] {
+        for explicit_null in [false, true] {
+            let mut m = ordinary.clone();
+            if field == "provenance_profile" {
+                m[field] = if explicit_null {
+                    Value::Null
+                } else {
+                    "source-sha256-v1".into()
+                };
+            } else {
+                m["entries"][0][field] = if explicit_null {
+                    Value::Null
+                } else {
+                    "add".into()
+                };
+            }
+            b.write(&m);
+            refused(b.call(None, false, &[]));
+        }
+    }
+    let opt = origin_manifest(&b, vec![origin_entry(&b, &source, &origin, "add")], &[]);
+    for (field, in_entry) in [("provenance_profile", false), ("source_provenance", true)] {
+        let mut m = opt.clone();
+        if in_entry {
+            m["entries"][0][field] = Value::Null;
+        } else {
+            m[field] = Value::Null;
+        }
+        b.write(&m);
+        refused(b.call(None, false, &[]));
+    }
+    let mut m = opt.clone();
+    m.as_object_mut().unwrap().remove("provenance_profile");
+    b.write(&m);
+    refused(b.call(None, false, &[]));
+    let mut m = opt.clone();
+    m["provenance_profile"] = "different-profile".into();
+    b.write(&m);
+    refused(b.call(None, false, &[]));
+    let mut m = opt.clone();
+    m["entries"][0]
+        .as_object_mut()
+        .unwrap()
+        .remove("source_provenance");
+    b.write(&m);
+    refused(b.call(None, false, &[]));
+    let body = b.message(
+        &source,
+        &format!("fix: body\n\nsource-sha256 {}", "a".repeat(64)),
+        &[],
+    );
+    origin_manifest(&b, vec![b.entry(&source, &body)], &[]);
+    let digest = b.digest();
+    accepted(b.call(Some(&digest), false, &[]));
+}
+
+#[test]
+fn origin_add_requires_exact_positive_source_ownership_even_for_canonical_authors() {
+    for foreign in [false, true] {
+        let b = Bulk::new();
+        let vars = if foreign {
+            vec![
+                ("GIT_AUTHOR_NAME", "Old Human"),
+                ("GIT_AUTHOR_EMAIL", "old@example.com"),
+            ]
+        } else {
+            Vec::new()
+        };
+        let source = b.f.commit(&b.repo, "old source", &vars);
+        let mut plain = String::from_utf8(b.message(&source, "fix: origin", &[])).unwrap();
+        if foreign {
+            plain = plain.replace(
+                "author Old Human <old@example.com>",
+                "author tester <44+tester@users.noreply.github.com>",
+            );
+        }
+        let candidate = with_origin(plain.as_bytes(), &sha(&b.raw(&source)));
+        let mut m = origin_manifest(&b, vec![origin_entry(&b, &source, &candidate, "add")], &[]);
+        let exact = m["entries"][0]["ownership"].clone();
+        for claim in [
+            Value::Null,
+            json!({"old_author":exact["old_author"],"owned":false}),
+            json!({"old_author":"wrong <wrong@example.com> 1 +0000","owned":true}),
+        ] {
+            m["entries"][0]["ownership"] = claim;
+            b.write(&m);
+            refused(b.call(None, false, &[]));
+        }
+        m["entries"][0]["ownership"] = exact;
+        b.write(&m);
+        let digest = b.digest();
+        accepted(b.call(Some(&digest), false, &[]));
+    }
+}
+
+#[test]
+fn origin_headers_reject_wrong_hash_uppercase_duplicates_folding_and_wrong_slots() {
+    let b = Bulk::new();
+    let source = b.f.commit(&b.repo, "old root", &[]);
+    let raw = b.raw(&source);
+    let origin = sha(&raw);
+    let plain = b.message(&source, "fix: origin", &[]);
+    let valid = String::from_utf8(with_origin(&plain, &origin)).unwrap();
+    let line = format!("source-sha256 {origin}");
+    let committer = valid
+        .lines()
+        .find(|l| l.starts_with("committer "))
+        .unwrap()
+        .to_string();
+    let variants = [
+        valid.replace(&line, &format!("source-sha256 {}", "0".repeat(64))),
+        valid.replace(&line, &format!("source-sha256 {}", origin.to_uppercase())),
+        valid.replace(&line, &format!("{line}\n{line}")),
+        valid.replace(&line, &format!("{line}\n continuation")),
+        valid.replace(
+            &format!("{committer}\n{line}"),
+            &format!("{line}\n{committer}"),
+        ),
+        valid.replace(&line, &format!("source-sha256 {}", &origin[..63])),
+        valid.replace(&line, &format!("{line} ")),
+        valid.replace(&line, &format!("source-sha256\t{origin}")),
+        valid.replace(&line, &format!("SOURCE-SHA256 {origin}")),
+    ];
+    for candidate in variants {
+        let e = origin_entry(&b, &source, candidate.as_bytes(), "add");
+        let expected = e["expected_oid"].as_str().unwrap().to_string();
+        origin_manifest(&b, vec![e], &[]);
+        refused(b.call(None, false, &[]));
+        assert!(!b.exists(&expected));
+    }
+    origin_manifest(&b, vec![origin_entry(&b, &source, &plain, "add")], &[]);
+    refused(b.call(None, false, &[]));
+}
+
+#[test]
+fn origin_preserve_keeps_first_raw_hash_and_never_refreshes_removes_or_invents_it() {
+    let b = Bulk::new();
+    let source = b.f.commit(&b.repo, "original old root", &[]);
+    let origin = sha(&b.raw(&source));
+    let candidate = with_origin(&b.message(&source, "fix: first rewrite", &[]), &origin);
+    let entry = origin_entry(&b, &source, &candidate, "add");
+    let first = entry["expected_oid"].as_str().unwrap().to_string();
+    origin_manifest(&b, vec![entry], &[]);
+    let digest = b.digest();
+    accepted(b.call(Some(&digest), false, &[]));
+    assert_ne!(sha(&b.raw(&first)), origin);
+    let second = b.message(&first, "fix: later rewrite", &[]);
+    let e = origin_entry(&b, &first, &second, "preserve");
+    let new = e["expected_oid"].as_str().unwrap().to_string();
+    let valid = origin_manifest(&b, vec![e], &[]);
+    let digest = b.digest();
+    accepted(b.call(Some(&digest), false, &[]));
+    assert!(
+        String::from_utf8(b.raw(&new))
+            .unwrap()
+            .contains(&format!("source-sha256 {origin}\n\n"))
+    );
+    accepted(b.call(Some(&digest), false, &[]));
+    let mut add = valid.clone();
+    add["entries"][0]["source_provenance"] = "add".into();
+    b.write(&add);
+    refused(b.call(None, false, &[]));
+    let mut undeclared = valid.clone();
+    undeclared["entries"][0]
+        .as_object_mut()
+        .unwrap()
+        .remove("source_provenance");
+    b.write(&undeclared);
+    refused(b.call(None, false, &[]));
+    for claim in [
+        Value::Null,
+        json!({"old_author":valid["entries"][0]["ownership"]["old_author"],"owned":false}),
+        json!({"old_author":"Foreign <foreign@example.com> 1 +0000","owned":true}),
+    ] {
+        let mut invalid = valid.clone();
+        invalid["entries"][0]["ownership"] = claim;
+        b.write(&invalid);
+        refused(b.call(None, false, &[]));
+    }
+    for updated in ["0".repeat(64), sha(&b.raw(&first))] {
+        let changed = String::from_utf8(second.clone()).unwrap().replace(
+            &format!("source-sha256 {origin}"),
+            &format!("source-sha256 {updated}"),
+        );
+        origin_manifest(
+            &b,
+            vec![origin_entry(&b, &first, changed.as_bytes(), "preserve")],
+            &[],
+        );
+        refused(b.call(None, false, &[]));
+    }
+    let deleted = String::from_utf8(second)
+        .unwrap()
+        .replace(&format!("\nsource-sha256 {origin}"), "");
+    let mut m = origin_manifest(
+        &b,
+        vec![origin_entry(&b, &first, deleted.as_bytes(), "preserve")],
+        &[],
+    );
+    refused(b.call(None, false, &[]));
+    m["entries"][0]["remove_headers"] = json!(["source-sha256"]);
+    b.write(&m);
+    refused(b.call(None, false, &[]));
+    origin_manifest(
+        &b,
+        vec![origin_entry(
+            &b,
+            &source,
+            &b.message(&source, "fix: missing origin", &[]),
+            "preserve",
+        )],
+        &[],
+    );
+    refused(b.call(None, false, &[]));
+}
+
+#[test]
+fn origin_hash_covers_signatures_and_profile_boundaries_keep_ordered_merge_parents() {
+    let b = Bulk::new();
+    let root = b.f.commit(&b.repo, "original root", &[]);
+    let signed = String::from_utf8(b.raw(&root)).unwrap().replacen(
+        "\n\n",
+        "\ngpgsig original signature\n continuation\n\n",
+        1,
+    );
+    let source = b.oid(signed.as_bytes(), true);
+    let origin = sha(&b.raw(&source));
+    let unsigned = String::from_utf8(b.message(&source, "fix: signed origin", &[]))
+        .unwrap()
+        .replace("\ngpgsig original signature\n continuation", "");
+    let candidate = with_origin(unsigned.as_bytes(), &origin);
+    let mut e = origin_entry(&b, &source, &candidate, "add");
+    e["remove_headers"] = json!(["gpgsig"]);
+    let first = e["expected_oid"].as_str().unwrap().to_string();
+    origin_manifest(&b, vec![e], &[]);
+    let digest = b.digest();
+    accepted(b.call(Some(&digest), false, &[]));
+    let tree = b.f.raw(&["rev-parse", "HEAD^{tree}"], &b.repo, &[]);
+    let other = b.f.commit(&b.repo, "other source", &[]);
+    let merge_raw = format!(
+        "tree {tree}\nparent {first}\nparent {other}\nauthor tester <44+tester@users.noreply.github.com> 100 +0930\ncommitter tester <44+tester@users.noreply.github.com> 200 -0500\n\nold merge\n"
+    );
+    let merge = b.oid(merge_raw.as_bytes(), true);
+    let candidate = with_origin(
+        &b.message(&merge, "fix: ordered merge", &[]),
+        &sha(&b.raw(&merge)),
+    );
+    let e = origin_entry(&b, &merge, &candidate, "add");
+    let new = e["expected_oid"].as_str().unwrap().to_string();
+    let v2 = origin_manifest(&b, vec![e], &[first.clone(), other.clone()]);
+    let digest = b.digest();
+    accepted(b.call(Some(&digest), false, &[]));
+    let actual = String::from_utf8(b.raw(&new)).unwrap();
+    assert!(actual.contains(&format!("parent {first}\nparent {other}\n")));
+    let mut v1 = v2;
+    v1["policy_version"] = 1.into();
+    v1.as_object_mut().unwrap().remove("provenance_profile");
+    v1["entries"][0]
+        .as_object_mut()
+        .unwrap()
+        .remove("source_provenance");
+    b.write(&v1);
+    refused(b.call(None, false, &[]));
+    let malformed = String::from_utf8(b.raw(&first)).unwrap().replace(
+        &format!("source-sha256 {origin}"),
+        &format!("source-sha256 {}", origin.to_uppercase()),
+    );
+    let bad_boundary = b.oid(malformed.as_bytes(), true);
+    let changed_merge = merge_raw.replace(
+        &format!("parent {first}"),
+        &format!("parent {bad_boundary}"),
+    );
+    let source = b.oid(changed_merge.as_bytes(), true);
+    let c = with_origin(
+        &b.message(&source, "fix: malformed boundary", &[]),
+        &sha(&b.raw(&source)),
+    );
+    origin_manifest(
+        &b,
+        vec![origin_entry(&b, &source, &c, "add")],
+        &[bad_boundary, other],
+    );
+    refused(b.call(None, false, &[]));
+}
+
+#[test]
+fn origin_sha256_objects_roundtrip_and_shared_actual_header_checks_are_strict() {
+    let mut b = Bulk::new();
+    let repo = b.f.root.join("origin sha256");
+    fs::create_dir(&repo).unwrap();
+    accepted(b.f.command(
+        &b.f.git,
+        &["init", "-q", "-b", "main", "--object-format=sha256"],
+        &repo,
+        &[],
+        None,
+    ));
+    b.repo = repo;
+    let source = b.f.commit(&b.repo, "old sha256 root", &[]);
+    assert_eq!(source.len(), 64);
+    let candidate = with_origin(
+        &b.message(&source, "fix: sha256 origin", &[]),
+        &sha(&b.raw(&source)),
+    );
+    let entry = origin_entry(&b, &source, &candidate, "add");
+    let expected = entry["expected_oid"].as_str().unwrap().to_string();
+    origin_manifest(&b, vec![entry], &[]);
+    let digest = b.digest();
+    accepted(b.call(Some(&digest), false, &[]));
+    assert_eq!(b.raw(&expected), candidate);
+    accepted(b.f.canonical(&["commits", &expected], &b.repo, &[], None));
+    assert_eq!(b.count(), 0);
+    let raw = String::from_utf8(candidate).unwrap();
+    let header = raw
+        .lines()
+        .find(|l| l.starts_with("source-sha256 "))
+        .unwrap();
+    let malformed = raw.replace(header, &format!("{header}\n{header}"));
+    let oid = b.oid(malformed.as_bytes(), true);
+    refused(b.f.canonical(&["commits", &oid], &b.repo, &[], None));
+    let line = header.to_string();
+    let committer = raw.lines().find(|l| l.starts_with("committer ")).unwrap();
+    let wrong_slot = raw.replace(
+        &format!("{committer}\n{line}"),
+        &format!("{line}\n{committer}"),
+    );
+    let oid = b.oid(wrong_slot.as_bytes(), true);
+    refused(b.f.canonical(&["commits", &oid], &b.repo, &[], None));
+}
+
+#[test]
+fn origin_v1_fix_refuses_header_sources_before_creating_repair_state() {
+    let b = Bulk::new();
+    let base = b.f.commit(&b.repo, "feat: published base", &[]);
+    let remote = b.f.bare("origin fix remote");
+    b.f.raw(
+        &["remote", "add", "origin", remote.to_str().unwrap()],
+        &b.repo,
+        &[],
+    );
+    b.f.raw(&["push", "-q", "origin", "main"], &b.repo, &[]);
+    let source = b.f.commit(&b.repo, "fix: header source", &[]);
+    let raw = b.raw(&source);
+    let text = String::from_utf8(raw.clone()).unwrap();
+    let with_header = text.replacen("\n\n", &format!("\nsource-sha256 {}\n\n", sha(&raw)), 1);
+    let source = b.oid(with_header.as_bytes(), true);
+    b.f.raw(&["update-ref", "refs/heads/main", &source], &b.repo, &[]);
+    accepted(b.f.canonical_install(&[]));
+    let before = b.snapshot();
+    let plan = b.f.root.join("unsupported origin plan.json");
+    let range = format!("{base}..HEAD");
+    let result = b.f.canonical(
+        &["fix", "--range", &range, "--plan", plan.to_str().unwrap()],
+        &b.repo,
+        &[],
+        None,
+    );
+    assert!(!result.status.success());
+    assert!(String::from_utf8_lossy(&result.stderr).contains("unsupported source commit header"));
+    assert!(!plan.exists());
+    assert!(!b.repo.join(".git/commitguard-fix").exists());
+    assert_eq!(b.snapshot(), before);
+}
+
+#[test]
+fn origin_interrupted_object_write_resumes_exactly_and_refuses_changed_input() {
+    use std::os::unix::fs::symlink;
+    let b = Bulk::new();
+    let source = b.f.commit(&b.repo, "approved old source", &[]);
+    let plain = b.message(&source, "fix: retry approved source", &[]);
+    b.save(vec![b.entry(&source, &plain)], &[]);
+    let legacy_digest = b.digest();
+    let candidate = with_origin(&plain, &sha(&b.raw(&source)));
+    let e = origin_entry(&b, &source, &candidate, "add");
+    let expected = e["expected_oid"].as_str().unwrap().to_string();
+    let candidate_path = PathBuf::from(e["candidate_file"].as_str().unwrap());
+    origin_manifest(&b, vec![e], &[]);
+    let digest = b.digest();
+    refused(b.call(Some(&legacy_digest), false, &[]));
+    fs::write(&candidate_path, b"changed input").unwrap();
+    refused(b.call(Some(&digest), false, &[]));
+    fs::write(&candidate_path, &candidate).unwrap();
+    let before = b.snapshot();
+    let git_link = b.f.bin.join("git");
+    fs::remove_file(&git_link).unwrap();
+    let native = b.f.git.to_string_lossy().replace('\'', "'\\''");
+    executable(
+        &git_link,
+        &format!(
+            "#!/bin/sh\ncase \" $* \" in *\" hash-object \"*\" -w \"*) '{native}' \"$@\"; exit 99;; esac\nexec '{native}' \"$@\"\n"
+        ),
+    );
+    refused(b.call(Some(&digest), false, &[]));
+    let operation = b.repo.join(".git/commitguard-bulk").join(&digest);
+    assert!(operation.join("intent.json").exists());
+    assert!(!operation.join("complete.json").exists());
+    assert!(
+        b.exists(&expected),
+        "the fault occurs after writing immutable objects"
+    );
+    assert_eq!(b.snapshot(), before);
+    fs::remove_file(&git_link).unwrap();
+    symlink(&b.f.git, &git_link).unwrap();
+    accepted(b.call(Some(&digest), false, &[]));
+    accepted(b.call(Some(&digest), false, &[]));
+    assert_eq!(b.raw(&expected), candidate);
+    assert_eq!(b.snapshot(), before);
+    assert_eq!(b.count(), 0);
 }

@@ -11,9 +11,15 @@ cat > "$tmp/bin/oras" <<'MOCK'
 #!/bin/sh
 # Fixture oras: FAIL_ON=<subcommand> fails it; FAIL_COPY_TAG=<tag> fails one copy.
 R=$REG; cmd=$1; shift
-case " $* " in *" --registry-config "*) ;; *) echo "missing --registry-config" >&2; exit 9;; esac
+case "$cmd" in
+  copy)
+    case " $* " in *" --registry-config "*) echo 'unknown flag: --registry-config' >&2; exit 9;; esac
+    case " $* " in *" --from-registry-config "*) ;; *) exit 9;; esac
+    case " $* " in *" --to-registry-config "*) ;; *) exit 9;; esac ;;
+  *) case " $* " in *" --registry-config "*) ;; *) echo "missing --registry-config" >&2; exit 9;; esac ;;
+esac
 [ "${FAIL_ON:-}" != "$cmd" ] || { echo "network error" >&2; exit 1; }
-args=; while [ $# -gt 0 ]; do case $1 in --registry-config) shift 2;; *) args="$args $1"; shift;; esac; done
+args=; while [ $# -gt 0 ]; do case $1 in --registry-config|--from-registry-config|--to-registry-config) shift 2;; *) args="$args $1"; shift;; esac; done
 set -- $args
 side() { case $1 in ghcr.io/tkgstrator/commitguard/commitguard*) echo src;; *) echo dst;; esac; }
 case $cmd in

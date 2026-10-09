@@ -9,7 +9,14 @@ dst=ghcr.io/tkgstrator/commitguard
 mtype=application/vnd.devcontainers # Verified against the public Feature manifest.
 fail() { echo "publish-feature-alias: $*" >&2; exit 1; }
 [ -n "${ORAS_REGISTRY_CONFIG:-}" ] && [ -f "$ORAS_REGISTRY_CONFIG" ] || fail 'ORAS_REGISTRY_CONFIG must name a login file'
-o() { oras "$@" --registry-config "$ORAS_REGISTRY_CONFIG"; }
+o() {
+  if [ "$1" = copy ]; then
+    shift
+    oras copy "$@" --from-registry-config "$ORAS_REGISTRY_CONFIG" --to-registry-config "$ORAS_REGISTRY_CONFIG"
+  else
+    oras "$@" --registry-config "$ORAS_REGISTRY_CONFIG"
+  fi
+}
 semver() { printf '%s\n' "$1" | grep -Eq '^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$'; }
 # feature_version REF: print version of a Feature manifest, else fail.
 feature_version() {

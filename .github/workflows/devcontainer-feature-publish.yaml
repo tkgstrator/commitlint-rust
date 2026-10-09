@@ -60,5 +60,18 @@ jobs:
           devcontainer-cli-version: 0.89.0
           generate-docs: false
           disable-repo-tagging: true
+          # Primary namespace first; the compatibility publish below follows.
+          features-namespace: tkgstrator/commitguard
+          oci-registry: ghcr.io
+      # Compatibility namespace for existing consumers of the original URI.
+      - uses: devcontainers/action@bef2cf2d1a019b00b45e184f83035e01bd1972f3 # v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          publish-features: true
+          base-path-to-features: ./features
+          devcontainer-cli-version: 0.89.0
+          generate-docs: false
+          disable-repo-tagging: true
           features-namespace: tkgstrator/commitlint-rust
           oci-registry: ghcr.io

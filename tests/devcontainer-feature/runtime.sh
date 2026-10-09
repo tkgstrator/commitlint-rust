@@ -42,6 +42,14 @@ refuse() {
 }
 new_home unauthenticated
 TEST_AUTH=missing; export TEST_AUTH
+# Standalone lint works before gh login and guard activation.
+[ "$(commitlint-rust --version)" = 'commitlint-rust 0.2.0' ]
+printf 'feat: standalone fixture\n' | commitlint-rust
+if printf 'invalid message\n' | commitlint-rust > "$fixture/lint-error" 2>&1; then
+  echo 'standalone lint accepted invalid message' >&2; exit 1
+fi
+grep -q 'commitlint: invalid Conventional Commit header' "$fixture/lint-error"
+echo 'PASS standalone lint validates stdin without authentication'
 refuse git status
 timeout 25 "$feature/setup" --auto
 git status --porcelain > /dev/null

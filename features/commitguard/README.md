@@ -1,11 +1,20 @@
 # Commitguard Dev Container Feature
 
-Installs the published Commitguard `v0.2.0` guard-only release and activates
+Installs the published Commitguard `v0.2.0` guard-only release plus the standalone
+`commitlint-rust` message linter (`commitlint-only` release archive), and activates
 guarded Git for the workspace repository when the container is created and each time it starts.
 
 ```json
-"features": { "ghcr.io/tkgstrator/commitlint-rust/commitguard:1": {} }
+"features": { "ghcr.io/tkgstrator/commitguard/commitguard:1": {} }
 ```
+
+The original URI `ghcr.io/tkgstrator/commitlint-rust/commitguard:1` is still published for
+compatibility; new configurations should use the URI above.
+
+## Commands
+
+- `commitguard` and its `gh-commit-guard` alias: the guard.
+- `commitlint-rust`: standalone message linter; works on stdin/files without gh login or activation. No `commitlint` alias is installed, to avoid colliding with the npm command.
 
 ## Requirements
 
@@ -28,9 +37,10 @@ runtime environment variables do not override it. Container administrators can m
 
 ## Behaviour
 
-- Build: downloads `commitguard-<target>.tar.gz` from the public `v0.2.0`
-  release over HTTPS, checks an embedded SHA-256, requires exactly
-  `LICENSE`, `README.md`, `commitguard` as regular files, then installs
+- Build: downloads `commitguard-<target>.tar.gz` and `commitlint-only-<target>.tar.gz` from the public `v0.2.0`
+  release over HTTPS, checks embedded SHA-256 digests, verifies and extracts both before replacing commands or guard state, requires exactly
+  `LICENSE`, `README.md` and the binary (`commitguard` / `commitlint`) as regular files, then installs
+  `/usr/local/bin/commitlint-rust`,
   `/usr/local/bin/commitguard` and the `gh-commit-guard` symlink.
 - Start (`setup --auto`): verifies the environment, then `commitguard install --container --repo <workspace>` with
   `CODEX_HOME`/`CLAUDE_CONFIG_DIR` inside the workspace. A ready marker is
@@ -47,7 +57,7 @@ runtime environment variables do not override it. Container administrators can m
 ## Limitations
 
 Commitguard v0.2.0 verifies the account through the GitHub API on every check
-(no cache, no `--strict` flag, no bulk-write features of later releases). The
+(no cache, no `--strict` flag, no bulk-write features of later releases). The published v0.2.0 linter supports a limited rule set, narrower than the 38 rules of current `master` source. The
 shim only covers shells whose `PATH` includes the feature directory; absolute
 `/usr/bin/git` bypasses it. Activation is per start and per workspace
 repository found from the start directory.

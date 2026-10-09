@@ -310,14 +310,16 @@ The [Deployment workflow](.github/workflows/deployment.yaml) reuses Integration 
 
 ## Dev Container Feature
 
-Add the `commitguard` Feature to install the native guard plus Git and gh on Debian/Ubuntu, amd64/arm64:
+Add the `commitguard` Feature to install the native guard, the standalone `commitlint-rust` linter, plus Git and gh on Debian/Ubuntu, amd64/arm64:
 
 ```json
 {
   "features": {
-    "ghcr.io/tkgstrator/commitlint-rust/commitguard:1": {}
+    "ghcr.io/tkgstrator/commitguard/commitguard:1": {}
   }
 }
 ```
 
-The guard activates automatically at container start. Authenticate with `gh auth login -h github.com` before committing or pushing; use `commitguard-devcontainer-setup` to retry setup. The Feature pins published native v0.2.0 and verifies its archive digest. See [Feature options and workspace effects](features/commitguard/README.md).
+The original URI `ghcr.io/tkgstrator/commitlint-rust/commitguard:1` remains published for compatibility. Installed commands: `commitguard`, `gh-commit-guard`, `commitlint-rust` (no `commitlint` alias, to avoid the npm command). The published v0.2.0 linter supports a limited rule set, narrower than the 38 rules in `master` source.
+
+The guard activates automatically at container start. Authenticate with `gh auth login -h github.com` before committing or pushing; use `commitguard-devcontainer-setup` to retry setup. The Feature pins published native v0.2.0 and verifies both archive digests. See [Feature options and workspace effects](features/commitguard/README.md).

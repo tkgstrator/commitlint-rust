@@ -1,6 +1,6 @@
 #!/bin/sh
 # Dev Container Feature installer (root, build time). Installs the pinned public
-# Commitguard release binary and the static Git shim. No gh auth or token is used.
+# Commitguard and standalone commitlint-rust binaries and the static Git shim. No gh auth or token is used.
 set -eu
 umask 022
 
@@ -22,10 +22,12 @@ esac
 case "$(uname -m)" in
   x86_64|amd64)
     target=x86_64-unknown-linux-musl
-    digest=73cada7f1e7912e1140c1f6aef620e7d592ff24fad8379de8875bdc77ad9e52b ;;
+    guard_digest=73cada7f1e7912e1140c1f6aef620e7d592ff24fad8379de8875bdc77ad9e52b
+    lint_digest=55fffd1be588f1632160aa0a6246acf201485a4c75e355d79c865cc95d51151e ;;
   aarch64|arm64)
     target=aarch64-unknown-linux-musl
-    digest=a1edaaa46c25dfcd47fb0b6c38d6f58047276fc112e079587236a5ca706cca93 ;;
+    guard_digest=a1edaaa46c25dfcd47fb0b6c38d6f58047276fc112e079587236a5ca706cca93
+    lint_digest=ccd3062b3af48a32af619d50ac2b0faf14ca22a4192c1492b472b277fb34d148 ;;
   *) die "only amd64/arm64 are supported" ;;
 esac
 
@@ -67,33 +69,45 @@ trap 'exit 129' HUP
 trap 'exit 130' INT
 trap 'exit 143' TERM
 
-archive=commitguard-$target.tar.gz
-curl --fail --silent --show-error --location --proto '=https' --tlsv1.2 --retry 3 \
-  --output "$tmp/$archive" "$release/$archive" || die "download failed: $release/$archive"
-actual=$(sha256sum "$tmp/$archive") || die "cannot hash archive"
-[ "${actual%% *}" = "$digest" ] || die "checksum mismatch for $archive"
-
-expected="LICENSE
+# Download, verify and extract one archive into $tmp/<dir>. Nothing is executed
+# and nothing outside $tmp changes. Members must be exactly the binary,
+# LICENSE and README.md as regular files.
+fetch() { # archive digest member dir
+  archive=$1 want=$2 member=$3 dir=$4
+  curl --fail --silent --show-error --location --proto '=https' --tlsv1.2 --retry 3 \
+    --output "$tmp/$archive" "$release/$archive" || die "download failed: $release/$archive"
+  actual=$(sha256sum "$tmp/$archive") || die "cannot hash archive"
+  [ "${actual%% *}" = "$want" ] || die "checksum mismatch for $archive"
+  expected="LICENSE
 README.md
-commitguard"
-names=$(tar -tzf "$tmp/$archive") || die "cannot list archive"
-[ "$(printf '%s\n' "$names" | LC_ALL=C sort)" = "$expected" ] \
-  || die "archive must contain exactly: commitguard LICENSE README.md"
-types=$(tar -tvzf "$tmp/$archive") || die "cannot list archive"
-[ "$(printf '%s\n' "$types" | wc -l | tr -d ' ')" = 3 ] || die "unexpected archive listing"
-printf '%s\n' "$types" | while IFS= read -r line; do
-  case "$line" in -*) ;; *) exit 1 ;; esac
-done || die "archive entries must be regular files"
+$member"
+  names=$(tar -tzf "$tmp/$archive") || die "cannot list archive"
+  [ "$(printf '%s\n' "$names" | LC_ALL=C sort)" = "$expected" ] \
+    || die "archive must contain exactly: $member LICENSE README.md ($archive)"
+  types=$(tar -tvzf "$tmp/$archive") || die "cannot list archive"
+  [ "$(printf '%s\n' "$types" | wc -l | tr -d ' ')" = 3 ] || die "unexpected archive listing"
+  printf '%s\n' "$types" | while IFS= read -r line; do
+    case "$line" in -*) ;; *) exit 1 ;; esac
+  done || die "archive entries must be regular files ($archive)"
+  mkdir "$tmp/$dir"
+  tar -xzf "$tmp/$archive" -C "$tmp/$dir" || die "extraction failed"
+  for f in LICENSE README.md "$member"; do
+    [ -f "$tmp/$dir/$f" ] && [ ! -L "$tmp/$dir/$f" ] || die "unexpected extracted entry: $f"
+  done
+  [ "$(find "$tmp/$dir" -mindepth 1 | wc -l | tr -d ' ')" = 3 ] || die "unexpected extracted files"
+}
 
-mkdir "$tmp/payload"
-tar -xzf "$tmp/$archive" -C "$tmp/payload" || die "extraction failed"
-for f in LICENSE README.md commitguard; do
-  [ -f "$tmp/payload/$f" ] && [ ! -L "$tmp/payload/$f" ] || die "unexpected extracted entry: $f"
-done
-[ "$(find "$tmp/payload" -mindepth 1 | wc -l | tr -d ' ')" = 3 ] || die "unexpected extracted files"
+# Verify and extract everything before touching the system.
+fetch commitguard-$target.tar.gz "$guard_digest" commitguard guard
+fetch commitlint-only-$target.tar.gz "$lint_digest" commitlint lint
 
+# Stage both executables beside their destinations, then move them into place.
+# (Not power-failure transactional; all validation has already succeeded.)
 mkdir -p /usr/local/bin
-install -m 0755 "$tmp/payload/commitguard" /usr/local/bin/commitguard
+install -m 0755 "$tmp/guard/commitguard" /usr/local/bin/.commitguard.new
+install -m 0755 "$tmp/lint/commitlint" /usr/local/bin/.commitlint-rust.new
+mv -f /usr/local/bin/.commitguard.new /usr/local/bin/commitguard
+mv -f /usr/local/bin/.commitlint-rust.new /usr/local/bin/commitlint-rust
 ln -sfn commitguard /usr/local/bin/gh-commit-guard
 
 # Root-owned persisted state. The shim is installed last so a failed install
@@ -111,4 +125,4 @@ printf '%s\n' 'case ":$PATH:" in *:/usr/local/share/commitguard/bin:*) ;; *) PAT
 chmod 0644 /etc/profile.d/commitguard-feature.sh
 install -m 0755 "$here/git-shim.sh" "$base/bin/git.tmp"
 mv -f "$base/bin/git.tmp" "$base/bin/git"
-echo "commitguard feature: installed $version ($target), autoActivate=$auto"
+echo "commitguard feature: installed commitguard and commitlint-rust $version ($target), autoActivate=$auto"

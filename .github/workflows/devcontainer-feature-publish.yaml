@@ -75,3 +75,17 @@ jobs:
           disable-repo-tagging: true
           features-namespace: tkgstrator/commitlint-rust
           oci-registry: ghcr.io
+      - name: Install pinned ORAS for the short Feature URI
+        uses: oras-project/setup-oras@9bf3b007bb2ec2b2387cc82fcf81f17c825bf36d # pinned setup action
+        with:
+          version: 1.3.4
+      - name: Publish short Feature URI without replacing collection metadata
+        env:
+          GHCR_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          registry_config=$(mktemp "$RUNNER_TEMP/commitguard-oras.XXXXXX")
+          trap 'rm -f "$registry_config"' EXIT
+          chmod 600 "$registry_config"
+          printf '%s' "$GHCR_TOKEN" | oras login ghcr.io --username "$GITHUB_ACTOR" --password-stdin --registry-config "$registry_config"
+          ORAS_REGISTRY_CONFIG="$registry_config" sh scripts/publish-feature-alias.sh

@@ -7,12 +7,16 @@ on:
       - 'features/**'
       - 'tests/devcontainer-feature/**'
       - 'scripts/test-devcontainer-feature.sh'
+      - 'scripts/publish-feature-alias.sh'
+      - 'scripts/test-feature-alias.sh'
       - '.github/workflows/devcontainer-feature-*.yaml'
   pull_request:
     paths:
       - 'features/**'
       - 'tests/devcontainer-feature/**'
       - 'scripts/test-devcontainer-feature.sh'
+      - 'scripts/publish-feature-alias.sh'
+      - 'scripts/test-feature-alias.sh'
       - '.github/workflows/devcontainer-feature-*.yaml'
   workflow_dispatch:
   workflow_call:
@@ -37,6 +41,8 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
+      - name: Test short Feature publication guards
+        run: sh scripts/test-feature-alias.sh
       - uses: devcontainers/action@bef2cf2d1a019b00b45e184f83035e01bd1972f3 # v1
         with:
           validate-only: true

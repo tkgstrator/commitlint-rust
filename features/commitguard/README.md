@@ -5,11 +5,13 @@ Installs the published Commitguard `v0.2.0` guard-only release plus the standalo
 guarded Git for the workspace repository when the container is created and each time it starts.
 
 ```json
-"features": { "ghcr.io/tkgstrator/commitguard/commitguard:1": {} }
+"features": { "ghcr.io/tkgstrator/commitguard:1": {} }
 ```
 
-The original URI `ghcr.io/tkgstrator/commitlint-rust/commitguard:1` is still published for
-compatibility; new configurations should use the URI above.
+The earlier URIs `ghcr.io/tkgstrator/commitguard/commitguard:1` and
+`ghcr.io/tkgstrator/commitlint-rust/commitguard:1` remain published for compatibility;
+new configurations should use the short URI above. Use explicit version tags
+(`:1`, `:1.1` or `:1.1.1`); the short package reserves `:latest` for collection metadata.
 
 ## Commands
 

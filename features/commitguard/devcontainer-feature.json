@@ -1,6 +1,6 @@
 {
   "id": "commitguard",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "name": "Commitguard",
   "description": "Installs the published Commitguard v0.2.0 native guard, the standalone commitlint-rust message linter and activates guarded Git for the workspace on every container start. Requires a human github.com gh login.",
   "documentationURL": "https://github.com/tkgstrator/commitlint-rust/tree/master/features/commitguard",

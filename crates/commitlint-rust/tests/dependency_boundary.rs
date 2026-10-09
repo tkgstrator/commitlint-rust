@@ -14,8 +14,19 @@ fn manifest_declares_no_guard_runtime_dependency() {
 #[test]
 fn sources_have_no_guard_config_identity_gh_or_hook_references() {
     let src = Path::new(env!("CARGO_MANIFEST_DIR")).join("src");
-    for entry in fs::read_dir(src).unwrap() {
+    check_sources(&src);
+}
+
+fn check_sources(directory: &Path) {
+    for entry in fs::read_dir(directory).unwrap() {
         let path = entry.unwrap().path();
+        if path.is_dir() {
+            check_sources(&path);
+            continue;
+        }
+        if path.extension().is_none_or(|extension| extension != "rs") {
+            continue;
+        }
         let text = fs::read_to_string(&path).unwrap();
         // Strip the explanatory comments; production code is what matters.
         let code: String = text

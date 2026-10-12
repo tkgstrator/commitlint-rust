@@ -7,7 +7,7 @@ description: Apply the explicitly opted-in gh-only strict personal commit policy
 
 For environments where the user has opted into this personal strict policy, apply it even without local Git hooks. Installing or activating this policy requires explicit setup authorization. Resolve this skill's actual directory from the skill catalog; do not assume a Mac path or an existing guard installation.
 
-Every new commit requires:
+Every new locally created or rewritten commit requires:
 - English printable ASCII text plus LF newlines, in Conventional Commits format checked by the native implementation of the supported Commitlint rules.
 - At most **128 characters for the entire message**, including type/scope, body and trailers, excluding final LF terminators. ASCII is a mechanical limit, not a language/grammar classifier.
 - Both raw Author and Committer equal the **verified human github.com gh account** (`type: User`): name `login`, email `id+login@users.noreply.github.com`.
@@ -40,6 +40,14 @@ For multiple remotes, check each. Expand `--all`, `--tags`, `--follow-tags`, mir
 
 Normal identity checks make no API calls. Explicit `--strict`, push/pre-push and native `fix --apply` validate online without fallback. A valid local cache cannot detect server-side revocation until a strict check.
 
+## GitHub-generated published history
+
+For merge, squash, or rebase results created and published by GitHub, preserve the original OIDs, identities, signatures and messages. The owner has already authorized agents to skip policy correction and related approval requests for this existing history. Do not ask for confirmation merely because GitHub's metadata or message differs from the local commit rules.
+
+Establish the exact OIDs and GitHub origin with read-only live github.com refs and merged-PR metadata. Names, emails, subjects and parent counts alone are not evidence. Do not use standalone `commits` validation of this inherited history as a reason to repair it or request approval. Run the mandatory native `push`/`pre-push` checker against the actual outgoing commits instead.
+
+This standing exception authorizes preserving existing GitHub objects, not rewriting them. It does not cover unpublished or locally rewritten commits, grant ownership or Author-migration authority, authorize a force push, or bypass a native checker or hook. If the mandatory outgoing check fails, stop and report the failure without proposing normalization of the preserved GitHub objects.
+
 ## Automatic correction after a policy failure
 
 For a candidate message not yet committed, rewrite and recheck automatically. For existing commits, make **one bounded repair pass** only when all of these are established:
@@ -53,7 +61,7 @@ The pre-rebase gate checks source authors and attribution in the declared upstre
 
 After rewriting, compare each original/new tree and the old/new tip diff, check every repaired commit with `commits`, and rerun `push` preflight against fresh refs. Retry the same previously authorized normal push **once**. If anything remains invalid, stop with the violated rules and backup ref. Authentication, dependency, network and transport failures are setup/errors, not permission to rewrite. If a real push's outcome is uncertain or partially succeeded, inspect live remote state before any further action.
 
-Published, foreign, merge-heavy or ambiguous history needs an explicit separate plan. No repair is performed merely because the checker failed.
+Repairing published, foreign, merge-heavy or ambiguous history needs an explicit separate plan. Preserving GitHub-generated published history follows the standing exception above and needs no per-merge approval. No repair is performed merely because the checker failed.
 
 ## Receipt-based batch correction
 

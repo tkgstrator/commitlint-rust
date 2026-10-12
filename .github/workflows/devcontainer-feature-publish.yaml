@@ -60,20 +60,8 @@ jobs:
           devcontainer-cli-version: 0.89.0
           generate-docs: false
           disable-repo-tagging: true
-          # Primary namespace first; the compatibility publish below follows.
+          # The long Feature URI is the source for the short aliases below.
           features-namespace: tkgstrator/commitguard
-          oci-registry: ghcr.io
-      # Compatibility namespace for existing consumers of the original URI.
-      - uses: devcontainers/action@bef2cf2d1a019b00b45e184f83035e01bd1972f3 # v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          publish-features: true
-          base-path-to-features: ./features
-          devcontainer-cli-version: 0.89.0
-          generate-docs: false
-          disable-repo-tagging: true
-          features-namespace: tkgstrator/commitlint-rust
           oci-registry: ghcr.io
       - name: Install pinned ORAS for the short Feature URI
         uses: oras-project/setup-oras@9bf3b007bb2ec2b2387cc82fcf81f17c825bf36d # pinned setup action

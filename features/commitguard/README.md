@@ -8,9 +8,10 @@ guarded Git for the workspace repository when the container is created and each 
 "features": { "ghcr.io/tkgstrator/commitguard:1": {} }
 ```
 
-The earlier URIs `ghcr.io/tkgstrator/commitguard/commitguard:1` and
-`ghcr.io/tkgstrator/commitlint-rust/commitguard:1` remain published for compatibility;
-new configurations should use the short URI above. Use explicit version tags
+The long URI `ghcr.io/tkgstrator/commitguard/commitguard:1` remains the source for
+the short URI above. The old `ghcr.io/tkgstrator/commitlint-rust` namespace is retired;
+migrate configurations using `ghcr.io/tkgstrator/commitlint-rust/commitguard:1` to
+`ghcr.io/tkgstrator/commitguard:1`. Use explicit version tags
 (`:1`, `:1.1` or `:1.1.1`); the short package reserves `:latest` for collection metadata.
 
 ## Commands

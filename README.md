@@ -320,6 +320,6 @@ Add the `commitguard` Feature to install the native guard, the standalone `commi
 }
 ```
 
-The earlier URIs `ghcr.io/tkgstrator/commitguard/commitguard:1` and `ghcr.io/tkgstrator/commitlint-rust/commitguard:1` remain published for compatibility. Installed commands: `commitguard`, `gh-commit-guard`, `commitlint-rust` (no `commitlint` alias, to avoid the npm command). The published v0.2.0 linter supports a limited rule set, narrower than the 38 rules in `master` source.
+The long URI `ghcr.io/tkgstrator/commitguard/commitguard:1` remains the source for the short URI above. The old `ghcr.io/tkgstrator/commitlint-rust` namespace is retired; migrate configurations using `ghcr.io/tkgstrator/commitlint-rust/commitguard:1` to `ghcr.io/tkgstrator/commitguard:1`. Installed commands: `commitguard`, `gh-commit-guard`, `commitlint-rust` (no `commitlint` alias, to avoid the npm command). The published v0.2.0 linter supports a limited rule set, narrower than the 38 rules in `master` source.
 
 The guard activates automatically at container start. Authenticate with `gh auth login -h github.com` before committing or pushing; use `commitguard-devcontainer-setup` to retry setup. The Feature pins published native v0.2.0 and verifies both archive digests. See [Feature options and workspace effects](features/commitguard/README.md).

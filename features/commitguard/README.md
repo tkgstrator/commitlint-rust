@@ -12,7 +12,7 @@ The long URI `ghcr.io/tkgstrator/commitguard/commitguard:1` remains the source f
 the short URI above. The old `ghcr.io/tkgstrator/commitlint-rust` namespace is retired;
 migrate configurations using `ghcr.io/tkgstrator/commitlint-rust/commitguard:1` to
 `ghcr.io/tkgstrator/commitguard:1`. Use explicit version tags
-(`:1`, `:1.2` or `:1.2.0`); the short package reserves `:latest` for collection metadata.
+(`:1`, `:1.2` or `:1.2.1`); the short package reserves `:latest` for collection metadata.
 
 ## Commands
 

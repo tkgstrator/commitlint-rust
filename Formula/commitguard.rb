@@ -1,28 +1,28 @@
 class Commitguard < Formula
   desc "Native Git and gh identity and outgoing commit guard"
   homepage "https://github.com/tkgstrator/commitlint-rust"
-  version "0.2.0"
+  version "0.3.0"
   license "MIT"
 
   on_macos do
     on_arm do
-      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.2.0/commitguard-aarch64-apple-darwin.tar.gz"
-      sha256 "d7f5a3299e865e491f48bd327985295c7907d7a89f899e1ec34c4f6ce24e7541"
+      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.3.0/commitguard-aarch64-apple-darwin.tar.gz"
+      sha256 "8a061f71196caf2a39960e3616bb2f9991c12801799e3cdd76771b9ce12c87f8"
     end
     on_intel do
-      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.2.0/commitguard-x86_64-apple-darwin.tar.gz"
-      sha256 "3fa0affdae999ba190aa92654e32f6dc4c9593dbd007bffa5e69df34ad2f42c0"
+      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.3.0/commitguard-x86_64-apple-darwin.tar.gz"
+      sha256 "5b299eda45603d85d121809d832580c71c0324051524b695e917dc1d08131c2b"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.2.0/commitguard-aarch64-unknown-linux-musl.tar.gz"
-      sha256 "a1edaaa46c25dfcd47fb0b6c38d6f58047276fc112e079587236a5ca706cca93"
+      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.3.0/commitguard-aarch64-unknown-linux-musl.tar.gz"
+      sha256 "e2e47ed09c6bceaf432d1e0a687ef0a1b630684b59dde9dc210995249c591de1"
     end
     on_intel do
-      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.2.0/commitguard-x86_64-unknown-linux-musl.tar.gz"
-      sha256 "73cada7f1e7912e1140c1f6aef620e7d592ff24fad8379de8875bdc77ad9e52b"
+      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.3.0/commitguard-x86_64-unknown-linux-musl.tar.gz"
+      sha256 "3d8dc40adaf721cfcee14fb0c838354fa82cce3452449e37085730de2312ca3b"
     end
   end
 

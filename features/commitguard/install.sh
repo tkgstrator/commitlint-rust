@@ -4,7 +4,7 @@
 set -eu
 umask 022
 
-version=v0.2.0
+version=v0.3.0
 release=https://github.com/tkgstrator/commitlint-rust/releases/download/$version
 base=/usr/local/share/commitguard
 
@@ -22,12 +22,12 @@ esac
 case "$(uname -m)" in
   x86_64|amd64)
     target=x86_64-unknown-linux-musl
-    guard_digest=73cada7f1e7912e1140c1f6aef620e7d592ff24fad8379de8875bdc77ad9e52b
-    lint_digest=55fffd1be588f1632160aa0a6246acf201485a4c75e355d79c865cc95d51151e ;;
+    guard_digest=3d8dc40adaf721cfcee14fb0c838354fa82cce3452449e37085730de2312ca3b
+    lint_digest=b1b5321009a45b49c615d3eeed6cd1dab890ed0450dd8949f47198b727aff0dc ;;
   aarch64|arm64)
     target=aarch64-unknown-linux-musl
-    guard_digest=a1edaaa46c25dfcd47fb0b6c38d6f58047276fc112e079587236a5ca706cca93
-    lint_digest=ccd3062b3af48a32af619d50ac2b0faf14ca22a4192c1492b472b277fb34d148 ;;
+    guard_digest=e2e47ed09c6bceaf432d1e0a687ef0a1b630684b59dde9dc210995249c591de1
+    lint_digest=a42bd4830ceafc1704681e74b5bb10e784d2af6450e767f3e5245a2812dfddbe ;;
   *) die "only amd64/arm64 are supported" ;;
 esac
 

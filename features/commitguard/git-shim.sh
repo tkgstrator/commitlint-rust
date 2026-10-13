@@ -38,7 +38,7 @@ if [ -n "$marker" ] && { [ -e "$marker" ] || [ -L "$marker" ]; }; then
   if [ -f "$marker" ] && [ ! -L "$marker" ] && [ -O "$marker" ]; then
     IFS= read -r line < "$marker" || line=
   fi
-  [ "$line" = "version=v0.2.0" ] \
+  [ "$line" = "version=v0.3.0" ] \
     && [ -f "$guard/config.json" ] && [ ! -L "$guard/config.json" ] \
     && [ -f "$guard/bin/git" ] && [ -x "$guard/bin/git" ] && [ ! -L "$guard/bin/git" ] \
     && [ -x "$guard/bin/commitguard" ] \

@@ -9,7 +9,7 @@ umask 077
 
 base=/usr/local/share/commitguard
 cg=/usr/local/bin/commitguard
-version=v0.2.0
+version=v0.3.0
 
 die() {
   echo "commitguard: $*" >&2
@@ -144,8 +144,8 @@ while IFS= read -r line; do
 done < /proc/self/mountinfo
 set +f
 
-# v0.2.0 installs enforcement before login. Every actual commit/push still
-# authenticates through the native guard; no credentials are needed for setup.
+# Native v0.3.0 installation verifies the human account online and initializes
+# its credential-bound cache. Failed authentication leaves Git blocked.
 rm -f "$marker"
 [ ! -e "$marker" ] || die "cannot clear previous activation marker"
 

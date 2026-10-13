@@ -111,8 +111,13 @@ done
 # Workspace: the repository containing the start directory.
 ws=$("$native" rev-parse --show-toplevel 2>/dev/null) || die "no Git repository in $(pwd)"
 ws=$(cd -P "$ws" 2>/dev/null && pwd -P) || die "cannot resolve workspace"
+# 書き込むスキルだけを再帰検査し、エージェントルートと skills の祖先検査は維持する。
+workspace_managed="$ws/.codex/skills/gh-commit-identity
+$ws/.claude/skills/gh-commit-identity
+$ws/AGENTS.md
+$ws/CLAUDE.md"
 for sub in .codex .claude; do
-  private_tree "$ws/$sub"
+  private_tree "$ws/$sub/skills/gh-commit-identity"
 done
 for file in AGENTS.md CLAUDE.md; do
   nosymlink "$ws/$file"
@@ -136,10 +141,23 @@ while IFS= read -r line; do
       "$mp"/*) die "managed path $p is on a mount ($mp); a container-private HOME is required" ;;
     esac
   done
+  # ワークスペースの基盤マウントは許可し、管理対象とその祖先・子孫だけを拒否する。
+  case "$ws/" in
+    "$mp"/*) ;;
+    *)
+      for p in $workspace_managed; do
+        case "$p/" in
+          "$mp"/*) die "mount at a managed workspace agent path: $mp" ;;
+        esac
+        case "$mp/" in
+          "$p"/*) die "mount at a managed workspace agent path: $mp" ;;
+        esac
+      done
+      ;;
+  esac
   IFS=$oldifs
   case "$mp/" in
     "$guard_parent"/*|"$marker_dir"/*) die "mount nested in guard state: $mp" ;;
-    "$ws/.codex"/*|"$ws/.claude"/*|"$ws/AGENTS.md/"|"$ws/CLAUDE.md/") die "mount at a managed workspace agent path: $mp" ;;
   esac
 done < /proc/self/mountinfo
 set +f

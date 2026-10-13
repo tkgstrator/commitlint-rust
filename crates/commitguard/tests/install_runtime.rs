@@ -354,6 +354,46 @@ fn container_symlinked_skill_target_is_refused_before_host_file_changes() {
     assert!(!f.guard_root().join("bin/git").exists());
 }
 #[test]
+fn container_unrelated_package_and_skill_symlinks_are_preserved() {
+    let f = Fixture::new();
+    let repo = f.repo("container package links");
+    let external = f.root.join("external package");
+    fs::create_dir(&external).unwrap();
+    fs::write(external.join("sentinel"), "Retained package.\n").unwrap();
+    fs::create_dir_all(repo.join(".codex/bin")).unwrap();
+    let package = repo.join(".codex/bin/package");
+    std::os::unix::fs::symlink(&external, &package).unwrap();
+    for agent in [".codex", ".claude"] {
+        fs::create_dir_all(repo.join(agent).join("skills")).unwrap();
+        std::os::unix::fs::symlink(&external, repo.join(agent).join("skills/unrelated")).unwrap();
+    }
+    accepted(f.install(&["--container", "--repo", &repo.display().to_string()]));
+    assert!(
+        fs::symlink_metadata(&package)
+            .unwrap()
+            .file_type()
+            .is_symlink()
+    );
+    for agent in [".codex", ".claude"] {
+        let sibling = repo.join(agent).join("skills/unrelated");
+        assert!(
+            fs::symlink_metadata(&sibling)
+                .unwrap()
+                .file_type()
+                .is_symlink()
+        );
+        assert!(
+            repo.join(agent)
+                .join("skills/gh-commit-identity/SKILL.md")
+                .is_file()
+        );
+    }
+    assert_eq!(
+        fs::read_to_string(external.join("sentinel")).unwrap(),
+        "Retained package.\n"
+    );
+}
+#[test]
 fn container_symlink_loop_stops_without_activating_global_config() {
     let f = Fixture::new();
     let repo = f.repo("symlink loop");

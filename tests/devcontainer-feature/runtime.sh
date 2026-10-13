@@ -193,14 +193,103 @@ grep -q retained "$GIT_CONFIG_GLOBAL"
 unset GIT_CONFIG_GLOBAL
 echo 'PASS external Git configuration remains unchanged'
 
-new_home nested-links
-mkdir -p "$fixture/external-skills"
-printf 'retain\n' > "$fixture/external-skills/sentinel"
-mv .codex/skills .codex/skills.original
-ln -s "$fixture/external-skills" .codex/skills
-refuse "$feature/setup" --auto
-[ "$(cat "$fixture/external-skills/sentinel")" = retain ]
-[ ! -e "$fixture/external-skills/gh-commit-identity" ]
-rm .codex/skills
-mv .codex/skills.original .codex/skills
-echo 'PASS nested workspace agent symlinks cannot redirect installation'
+# Codex の通常のパッケージリンクと管理対象外のスキルリンクは保持する。
+new_home unrelated-links
+mkdir -p "$fixture/packages" "$fixture/sibling-skill" .codex/bin .codex/skills .claude/skills
+printf 'retain package\n' > "$fixture/packages/sentinel"
+printf 'retain sibling\n' > "$fixture/sibling-skill/sentinel"
+ln -s "$fixture/packages" .codex/bin/package
+for sub in .codex .claude; do
+  ln -s "$fixture/sibling-skill" "$sub/skills/unrelated"
+done
+timeout 25 "$feature/setup" --auto
+[ -L .codex/bin/package ]
+[ "$(cat .codex/bin/package/sentinel)" = 'retain package' ]
+for sub in .codex .claude; do
+  [ -L "$sub/skills/unrelated" ]
+  [ "$(cat "$sub/skills/unrelated/sentinel")" = 'retain sibling' ]
+done
+echo 'PASS unrelated Codex package and sibling skill links survive activation'
+
+# 拒否時は既存マーカー、管理対象、認証呼び出しの全てが変更されない。
+prepare_path_case() {
+  new_home "$1"
+  mkdir -p "$HOME/.local/share/commitguard"
+  printf 'retain ready\n' > "$HOME/.local/share/commitguard/feature-ready"
+  agents_before=$(cksum AGENTS.md CLAUDE.md)
+  api_before=$(cat "$TEST_API_LOG")
+}
+assert_path_unchanged() {
+  [ "$(cat "$HOME/.local/share/commitguard/feature-ready")" = 'retain ready' ]
+  [ ! -e "$HOME/.gitconfig" ]
+  [ ! -e "$HOME/.local/share/gh-commit-identity" ]
+  [ "$(cksum AGENTS.md CLAUDE.md)" = "$agents_before" ]
+  [ "$(cat "$TEST_API_LOG")" = "$api_before" ]
+}
+for sub in .codex .claude; do
+  for relative in "$sub" "$sub/skills" "$sub/skills/gh-commit-identity" \
+    "$sub/skills/gh-commit-identity/bin" "$sub/skills/gh-commit-identity/SKILL.md"; do
+    prepare_path_case "redirect-$sub-$(basename "$relative")"
+    mv "$relative" "$relative.original"
+    ln -s "$fixture/workspace/$relative.original" "$relative"
+    refuse "$feature/setup" --auto
+    grep -q 'symlink in managed' "$fixture/error"
+    assert_path_unchanged
+    [ -L "$relative" ]
+    rm "$relative"
+    mv "$relative.original" "$relative"
+  done
+  # 存在しないリンク先も同じ境界で拒否する。
+  prepare_path_case "dangling-$sub"
+  ln -s "$fixture/missing-target" "$sub/skills/gh-commit-identity/dangling"
+  refuse "$feature/setup" --auto
+  grep -q 'symlink in managed' "$fixture/error"
+  assert_path_unchanged
+  rm "$sub/skills/gh-commit-identity/dangling"
+done
+echo 'PASS agent roots, skills ancestors and managed descendants reject redirects before mutation'
+
+# mountinfo のみを隔離フィクスチャに差し替え、権限なしでも全境界を検証する。
+mountinfo=$fixture/mountinfo
+sed "s|/proc/self/mountinfo|$mountinfo|g" "$feature/setup" > "$fixture/mount-setup"
+chmod +x "$fixture/mount-setup"
+write_mount() {
+  encoded=$(printf '%s' "$1" | sed 's/ /\\040/g')
+  printf '1 0 0:1 / %s rw - tmpfs tmpfs rw\n' "$encoded" > "$mountinfo"
+}
+for sub in .codex .claude; do
+  for relative in "$sub" "$sub/skills" "$sub/skills/gh-commit-identity" \
+    "$sub/skills/gh-commit-identity/bin" "$sub/skills/gh-commit-identity/SKILL.md"; do
+    prepare_path_case "mount-$sub-$(basename "$relative")"
+    write_mount "$fixture/workspace/$relative"
+    refuse "$fixture/mount-setup" --auto
+    grep -q 'mount at a managed workspace agent path' "$fixture/error"
+    assert_path_unchanged
+  done
+done
+for relative in AGENTS.md CLAUDE.md; do
+  prepare_path_case "mount-$relative"
+  write_mount "$fixture/workspace/$relative"
+  refuse "$fixture/mount-setup" --auto
+  grep -q 'mount at a managed workspace agent path' "$fixture/error"
+  assert_path_unchanged
+done
+for relative in .codex/bin .codex/bin/package .codex/skills/unrelated .claude/skills/unrelated .claude/runtime; do
+  new_home "allowed-mount-$(printf '%s' "$relative" | tr / -)"
+  write_mount "$fixture/workspace/$relative"
+  timeout 25 "$fixture/mount-setup" --auto
+  [ -e "$HOME/.local/share/commitguard/feature-ready" ]
+done
+for path in "$fixture/workspace" "$fixture" /; do
+  new_home "base-mount-$(basename "$path")"
+  # 共通祖先が HOME も覆う場合は、プライベート HOME の保護で拒否する。
+  write_mount "$path"
+  if [ "$path" = "$fixture" ]; then
+    refuse "$fixture/mount-setup" --auto
+    grep -q 'container-private HOME' "$fixture/error"
+  else
+    timeout 25 "$fixture/mount-setup" --auto
+    [ -e "$HOME/.local/share/commitguard/feature-ready" ]
+  fi
+done
+echo 'PASS managed mounts reject before mutation; unrelated and workspace base mounts remain allowed'

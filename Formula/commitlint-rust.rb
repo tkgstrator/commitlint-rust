@@ -1,28 +1,28 @@
 class CommitlintRust < Formula
   desc "Compatible combined lint and Git identity guard distribution"
   homepage "https://github.com/tkgstrator/commitlint-rust"
-  version "0.2.0"
+  version "0.3.0"
   license "MIT"
 
   on_macos do
     on_arm do
-      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.2.0/commitlint-rust-aarch64-apple-darwin.tar.gz"
-      sha256 "850d9e4d7ef33f43cf12d593ddc5812d275f9f1cf8152169e6d56ede38ab6ec6"
+      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.3.0/commitlint-rust-aarch64-apple-darwin.tar.gz"
+      sha256 "09f29f0b10ed8c5c09b5d382b0087504088f7a685f3e30652bd36f244e8095b5"
     end
     on_intel do
-      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.2.0/commitlint-rust-x86_64-apple-darwin.tar.gz"
-      sha256 "0b2472fb2538f917611ff6136823dbfb68734538130766761bc7fea2ce664a44"
+      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.3.0/commitlint-rust-x86_64-apple-darwin.tar.gz"
+      sha256 "53e3a383d3293db92eb222cdf0b8e1da70ab20a4661cbb8640310b387045df61"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.2.0/commitlint-rust-aarch64-unknown-linux-musl.tar.gz"
-      sha256 "010418f69a55dd5d9ebeeb265e5de2cd1e0aa3657c6172ecf8ce49a784486fce"
+      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.3.0/commitlint-rust-aarch64-unknown-linux-musl.tar.gz"
+      sha256 "7760c071eece1790fc0fec6fadb411f2bbb1d459e06922b91fc0ae511b42e4ec"
     end
     on_intel do
-      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.2.0/commitlint-rust-x86_64-unknown-linux-musl.tar.gz"
-      sha256 "f855971f4e6164a8fcb24f903270c45eb7d5abfa2634dfc292811b2972785f5b"
+      url "https://github.com/tkgstrator/commitlint-rust/releases/download/v0.3.0/commitlint-rust-x86_64-unknown-linux-musl.tar.gz"
+      sha256 "f98bbd1fdf96ff19b3a07331b121cb8b21334d36fc6180ef8bbc6ebb6659bb53"
     end
   end
 

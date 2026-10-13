@@ -109,6 +109,8 @@ jobs:
           rustup default "$RUST_VERSION"
       - name: Build commitlint
         run: cargo build -p commitlint-rust --locked
+      - name: Commit message routing regression tests
+        run: bash scripts/test-ci-commit-messages.sh
       - name: Lint commit messages
         env:
           EVENT_NAME: ${{ github.event_name }}
@@ -121,31 +123,51 @@ jobs:
         run: |
           set -euo pipefail
           zero=0000000000000000000000000000000000000000
+          case "$EVENT_NAME" in
+            pull_request | push | workflow_dispatch) ;;
+            *) echo "unsupported event '$EVENT_NAME'; refusing to skip commit message checks" >&2; exit 1 ;;
+          esac
+          if [ "$REF_TYPE" = tag ]; then
+            echo 'Tag ref: there is no new branch commit range to lint; skipping (inherited history is not re-linted)'
+            exit 0
+          fi
           from=''
           to=''
-          if [ "$REF_TYPE" = tag ]; then
-            :
-          elif [ "$EVENT_NAME" = pull_request ]; then
+          if [ "$EVENT_NAME" = pull_request ]; then
+            [ -n "$PR_BASE_SHA" ] && [ -n "$PR_HEAD_SHA" ] \
+              || { echo 'pull request base/head missing; cannot verify the range' >&2; exit 1; }
             from=$PR_BASE_SHA
             to=$PR_HEAD_SHA
           elif [ "$EVENT_NAME" = push ]; then
+            [ -n "$PUSH_SHA" ] || { echo 'push head missing; cannot verify the outgoing range' >&2; exit 1; }
             to=$PUSH_SHA
-            if [ "$PUSH_BEFORE_SHA" != "$zero" ]; then
+            if [ -z "$PUSH_BEFORE_SHA" ]; then
+              echo 'push base missing; cannot verify the outgoing range' >&2
+              exit 1
+            elif [ "$PUSH_BEFORE_SHA" != "$zero" ]; then
               git cat-file -e "$PUSH_BEFORE_SHA^{commit}" \
                 || { echo 'push base object missing; cannot verify the outgoing range' >&2; exit 1; }
               from=$PUSH_BEFORE_SHA
             else
               # First push of a branch: verify its entire divergence from default.
+              [ -n "$BASE_BRANCH" ] || { echo 'default branch unknown; cannot resolve the first push base' >&2; exit 1; }
               from=$(git merge-base "origin/$BASE_BRANCH" HEAD) \
                 || { echo 'first push base cannot be resolved' >&2; exit 1; }
             fi
+          else
+            # workflow_dispatch: lint only what diverges from the default branch.
+            [ -n "$BASE_BRANCH" ] || { echo 'default branch unknown; cannot compute divergence' >&2; exit 1; }
+            from=$(git merge-base "origin/$BASE_BRANCH" HEAD) \
+              || { echo 'divergence from the default branch cannot be resolved' >&2; exit 1; }
+            to=HEAD
           fi
-          if [ -n "$from" ] && [ -n "$to" ] && [ "$(git rev-list --count "$from..$to")" -gt 0 ]; then
+          count=$(git rev-list --count "$from..$to") \
+            || { echo "cannot count commits in $from..$to" >&2; exit 1; }
+          if [ "$count" -gt 0 ]; then
             echo "Linting $from..$to"
             target/debug/commitlint --from "$from" --to "$to"
           else
-            echo 'Linting the current commit message'
-            git show -s --format=%B HEAD | target/debug/commitlint
+            echo "No new commits in $from..$to; nothing to lint"
           fi
 
   native:

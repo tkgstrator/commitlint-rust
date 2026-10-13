@@ -240,3 +240,14 @@ fn help_and_version_do_not_discover_invalid_configuration() {
     accepted(lint(&f, &f.root, &["--version"], b""));
     accepted(lint(&f, &f.root, &["--help"], b""));
 }
+
+#[test]
+fn invalid_configuration_preserves_diagnostics_when_stdin_closes_early() {
+    let f = Fixture::new();
+    fs::write(f.root.join(".commitlintrc.yaml"), "rules: [not-an-object]").unwrap();
+    // Larger than a pipe buffer, so rejection before stdin parsing reliably
+    // closes the pipe while the fixture is still trying to write the input.
+    let output = lint(&f, &f.root, &[], &vec![b'x'; 1024 * 1024]);
+    assert!(!output.status.success());
+    assert!(String::from_utf8_lossy(&output.stderr).contains("invalid YAML configuration"));
+}

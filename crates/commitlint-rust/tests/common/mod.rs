@@ -56,10 +56,17 @@ impl Fixture {
             .stderr(Stdio::piped());
         let mut child = cmd.spawn().unwrap();
         let mut stdin = child.stdin.take().unwrap();
-        if let Some(data) = input {
-            stdin.write_all(data).unwrap();
-        }
+        let written = input.map(|data| stdin.write_all(data));
         drop(stdin);
+        if let Some(Err(error)) = written
+            && error.kind() != std::io::ErrorKind::BrokenPipe
+        {
+            let _ = child.kill();
+            let _ = child.wait();
+            panic!("cannot write child stdin: {error}");
+        }
+        // Config validation may intentionally reject before reading stdin.
+        // Preserve the actual exit status and diagnostics instead of panicking.
         child.wait_with_output().unwrap()
     }
     pub fn git_path(&self) -> String {

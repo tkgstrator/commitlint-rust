@@ -1,4 +1,4 @@
-# Verification — 2026-10-07, source v0.2.0
+# Native commit identity verification records
 
 - Independent workspace packages: `commitlint-rust` (message library/CLI) and `commitguard` (guard library, canonical/legacy CLI). Guard embeds lint; the normal lint dependency tree contains only regex/libc and their dependencies, with no guard/gh/config dependency.
 - Native macOS ARM and Linux ARM64/x86_64 musl: **78 tests passed** on each platform. Two ignored entries are subprocess fixtures explicitly invoked by parent tests. Release builds and all three executable version checks passed.
@@ -47,3 +47,7 @@ The initial implementation phase performed no source commits or remote pushes. T
 ## Clone-free distribution follow-up
 
 Added a release downloader, fixed archive validation and checksum checks, release packager and generated four-platform Homebrew Formula. Mac validation: 62 tests passed (13 unit and 49 integration), including eight bootstrap tests. The helper subprocess fixture remains the only intentional ignored entry. Claude Code MCP performed separate read-only plan and actual implementation reviews; version pinning and strict checksum-row findings were resolved. All installation tests use isolated homes and fake release assets. Linux ARM also passed all eight new bootstrap tests. Published asset/download validation is performed separately.
+
+## v0.3.0 source validation
+
+Before release preparation, macOS ARM64 passed 311 Rust tests (three subprocess fixtures intentionally ignored), 15 pinned Commitlint oracle tests, rustfmt and Clippy. The coauthor exemption was tested through isolated installed hooks and a real local bare push; JSON/YAML configuration discovery and strict parsing were tested at the CLI boundary. Claude Code reviewed the actual implementation diff; LocalGPT provided a conceptual plan review because its connector could not access this worktree. The release PR and tag workflows provide native verification and fresh binaries for all four supported targets. Host activation remains a separate explicit upgrade after published asset verification.

@@ -104,7 +104,7 @@ idempotent retries of completed operations; interrupted or failed operations
 require manual recovery after inspecting the journal, actual refs and staging
 state. It does not automatically resume, abandon or break their retained locks.
 
-Published v0.2.0 archives and an existing host installation are unchanged by
+Published archives and an existing host installation are unchanged by
 building this source feature. A release/installation upgrade is a separate step.
 
 ## Development oracle
@@ -270,7 +270,7 @@ The source skill and references live under `resources/`. The two consumer reposi
 
 ## Release compatibility
 
-Source v0.2.0 introduces the workspace and canonical guard name. Published v0.1.0 assets remain immutable. The combined archive retains its exact four-member payload for older bootstrap compatibility. Separate `commitlint-only-TARGET.tar.gz` and `commitguard-TARGET.tar.gz` archives serve independent consumers. Native setup installs both guard names and preserves existing hook/config/skill paths. A source build does not upgrade the live host guard.
+Source v0.3.0 includes the workspace and canonical guard name, all 38 native lint rules, JSON/YAML configuration discovery, credential-bound identity caching, and the final coauthor length exemption. Published v0.1.0 assets remain immutable. The combined archive retains its exact four-member payload for older bootstrap compatibility. Separate `commitlint-only-TARGET.tar.gz` and `commitguard-TARGET.tar.gz` archives serve independent consumers. Native setup installs both guard names and preserves existing hook/config/skill paths. A source build does not upgrade the live host guard.
 
 `scripts/build.sh` records source and payload SHA256 provenance. Packaging refuses stale or modified binaries before writing assets; by default it requires all four supported targets. Explicit target arguments write partial smoke-test archives to a separate `dist/partial/` directory without changing full-release assets or universal Formulae. Build provenance is a development safeguard, not an independent trust boundary against the release publisher.
 
@@ -347,6 +347,6 @@ Add the `commitguard` Feature to install the native guard, the standalone `commi
 }
 ```
 
-The long URI `ghcr.io/tkgstrator/commitguard/commitguard:1` remains the source for the short URI above. The old `ghcr.io/tkgstrator/commitlint-rust` namespace is retired; migrate configurations using `ghcr.io/tkgstrator/commitlint-rust/commitguard:1` to `ghcr.io/tkgstrator/commitguard:1`. Installed commands: `commitguard`, `gh-commit-guard`, `commitlint-rust` (no `commitlint` alias, to avoid the npm command). The published v0.2.0 linter supports a limited rule set, narrower than the 38 rules in `master` source.
+The long URI `ghcr.io/tkgstrator/commitguard/commitguard:1` remains the source for the short URI above. The old `ghcr.io/tkgstrator/commitlint-rust` namespace is retired; migrate configurations using `ghcr.io/tkgstrator/commitlint-rust/commitguard:1` to `ghcr.io/tkgstrator/commitguard:1`. Installed commands: `commitguard`, `gh-commit-guard`, `commitlint-rust` (no `commitlint` alias, to avoid the npm command). Each Feature release pins a published native guard and linter; see the Feature documentation for its exact version.
 
-The guard activates automatically at container start. Authenticate with `gh auth login -h github.com` before committing or pushing; use `commitguard-devcontainer-setup` to retry setup. The Feature pins published native v0.2.0 and verifies both archive digests. See [Feature options and workspace effects](features/commitguard/README.md).
+The guard activates automatically at container start. Authenticate with `gh auth login -h github.com` before committing or pushing; use `commitguard-devcontainer-setup` to retry setup. The Feature verifies both pinned archive digests. See [Feature options and workspace effects](features/commitguard/README.md).

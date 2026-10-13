@@ -2,10 +2,10 @@
 
 Git and authenticated GitHub CLI (`gh auth login --hostname github.com`) are required for commitguard. Standard OS shell tools, tar/gzip, mktemp and sha256sum or shasum are used during bootstrap. Installed runtime needs no Rust, Bun, Python or source checkout.
 
-The published v0.2.0 release can be installed directly with Git and gh, without curl or a source checkout:
+The v0.3.0 release, once published, can be installed directly with Git and gh, without curl or a source checkout:
 
 ```sh
-sh -c 'unset GH_DEBUG DEBUG; d=$(mktemp -d) || exit; trap '\''rm -rf "$d"'\'' 0; gh release download "${COMMITLINT_RUST_VERSION:-v0.2.0}" -R github.com/tkgstrator/commitlint-rust -p install.sh --dir "$d" && sh "$d/install.sh" "$@"' --
+sh -c 'unset GH_DEBUG DEBUG; d=$(mktemp -d) || exit; trap '\''rm -rf "$d"'\'' 0; gh release download "${COMMITLINT_RUST_VERSION:-v0.3.0}" -R github.com/tkgstrator/commitlint-rust -p install.sh --dir "$d" && sh "$d/install.sh" "$@"' --
 ```
 
 The bootstrap checks SHA256 and the exact archive members before extracting and executing the native guard. Native setup installs both `commitguard` and `gh-commit-guard`, changes user Git/shell/agent configuration, preserves hooks/verifiers and has rollback protections. This is an explicit opt-in. Reopen shells afterward. Finish active history repairs before replacing their installed guard. No credentials are copied and no sudo is used.
@@ -20,7 +20,7 @@ The message-only archive `commitlint-only-TARGET.tar.gz` contains `commitlint`, 
 
 The guard-only archive `commitguard-TARGET.tar.gz` contains `commitguard`, LICENSE and README.md. Its message checker is compiled in. Run `commitguard install` explicitly to install guarded Git and agent skills; simply downloading the command does not activate global policy.
 
-New installations can choose the independent v0.2.0 formulae:
+After the distribution follow-up, new installations can choose the independent formulae:
 
 ```sh
 brew tap tkgstrator/commitlint-rust https://github.com/tkgstrator/commitlint-rust
@@ -31,7 +31,7 @@ commitguard install
 
 The `commitlint` Formula has no gh dependency or setup action. `commitguard` requires Git and gh and also exposes `gh-commit-guard`. The existing `commitlint-rust` Formula remains a combined compatibility package: upgrading it preserves `commitlint-rust` and `gh-commit-guard`, and adds the canonical `commitguard` alias. It conflicts with the separate guard package because both own the same guard commands; existing users can keep the combined package. Homebrew installs/upgrades do not activate policy automatically.
 
-The Formulae reference the immutable v0.2.0 assets. Unreleased source changes require a new coordinated version, installer tag, assets and Formulae; rebuilding source does not update the published release.
+Formula updates use the final published archive hashes. The follow-up distribution PR synchronizes the independent and compatibility Formulae after the v0.3.0 tag build publishes its immutable assets. Unreleased source changes require a new coordinated version, installer tag, assets and Formulae; rebuilding source does not update the published release.
 
 An explicit downgrade with the archived v0.1.0 installer does not manage the new `commitguard` path. After such a downgrade, use `gh-commit-guard` until reinstalling the newer version; the stale canonical copy must not be treated as the downgraded guard.
 

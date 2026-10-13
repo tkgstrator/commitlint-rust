@@ -1,4 +1,4 @@
-//! Ordered native JSON configuration and linting, independent of the fixed policy.
+//! Ordered native JSON/YAML configuration and linting, independent of the fixed policy.
 use crate::Result;
 use crate::parser::{ParserOptions, ParserPreset, is_js_whitespace, parse_message_with_options};
 use crate::policy::{Diagnostic, LintOutcome, Severity};
@@ -43,7 +43,7 @@ impl<'de> Deserialize<'de> for OrderedRules {
                 Ok(OrderedRules(rules))
             }
         }
-        deserializer.deserialize_map(RulesVisitor)
+        deserializer.deserialize_any(RulesVisitor)
     }
 }
 
@@ -80,7 +80,7 @@ impl<'de> Deserialize<'de> for ConfigurationFile {
                 Ok(config)
             }
         }
-        deserializer.deserialize_map(ConfigVisitor)
+        deserializer.deserialize_any(ConfigVisitor)
     }
 }
 
@@ -325,17 +325,46 @@ fn conventional() -> Result<Configuration> {
 }
 
 pub fn parse_json_config(text: &str) -> Result<Configuration> {
-    parse_configuration(text, false)
+    parse_json_configuration(text, false)
 }
 
-/// Explicit edit files remain Git-free; JSON can override or disable `#`.
-pub(crate) fn parse_edit_configuration(text: &str) -> Result<Configuration> {
-    parse_configuration(text, true)
+pub fn parse_yaml_config(text: &str) -> Result<Configuration> {
+    parse_yaml_configuration(text, false)
 }
 
-fn parse_configuration(text: &str, edit: bool) -> Result<Configuration> {
+/// Explicit edit files remain Git-free; configuration can override or disable `#`.
+pub(crate) fn parse_file_configuration(
+    text: &str,
+    yaml: bool,
+    edit: bool,
+) -> Result<Configuration> {
+    if yaml {
+        parse_yaml_configuration(text, edit)
+    } else {
+        parse_json_configuration(text, edit)
+    }
+}
+
+fn parse_json_configuration(text: &str, edit: bool) -> Result<Configuration> {
     let file: ConfigurationFile =
         serde_json::from_str(text).map_err(|e| format!("invalid JSON configuration: {e}"))?;
+    configure(file, edit)
+}
+
+fn parse_yaml_configuration(text: &str, edit: bool) -> Result<Configuration> {
+    let options = serde_saphyr::options! {
+        reject_unsupported_tags: true,
+        duplicate_keys: serde_saphyr::DuplicateKeyPolicy::Error,
+        merge_keys: serde_saphyr::MergeKeyPolicy::Error,
+        strict_booleans: true,
+        no_schema: true,
+    };
+    let file: ConfigurationFile = serde_saphyr::from_str_with_options(text, options)
+        .map_err(|e| format!("invalid YAML configuration: {e}"))?;
+    configure(file, edit)
+}
+
+fn configure(file: ConfigurationFile, edit: bool) -> Result<Configuration> {
     let object = &file.fields;
     let mut config = Configuration::default();
     if let Some(extends) = object.get("extends") {

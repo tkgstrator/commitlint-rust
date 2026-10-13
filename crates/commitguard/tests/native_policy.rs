@@ -71,6 +71,46 @@ fn whole_128_and_129_chars_are_checked_on_raw_commit() {
     refused(f.cli(&["commits", &bad], &repo, &[], None));
 }
 #[test]
+fn final_coauthor_exemption_applies_to_message_commit_and_outgoing_checks() {
+    let f = Fixture::new();
+    accepted(f.install(&[]));
+    let repo = f.repo("coauthor length");
+    let message = format!(
+        "fix: {}\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>",
+        "x".repeat(123)
+    );
+    let file = f.root.join("message");
+    fs::write(&file, &message).unwrap();
+    accepted(f.cli(&["message", file.to_str().unwrap()], &repo, &[], None));
+    fs::write(repo.join(".commitlintrc.json"), "{\"rules\":{}}").unwrap();
+    fs::write(&file, format!("fix: {}", "x".repeat(124))).unwrap();
+    refused(f.cli(&["message", file.to_str().unwrap()], &repo, &[], None));
+    accepted(f.guarded(&["commit", "--allow-empty", "-m", &message], &repo, &[]));
+    let oid = f.raw(&["rev-parse", "HEAD"], &repo, &[]);
+    assert_eq!(
+        f.raw(&["show", "-s", "--format=%B", &oid], &repo, &[]),
+        message
+    );
+    accepted(f.cli(&["commits", &oid], &repo, &[], None));
+    let remote = f.bare("coauthor push remote");
+    accepted(f.cli(
+        &["push", remote.to_str().unwrap(), "refs/heads/main"],
+        &repo,
+        &[],
+        None,
+    ));
+    accepted(f.guarded(&["push", remote.to_str().unwrap(), "main"], &repo, &[]));
+    assert_eq!(f.raw(&["rev-parse", "refs/heads/main"], &remote, &[]), oid);
+    let foreign = f.commit(&repo, &message, &[("GIT_COMMITTER_NAME", "foreign")]);
+    refused(f.cli(&["commits", &foreign], &repo, &[], None));
+    refused(f.cli(
+        &["push", remote.to_str().unwrap(), "refs/heads/main"],
+        &repo,
+        &[],
+        None,
+    ));
+}
+#[test]
 fn embedded_signature_duplicate_identity_and_encoding_are_rejected() {
     let f = Fixture::new();
     let repo = f.repo("raw headers");

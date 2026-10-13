@@ -9,7 +9,7 @@ For environments where the user has opted into this personal strict policy, appl
 
 Every new locally created or rewritten commit requires:
 - English printable ASCII text plus LF newlines, in Conventional Commits format checked by the native implementation of the supported Commitlint rules.
-- At most **128 characters for the entire message**, including type/scope, body and trailers, excluding final LF terminators. ASCII is a mechanical limit, not a language/grammar classifier.
+- At most **128 counted characters**, including type/scope, body, other trailers and internal newlines, excluding final LF terminators. Validated `Co-Authored-By` lines in the final blank-line-delimited trailer paragraph are exempt; if that paragraph contains only exempt lines, its blank separator is exempt too. Original ASCII and attribution checks still cover the complete message. ASCII is a mechanical limit, not a language/grammar classifier.
 - Both raw Author and Committer equal the **verified human github.com gh account** (`type: User`): name `login`, email `id+login@users.noreply.github.com`.
 - No local cryptographic signature. Main identities never come from a guessed name, OS user, Git config, an unbound cache, mailmap or AI provider.
 
@@ -30,7 +30,7 @@ If the known local Mac guard is installed, use its guarded Git entry point and p
 3. Run `<skill-dir>/scripts/check identity`. Write the proposed message to a UTF-8 file with LF endings and run `<skill-dir>/scripts/check message <file>`. If wording fails, automatically rewrite it from the intended diff into meaningful English such as `fix(auth): validate session expiry`, then check again. Do not truncate or replace it with a generic message that loses the change's meaning.
 4. Commit through native/guarded Git with hooks active and signing disabled for that command. Then run `<skill-dir>/scripts/check commits <new-oid>` on each actual created commit. Verify the tree/diff and record the original OID; a worker's receipt is not proof.
 
-Recognized AI `Co-authored-by`/`Signed-off-by` pairs, and exact legacy `Codex`, remain permitted by the current attribution policy in the native checker. Other human trailers must name the authenticated account. They count toward 128 characters and never replace either main identity. Do not invent attribution addresses or silently remove meaningful human authorship to pass.
+Recognized AI `Co-authored-by`/`Signed-off-by` pairs, and exact legacy `Codex`, remain permitted by the current attribution policy in the native checker. Other human trailers must name the authenticated account. Only correctly formed final `Co-Authored-By` lines are excluded from the 128-character count; `Signed-off-by`, other trailers, body-position credits and malformed lines remain counted. Credits never replace either main identity. Do not invent attribution addresses or silently remove meaningful human authorship to pass.
 
 ## Before pushing
 

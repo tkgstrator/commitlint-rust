@@ -2,6 +2,7 @@
 //! `commitlint-rust` library; identity and credit rules belong to the guard.
 use crate::{Identity, Result};
 use regex::Regex;
+use std::borrow::Cow;
 use std::sync::OnceLock;
 
 pub use commitlint_rust::lint_message;
@@ -70,14 +71,146 @@ pub fn validate_attribution(bytes: &[u8], identity: &Identity) -> Result<()> {
     Ok(())
 }
 
+/// Only the final blank-line-delimited trailer paragraph is eligible. Keep
+/// other trailers and all prose in the lint projection; never edit the object.
+fn message_without_final_coauthors(message: &str) -> Cow<'_, str> {
+    let trimmed = message.trim_end_matches('\n');
+    let Some((content, trailers)) = trimmed.rsplit_once("\n\n") else {
+        return Cow::Borrowed(message);
+    };
+    if content.trim().is_empty() {
+        return Cow::Borrowed(message);
+    }
+    let mut retained = Vec::new();
+    let mut removed = false;
+    for line in trailers.split('\n') {
+        let Some((key, value)) = line.split_once(": ") else {
+            return Cow::Borrowed(message);
+        };
+        if key.is_empty()
+            || !key.bytes().all(|b| b.is_ascii_alphanumeric() || b == b'-')
+            || value.is_empty()
+            || value.trim() != value
+        {
+            return Cow::Borrowed(message);
+        }
+        if key.eq_ignore_ascii_case("co-authored-by") {
+            removed = true;
+        } else {
+            retained.push(line);
+        }
+    }
+    if !removed {
+        Cow::Borrowed(message)
+    } else if retained.is_empty() {
+        Cow::Borrowed(content.trim_end_matches('\n'))
+    } else {
+        Cow::Owned(format!("{content}\n\n{}", retained.join("\n")))
+    }
+}
+
 pub fn validate_message(bytes: &[u8], identity: &Identity) -> Result<()> {
-    lint_message(bytes)?;
-    validate_attribution(bytes, identity)
+    // Validate the original bytes before removing any attribution from length
+    // accounting, so the projection cannot conceal invalid credits or CRLF.
+    if bytes
+        .iter()
+        .any(|b| *b != b'\n' && !(b' '..=b'~').contains(b))
+    {
+        return Err("message requires English printable ASCII and LF line endings".into());
+    }
+    validate_attribution(bytes, identity)?;
+    let message = std::str::from_utf8(bytes).map_err(|_| "invalid message encoding")?;
+    lint_message(message_without_final_coauthors(message).as_bytes())
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    fn identity() -> Identity {
+        Identity {
+            login: "tester".into(),
+            email: "44+tester@users.noreply.github.com".into(),
+        }
+    }
+
+    #[test]
+    fn final_coauthors_do_not_consume_the_message_budget() {
+        let content = format!("fix: {}", "x".repeat(123));
+        assert_eq!(content.len(), 128);
+        for credit in [
+            "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>",
+            "co-authored-by: Codex",
+            "Co-Authored-By: tester <44+tester@users.noreply.github.com>",
+            "Co-Authored-By: Claude <noreply@anthropic.com>\nCo-Authored-By: Codex",
+        ] {
+            let message = format!("{content}\n\n{credit}\n");
+            assert!(
+                validate_message(message.as_bytes(), &identity()).is_ok(),
+                "{credit}"
+            );
+            assert!(lint_message(message.as_bytes()).is_err());
+            let too_long = format!("{content}x\n\n{credit}");
+            assert!(validate_message(too_long.as_bytes(), &identity()).is_err());
+        }
+    }
+
+    #[test]
+    fn other_final_trailers_stay_counted_in_either_order() {
+        let content = format!("fix: {}", "x".repeat(63));
+        let signoff = "Signed-off-by: tester <44+tester@users.noreply.github.com>";
+        let credit = "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>";
+        assert_eq!(format!("{content}\n\n{signoff}").len(), 128);
+        for trailers in [
+            format!("{credit}\n{signoff}"),
+            format!("{signoff}\n{credit}"),
+        ] {
+            assert!(
+                validate_message(format!("{content}\n\n{trailers}").as_bytes(), &identity())
+                    .is_ok()
+            );
+            assert!(
+                validate_message(format!("{content}x\n\n{trailers}").as_bytes(), &identity())
+                    .is_err()
+            );
+        }
+    }
+
+    #[test]
+    fn prose_and_malformed_coauthor_lines_are_not_exempt() {
+        let content = format!("fix: {}", "x".repeat(123));
+        for suffix in [
+            "\nCo-Authored-By: Codex",
+            "\n\nCo-Authored-By: Codex\nbody follows",
+            "\n\nCo-Authrored-By: Codex",
+            "\n\n Co-Authored-By: Codex",
+            "\n\nCo-Authored-By : Codex",
+            "\n\nCo-Authored-By: Codex ",
+            "\n\nCo-Authored-By: Codex\n extra prose",
+        ] {
+            assert!(
+                validate_message(format!("{content}{suffix}").as_bytes(), &identity()).is_err(),
+                "{suffix:?}"
+            );
+        }
+    }
+
+    #[test]
+    fn exemption_never_hides_invalid_original_credits_or_ascii() {
+        for credit in [
+            "Co-Authored-By: Other <other@example.com>",
+            "Co-Authored-By: Claude <invented@example.com>",
+            "Co-Authored-By: Codex\r",
+            "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\r",
+            "Co-Authored-By: Claude 日本語 <noreply@anthropic.com>",
+        ] {
+            assert!(
+                validate_message(format!("fix: valid\n\n{credit}").as_bytes(), &identity())
+                    .is_err(),
+                "{credit}"
+            );
+        }
+    }
+
     #[test]
     fn entire_message_and_attribution() {
         let identity = Identity {

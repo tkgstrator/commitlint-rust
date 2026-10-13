@@ -9,6 +9,32 @@ fn read_file(path: &Path) -> Result<Vec<u8>> {
     std::fs::read(path).map_err(|_| "cannot read commit message file".into())
 }
 
+fn discover_configuration() -> Result<Option<PathBuf>> {
+    let mut directory = std::env::current_dir().map_err(|_| "cannot find current directory")?;
+    loop {
+        for name in [
+            ".commitlintrc.json",
+            ".commitlintrc.yaml",
+            ".commitlintrc.yml",
+        ] {
+            let candidate = directory.join(name);
+            match std::fs::symlink_metadata(&candidate) {
+                Ok(_) => return Ok(Some(candidate)),
+                Err(error) if error.kind() == std::io::ErrorKind::NotFound => (),
+                Err(_) => {
+                    return Err(format!(
+                        "cannot inspect configuration: {}",
+                        candidate.display()
+                    ));
+                }
+            }
+        }
+        if !directory.pop() {
+            return Ok(None);
+        }
+    }
+}
+
 pub fn run(args: Vec<String>) -> Result<()> {
     match args.first().map(String::as_str) {
         Some("--version") if args.len() == 1 => {
@@ -17,7 +43,7 @@ pub fn run(args: Vec<String>) -> Result<()> {
         }
         Some("--help") if args.len() == 1 => {
             println!(
-                "Usage: commitlint [--verbose] [--config JSON] [--edit [FILE] | --from REF --to REF]\nDefault: fixed ASCII/LF and entire-message 128-character policy.\nWith --config: native Commitlint rules and JSON configuration.\nNo arbitrary JS config/plugins; unsupported options fail."
+                "Usage: commitlint [--verbose] [--config FILE] [--edit [FILE] | --from REF --to REF]\nConfiguration: discover .commitlintrc.json, .commitlintrc.yaml or .commitlintrc.yml from cwd to root.\nNearest directory wins; same-directory priority is JSON, YAML, then YML. --config skips discovery.\nWithout configuration: fixed ASCII/LF and entire-message 128-character policy.\nWith configuration: native Commitlint rules using JSON or YAML.\nNo arbitrary JS config/plugins; unsupported options fail."
             );
             return Ok(());
         }
@@ -35,9 +61,9 @@ pub fn run(args: Vec<String>) -> Result<()> {
             "--config" if config_path.is_none() => {
                 let path = args
                     .get(offset + 1)
-                    .ok_or("--config requires a JSON file")?;
+                    .ok_or("--config requires a JSON or YAML file")?;
                 if path.starts_with("--") {
-                    return Err("--config requires a JSON file".into());
+                    return Err("--config requires a JSON or YAML file".into());
                 }
                 config_path = Some(PathBuf::from(path));
                 offset += 2;
@@ -46,16 +72,18 @@ pub fn run(args: Vec<String>) -> Result<()> {
         }
     }
     let args = args[offset..].to_vec();
+    let config_path = match config_path {
+        Some(path) => Some(path),
+        None => discover_configuration()?,
+    };
     let configuration = config_path.map(|path| {
         if matches!(path.extension().and_then(|e| e.to_str()), Some("js" | "cjs" | "mjs" | "ts" | "cts" | "mts")) {
-            return Err("unsupported commitlint options: JavaScript configuration requires the upstream runtime; use native JSON".into());
+            return Err("unsupported commitlint options: JavaScript configuration requires the upstream runtime; use native JSON or YAML".into());
         }
-        let text = std::fs::read_to_string(&path).map_err(|_| "cannot read JSON configuration".to_owned())?;
-        if args.first().is_some_and(|mode| mode == "--edit") {
-            configured::parse_edit_configuration(&text)
-        } else {
-            configured::parse_json_config(&text)
-        }
+        let text = std::fs::read_to_string(&path).map_err(|_| format!("cannot read configuration: {}", path.display()))?;
+        let yaml = matches!(path.extension().and_then(|e| e.to_str()), Some("yaml" | "yml"));
+        let edit = args.first().is_some_and(|mode| mode == "--edit");
+        configured::parse_file_configuration(&text, yaml, edit)
     }).transpose()?;
     let messages = if args.is_empty() {
         let mut bytes = Vec::new();

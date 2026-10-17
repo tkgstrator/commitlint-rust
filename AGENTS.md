@@ -11,3 +11,20 @@ Native `fix` plans bind source OIDs, metadata and ownership separately from LLM-
 Do not change the active host installation while its files are bound to an ongoing history-repair task. Test installation only with isolated HOME/GIT_CONFIG_GLOBAL/CODEX_HOME/CLAUDE_CONFIG_DIR, and never copy or log tokens.
 
 Explicitly approved fast bulk rewriting uses bulk-write with frozen raw candidates and digest confirmation. It creates objects only: the operator retains backups, complete graph/tree/credit checks, expected-old promotion and separately authorized publication. Normal commits have no global ignore switch.
+
+<!-- non-code-verification -->
+## Verification for non-code changes
+
+- For changes limited to audited development documentation, do not start heavy
+  local or CI builds, simulator/UI suites, integration tests, or benchmarks.
+  Run the lightweight scope/policy checks and record a documentation-only
+  exemption; do not report unexecuted tests as passing.
+- Source, tests, runtime/build inputs, assets, dependencies, lockfiles, signing,
+  and CI configuration changes still require the applicable verification.
+  Determine the actual changed inputs; an unknown or incomplete diff runs heavy.
+- Use the repository's explicit documentation allowlist and adopted change-scope
+  workflow. Markdown consumed by the product or tests is an input, not a blanket
+  exemption. Keep required status names, lightweight checks, and existing
+  manual, scheduled, release, and deployment gates intact.
+- See `docs/development/ci-change-scope.md` for the common classifier contract.
+<!-- /non-code-verification -->

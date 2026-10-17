@@ -7,6 +7,12 @@ on:
   pull_request:
   workflow_dispatch:
   workflow_call:
+    inputs:
+      ci-force-heavy:
+        description: Run full validation when called by another workflow.
+        type: boolean
+        default: true
+        required: false
 
 permissions:
   contents: read
@@ -26,6 +32,16 @@ env:
   RUST_VERSION: 1.99.0
 
 jobs:
+  ci-change-scope:
+    permissions:
+      contents: read
+    uses: ./.github/workflows/ci-change-scope.yaml
+    with:
+      doc-paths: '["AGENTS.md","CLAUDE.md","docs/development/ci-change-scope.md","docs/superpowers/plans/2026-10-07-commitguard-auth-modes.md","docs/superpowers/plans/2026-10-07-commitguard-bulk-write.md","docs/superpowers/plans/2026-10-07-commitguard-fix.md","docs/superpowers/plans/2026-10-07-commitguard-separation.md","docs/superpowers/plans/2026-10-09-all-commitlint-rules.md","docs/superpowers/plans/2026-10-09-large-module-refactor.md","docs/superpowers/specs/2026-10-07-commitguard-auth-modes.md","docs/superpowers/specs/2026-10-07-commitguard-bulk-write.md","docs/superpowers/specs/2026-10-07-commitguard-fix.md","docs/superpowers/specs/2026-10-07-commitguard-separation.md","docs/superpowers/specs/2026-10-08-immutable-origin-profile.md","docs/superpowers/specs/2026-10-09-all-commitlint-rules.md","docs/validation/2026-10-08-bulk-history.md","docs/validation/2026-10-08-immutable-origin-profile.md"]'
+      doc-prefixes: '[]'
+      runner: '"ubuntu-latest"'
+      force-heavy: ${{ inputs['ci-force-heavy'] == true }}
+
   fmt:
     name: rustfmt
     runs-on: ubuntu-24.04
@@ -69,26 +85,41 @@ jobs:
         run: cargo clippy --workspace --all-targets --all-features --locked -- -D warnings
 
   oracle:
+    if: ${{ !cancelled() && (true) }}
+    needs: ["ci-change-scope"]
     name: Commitlint oracle
-    runs-on: ubuntu-24.04
+    runs-on: ${{ fromJSON((needs['ci-change-scope'].result == 'success' && needs['ci-change-scope'].outputs.docs_only == 'true') && '"ubuntu-latest"' || '"ubuntu-24.04"') }}
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        if: ${{ (needs['ci-change-scope'].result != 'success' || needs['ci-change-scope'].outputs.docs_only != 'true') }}
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        if: ${{ (needs['ci-change-scope'].result != 'success' || needs['ci-change-scope'].outputs.docs_only != 'true') }}
         with:
           node-version: 26.8.2
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+        if: ${{ (needs['ci-change-scope'].result != 'success' || needs['ci-change-scope'].outputs.docs_only != 'true') }}
         with:
           bun-version: 1.3.6
       - name: Install pinned oracle
+        if: ${{ (needs['ci-change-scope'].result != 'success' || needs['ci-change-scope'].outputs.docs_only != 'true') }}
         working-directory: tests/oracle
         run: bun install --frozen-lockfile --ignore-scripts
       - name: Oracle tests (committed fixtures are never regenerated)
+        if: ${{ (needs['ci-change-scope'].result != 'success' || needs['ci-change-scope'].outputs.docs_only != 'true') }}
         run: node --experimental-vm-modules --test tests/oracle/*.test.mjs
 
+      - name: Docs-only exemption
+        if: ${{ needs['ci-change-scope'].result == 'success' && needs['ci-change-scope'].outputs.docs_only == 'true' }}
+        shell: bash
+        working-directory: .
+        env:
+          CI_CHANGE_REASON: ${{ needs['ci-change-scope'].outputs.reason }}
+        run: |
+          printf '%s\n' "$CI_CHANGE_REASON" >> "$GITHUB_STEP_SUMMARY"
   commitlint:
     name: Commit messages
     runs-on: ubuntu-24.04
@@ -171,8 +202,10 @@ jobs:
           fi
 
   native:
+    if: ${{ !cancelled() && (true) }}
+    needs: ["ci-change-scope"]
     name: Native ${{ matrix.target }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ fromJSON((needs['ci-change-scope'].result == 'success' && needs['ci-change-scope'].outputs.docs_only == 'true') && '"ubuntu-latest"' || toJSON(matrix.os)) }}
     strategy:
       fail-fast: false
       matrix:
@@ -187,11 +220,13 @@ jobs:
             os: macos-15-intel
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        if: ${{ (needs['ci-change-scope'].result != 'success' || needs['ci-change-scope'].outputs.docs_only != 'true') }}
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
           persist-credentials: false
       - name: Install pinned Rust (minimal)
+        if: ${{ (needs['ci-change-scope'].result != 'success' || needs['ci-change-scope'].outputs.docs_only != 'true') }}
         env:
           TARGET: ${{ matrix.target }}
         run: |
@@ -204,7 +239,7 @@ jobs:
           rustup default "$RUST_VERSION"
           rustup target add "$TARGET"
       - name: Install musl toolchain
-        if: runner.os == 'Linux'
+        if: ${{ (needs['ci-change-scope'].result != 'success' || needs['ci-change-scope'].outputs.docs_only != 'true') && (runner.os == 'Linux') }}
         env:
           TARGET: ${{ matrix.target }}
         run: |
@@ -217,31 +252,45 @@ jobs:
             echo "CC_${lower}=musl-gcc"
           } >> "$GITHUB_ENV"
       - name: Test and build release (native, no cross flag)
+        if: ${{ (needs['ci-change-scope'].result != 'success' || needs['ci-change-scope'].outputs.docs_only != 'true') }}
         env:
           TARGET: ${{ matrix.target }}
         run: sh scripts/build.sh "$TARGET"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: ${{ (needs['ci-change-scope'].result != 'success' || needs['ci-change-scope'].outputs.docs_only != 'true') }}
         with:
           name: native-${{ matrix.target }}
           path: bin/${{ matrix.target }}
           if-no-files-found: error
           retention-days: 7
 
+      - name: Docs-only exemption
+        if: ${{ needs['ci-change-scope'].result == 'success' && needs['ci-change-scope'].outputs.docs_only == 'true' }}
+        shell: bash
+        working-directory: .
+        env:
+          CI_CHANGE_REASON: ${{ needs['ci-change-scope'].outputs.reason }}
+        run: |
+          printf '%s\n' "$CI_CHANGE_REASON" >> "$GITHUB_STEP_SUMMARY"
   package:
+    if: ${{ !cancelled() && (needs['fmt'].result == 'success' && needs['clippy'].result == 'success' && needs['oracle'].result == 'success' && needs['commitlint'].result == 'success' && needs['native'].result == 'success') }}
     name: Package release assets
-    needs: [fmt, clippy, oracle, commitlint, native]
-    runs-on: ubuntu-24.04
+    needs: ["fmt","clippy","oracle","commitlint","native","ci-change-scope"]
+    runs-on: ${{ fromJSON((needs['ci-change-scope'].result == 'success' && needs['ci-change-scope'].outputs.docs_only == 'true') && '"ubuntu-latest"' || '"ubuntu-24.04"') }}
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        if: ${{ (needs['ci-change-scope'].result != 'success' || needs['ci-change-scope'].outputs.docs_only != 'true') }}
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
           persist-credentials: false
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        if: ${{ (needs['ci-change-scope'].result != 'success' || needs['ci-change-scope'].outputs.docs_only != 'true') }}
         with:
           pattern: native-*
           path: artifacts
       - name: Place native payloads
+        if: ${{ (needs['ci-change-scope'].result != 'success' || needs['ci-change-scope'].outputs.docs_only != 'true') }}
         run: |
           set -euo pipefail
           for target in x86_64-unknown-linux-musl aarch64-unknown-linux-musl aarch64-apple-darwin x86_64-apple-darwin; do
@@ -255,10 +304,13 @@ jobs:
             chmod +x "bin/$target/commitguard" "bin/$target/gh-commit-guard" "bin/$target/commitlint"
           done
       - name: Packaging regression tests
+        if: ${{ (needs['ci-change-scope'].result != 'success' || needs['ci-change-scope'].outputs.docs_only != 'true') }}
         run: sh scripts/test-package-release.sh
       - name: Package all four targets
+        if: ${{ (needs['ci-change-scope'].result != 'success' || needs['ci-change-scope'].outputs.docs_only != 'true') }}
         run: sh scripts/package-release.sh x86_64-unknown-linux-musl aarch64-unknown-linux-musl aarch64-apple-darwin x86_64-apple-darwin
       - name: Read version
+        if: ${{ (needs['ci-change-scope'].result != 'success' || needs['ci-change-scope'].outputs.docs_only != 'true') }}
         id: version
         run: |
           set -euo pipefail
@@ -267,20 +319,32 @@ jobs:
           [ "$(find "dist/v$version" -type f | wc -l | tr -d ' ')" -eq 14 ] || { echo 'expected 13 payloads plus SHA256SUMS' >&2; exit 1; }
           echo "version=$version" >> "$GITHUB_OUTPUT"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: ${{ (needs['ci-change-scope'].result != 'success' || needs['ci-change-scope'].outputs.docs_only != 'true') }}
         with:
           name: release-assets
           path: dist/v${{ steps.version.outputs.version }}
           if-no-files-found: error
           retention-days: 7
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: ${{ (needs['ci-change-scope'].result != 'success' || needs['ci-change-scope'].outputs.docs_only != 'true') }}
         with:
           name: homebrew-formulae
           path: Formula/*.rb
           if-no-files-found: error
           retention-days: 7
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: ${{ (needs['ci-change-scope'].result != 'success' || needs['ci-change-scope'].outputs.docs_only != 'true') }}
         with:
           name: source-provenance
           path: artifacts/native-*/build-info
           if-no-files-found: error
           retention-days: 7
+
+      - name: Docs-only exemption
+        if: ${{ needs['ci-change-scope'].result == 'success' && needs['ci-change-scope'].outputs.docs_only == 'true' }}
+        shell: bash
+        working-directory: .
+        env:
+          CI_CHANGE_REASON: ${{ needs['ci-change-scope'].outputs.reason }}
+        run: |
+          printf '%s\n' "$CI_CHANGE_REASON" >> "$GITHUB_STEP_SUMMARY"
